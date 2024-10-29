@@ -149,7 +149,8 @@ function deleteItem(url, id) {
                         timer: 2000,
                         icon: 'success'
                     })
-                    toastr.success(data.message);
+                    // toastr.success(data.message);
+                    toastr.success('Item has been deleted');
                     if (id == 'allDataTableDoc') {
                         location.reload();
                     } else {

@@ -7,6 +7,7 @@ use App\Http\Requests\Owner\Property\LocationRequest;
 use App\Http\Requests\Owner\Property\PropertyInformationRequest;
 use App\Http\Requests\Owner\Property\RentChargeRequest;
 use App\Http\Requests\UnitRequest;
+use App\Models\Building;
 use App\Models\Property;
 use App\Services\PropertyService;
 use App\Traits\ResponseTrait;
@@ -24,14 +25,14 @@ class PropertyController extends Controller
 
     public function allProperty(Request $request)
     {
-        $data['pageTitle'] = __("All Property");
-        $data['navPropertyMMShowClass'] = 'mm-show';
-        $data['subNavAllPropertyMMActiveClass'] = 'mm-active';
-        $data['subNavAllPropertyActiveClass'] = 'active';
+        $data['pageTitle'] = __("All Apartments");
+        $data['navApartmentMMShowClass'] = 'mm-show';
+        $data['subNavAllApartmentMMActiveClass'] = 'mm-active';
+        $data['subNavAllApartmentActiveClass'] = 'active';
         if ($request->ajax()) {
             return $this->propertyService->getAllData();
         } else {
-            $data['properties'] = $this->propertyService->getAll();
+            $data['apartments'] = $this->propertyService->getAll();
         }
         return view('owner.property.all-property-list')->with($data);
     }
@@ -80,35 +81,33 @@ class PropertyController extends Controller
 
     public function add()
     {
-        if (getOwnerLimit(RULES_PROPERTY) < 1) {
-            return back()->with('error',  __("Your property Limit finished"));
-        }
 
-        $data['pageTitle'] = __("Add Property");
-        $data['navPropertyMMShowClass'] = 'mm-show';
-        $data['subNavPropertyIndexMMActiveClass'] = 'mm-active';
-        $data['subNavPropertyIndexActiveClass'] = 'active';
+        $data['pageTitle'] = __("Add Apartment");
+        $data['navApartmentMMShowClass'] = 'mm-show';
+        $data['subNavApartmentIndexMMActiveClass'] = 'mm-active';
+        $data['subNavApartmentIndexActiveClass'] = 'active';
+        $data['buildings'] = Building::all();
         return view('owner.property.add')->with($data);
     }
 
     public function show($id)
     {
-        $data['pageTitle'] = __("Property Details");
-        $data['navPropertyMMShowClass'] = 'mm-show';
-        $data['subNavAllPropertyMMActiveClass'] = 'mm-active';
-        $data['subNavAllPropertyActiveClass'] = 'active';
-        $data['property'] = $this->propertyService->getDetailsById($id);
-        $data['units'] = $this->propertyService->getUnitsByPropertyId($id)->getData()->data;
+        $data['pageTitle'] = __("Apartment Details");
+        $data['navApartmentMMShowClass'] = 'mm-show';
+        $data['subNavAllApartmentMMActiveClass'] = 'mm-active';
+        $data['subNavAllApartmentActiveClass'] = 'active';
+        $data['apartment'] = $this->propertyService->getDetailsById($id);
         return view('owner.property.show')->with($data);
     }
 
     public function edit($id)
     {
-        $data['pageTitle'] = __("Edit Property");
-        $data['navPropertyMMShowClass'] = 'mm-show';
-        $data['subNavPropertyIndexMMActiveClass'] = 'mm-active';
-        $data['subNavPropertyIndexActiveClass'] = 'active';
-        $data['property'] = $this->propertyService->getById($id);;
+        $data['pageTitle'] = __("Edit Apartment");
+        $data['navApartmentMMShowClass'] = 'mm-show';
+        $data['subNavApartmentIndexMMActiveClass'] = 'mm-active';
+        $data['subNavApartmentIndexActiveClass'] = 'active';
+        $data['apartment'] = $this->propertyService->getById($id);
+        $data['buildings'] = Building::all();
         return view('owner.property.add')->with($data);
     }
 

@@ -64,6 +64,7 @@
                 </div>
                 <form class="ajax" action="{{ route('owner.building.store') }}" method="post"
                     enctype="multipart/form-data" data-handler="getShowMessage">
+                    <input type="hidden" name="building_id" class="id">
                     <div class="modal-body">
                         <div class="modal-inner-form-box border-bottom mb-25">
                             <div class="row">
@@ -79,8 +80,8 @@
                             <div class="row">
                                 <div class="col-md-12 mb-25">
                                     <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Description') }}</label>
-                                    <textarea class="form-control description" name="description" placeholder="{{ __('Description') }}"></textarea>
+                                        class="label-text-title color-heading font-medium mb-2">{{ __('Address') }}</label>
+                                    <textarea class="form-control address" name="address" placeholder="{{ __('Address') }}"></textarea>
                                 </div>
                             </div>
                             <div class="row">

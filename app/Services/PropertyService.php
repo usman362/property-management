@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Apartment;
+use App\Models\ApartmentMedia;
 use App\Models\FileManager;
 use App\Models\Property;
 use App\Models\PropertyDetail;
@@ -18,19 +20,7 @@ class PropertyService
 
     public function getAll()
     {
-        $data = Property::query()
-            ->with('propertyUnits')
-            ->leftJoin('tenants', ['properties.id' => 'tenants.property_id', 'tenants.status' => (DB::raw(TENANT_STATUS_ACTIVE))])
-            ->leftJoin('users', function ($q) {
-                $q->on('tenants.user_id', 'users.id')->whereNull('users.deleted_at');
-            })
-            ->leftJoin('property_units', function ($q) {
-                $q->on('tenants.unit_id', 'property_units.id')->whereNull('property_units.deleted_at');
-            })
-            ->selectRaw('properties.number_of_unit - (COUNT(users.id)) as available_unit,(SUM(property_units.bedroom)) as rooms,properties.*')
-            ->groupBy('properties.id')
-            ->where('properties.owner_user_id', auth()->id())
-            ->get();
+        $data = Apartment::all();
         return $data?->makeHidden(['updated_at', 'created_at', 'deleted_at']);
     }
 
@@ -104,34 +94,12 @@ class PropertyService
 
     public function getById($id)
     {
-        return Property::where('owner_user_id', auth()->id())->findOrFail($id);
+        return Apartment::findOrFail($id);
     }
 
     public function getDetailsById($id)
     {
-        $data = Property::query()
-            ->leftJoin('property_details', 'properties.id', '=', 'property_details.property_id')
-            ->leftJoin('users', function ($q) {
-                $q->on('properties.maintainer_id', '=', 'users.id')->whereNull('users.deleted_at');
-            })
-            ->leftJoin('tenants', ['properties.id' => 'tenants.property_id', 'tenants.status' => (DB::raw(TENANT_STATUS_ACTIVE))])
-            ->selectRaw('properties.number_of_unit - (COUNT(tenants.id)) as available_unit,
-             (avg(tenants.general_rent)) as avg_general_rent,
-             sum(tenants.security_deposit) as total_security_deposit,
-             sum(tenants.late_fee) as total_late_fee,properties.*,
-             property_details.lease_amount,
-             property_details.lease_start_date,
-             property_details.lease_end_date,
-             property_details.country_id,
-             property_details.state_id,
-             property_details.city_id,
-             property_details.zip_code,
-             property_details.address,
-             property_details.map_link,users.first_name,
-             users.last_name')
-            ->groupBy('properties.id')
-            ->where('properties.owner_user_id', auth()->id())
-            ->findOrFail($id);
+        $data = Apartment::findOrFail($id);
         return $data?->makeHidden(['updated_at', 'created_at', 'deleted_at']);
     }
 
@@ -234,38 +202,56 @@ class PropertyService
     {
         DB::beginTransaction();
         try {
-            if ($request->property_id) {
-                $property = Property::with('propertyDetail')->where('owner_user_id', auth()->id())->where('id', $request->property_id)->firstOrFail();
+            if ($request->apartment_id) {
+                $apartment = Apartment::where('id', $request->apartment_id)->firstOrFail();
             } else {
-                if (getOwnerLimit(RULES_PROPERTY) < 1) {
-                    throw new Exception(__('Your property Limit finished'));
+
+                $apartment = new Apartment();
+            }
+            $apartment->building_id = $request->building_id;
+            $apartment->building_name = $request->building_name;
+            $apartment->apartment_name = $request->apartment_name;
+            $apartment->floor = $request->floor;
+            $apartment->monthly_rental_price = $request->monthly_rental_price;
+            $apartment->balcony_area = $request->balcony_area;
+            $apartment->living_room_area = $request->living_room_area;
+            $apartment->dining_room_area = $request->dining_room_area;
+            $apartment->kitchen_area = $request->kitchen_area;
+            $apartment->alley_area = $request->alley_area;
+            $apartment->main_bedroom_area = $request->main_bedroom_area;
+            $apartment->second_bedroom_area = $request->second_bedroom_area;
+            $apartment->third_bedroom_area = $request->third_bedroom_area;
+            $apartment->bathroom_area = $request->bathroom_area;
+            $apartment->public_area = $request->public_area;
+            $apartment->save();
+
+            if (!empty($request->images)) {
+                foreach ($request->images as $image) {
+                    $apartmentMedia = new ApartmentMedia();
+                    $apartmentMedia->apartment_id = $apartment->id;
+                    $uniqueName = uniqid() . '___' . str_replace(' ', '_', $image->getClientOriginalName());
+                    $filePath = $image->storeAs("/apartment/images", $uniqueName, "public");
+                    $apartmentMedia->media = $filePath;
+                    $apartmentMedia->media_type = 'image';
+                    $apartmentMedia->save();
                 }
-                $property = new Property();
             }
-            $property->property_type = $request->property_type;
-            $property->owner_user_id = auth()->id();
-            $property->name = ($request->property_type == PROPERTY_TYPE_OWN) ? $request->own_property_name : $request->lease_property_name;
-            $property->number_of_unit = ($request->property_type == PROPERTY_TYPE_OWN) ? $request->own_number_of_unit : $request->lease_number_of_unit;
-            $property->description = ($request->property_type == PROPERTY_TYPE_OWN) ? $request->own_description : $request->lease_description;
-            $property->save();
 
-            $propertyDetail = PropertyDetail::wherePropertyId($property->id)->first();
-            if (!$propertyDetail) {
-                $propertyDetail = new PropertyDetail();
+            if (!empty($request->videos)) {
+                foreach ($request->videos as $videos) {
+                    $apartmentMedia = new ApartmentMedia();
+                    $apartmentMedia->apartment_id = $apartment->id;
+                    $uniqueName = uniqid() . '___' . str_replace(' ', '_', $videos->getClientOriginalName());
+                    $filePath = $videos->storeAs("/apartment/videos", $uniqueName, "public");
+                    $apartmentMedia->media = $filePath;
+                    $apartmentMedia->media_type = 'videos';
+                    $apartmentMedia->save();
+                }
             }
-            $propertyDetail->property_id = $property->id;
-            $propertyDetail->lease_amount = ($request->property_type == PROPERTY_TYPE_LEASE) ? $request->lease_amount : 0;
-            $propertyDetail->lease_start_date = ($request->property_type == PROPERTY_TYPE_LEASE && !empty($request->lease_start_date)) ? date('Y-m-d', strtotime($request->lease_start_date)) : null;
-            $propertyDetail->lease_end_date = ($request->property_type == PROPERTY_TYPE_LEASE && !empty($request->lease_end_date)) ? date('Y-m-d', strtotime($request->lease_end_date)) : null;
-            $propertyDetail->save();
+
             DB::commit();
-
-            $locationService = new LocationService;
-            $response['countries'] = $locationService->getCountry()->getData()->data;
-            $response['property'] = $property;
-            $response['message'] = $request->property_id ? __(UPDATED_SUCCESSFULLY) : __(CREATED_SUCCESSFULLY);
-            $response['step'] = LOCATION_ACTIVE_CLASS;
-            $response['view'] = view('owner.property.partial.render-location', $response)->render();
+            $response['apartment'] = $apartment;
+            $response['message'] = $request->apartment_id ? __(UPDATED_SUCCESSFULLY) : __(CREATED_SUCCESSFULLY);
             return $this->success($response);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -593,27 +579,8 @@ class PropertyService
     {
         DB::beginTransaction();
         try {
-            $tenant = Tenant::where('property_id', $id)->where('status', TENANT_STATUS_ACTIVE)->first();
-            if ($tenant) {
-                throw new Exception('Tenant Available! You can\'t delete');
-            }
-            $property = Property::where('owner_user_id', auth()->id())->findOrFail($id);
-            if ($property) {
-                foreach (@$property->propertyImages as $propertyImage) {
-                    $propertyImage = PropertyImage::find($propertyImage->id);
-                    $fileManager = FileManager::find($propertyImage->file_id);
-                    if ($propertyImage && $fileManager) {
-                        $fileManager->removeFile();
-                        $fileManager->delete();
-                        $propertyImage->delete();
-                    }
-                }
-                if ($property->propertyDetail) {
-                    $property->propertyDetail->delete();
-                }
-                PropertyUnit::where('property_id', $property->id)->delete();
-                $property->delete();
-            }
+            $media = ApartmentMedia::where('apartment_id',$id)->delete();
+            $apartment = Apartment::find($id)->delete();
             DB::commit();
             return redirect()->back()->with('success', __(DELETED_SUCCESSFULLY));
         } catch (Exception $e) {

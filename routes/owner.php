@@ -63,10 +63,10 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
 
     Route::group(['prefix' => 'building', 'as' => 'building.'], function () {
         Route::get('all-building', [BuildingController::class, 'allBuilding'])->name('allBuilding');
-        Route::get('add', [BuildingController::class, 'add'])->name('add');
         Route::post('store', [BuildingController::class, 'store'])->name('store');
-        Route::get('show/{id}', [BuildingController::class, 'show'])->name('show');
         Route::get('edit/{id}', [BuildingController::class, 'edit'])->name('edit');
+        Route::get('details/{id}', [BuildingController::class, 'details'])->name('details');
+        Route::get('destroy/{id}', [BuildingController::class, 'destroy'])->name('destroy');
     });
 
     Route::group(['prefix' => 'tenant', 'as' => 'tenant.'], function () {

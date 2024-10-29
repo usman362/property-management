@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Building;
+use App\Models\BuildingMedia;
 use App\Models\FileManager;
 use App\Models\Tenant;
 use App\Traits\ResponseTrait;
@@ -33,12 +34,67 @@ class BuildingService
             })
             ->addColumn('action', function ($building) {
                 return '<div class="tbl-action-btns d-inline-flex">
-                            <a type="button" class="p-1 tbl-action-btn" href="' . route('owner.property.edit', $building->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></a>
-                            <button onclick="deleteItem(\'' . route('owner.property.delete', $building->id) . '\', \'allDataTable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
-                        </div>';
+                <button type="button" class="p-1 tbl-action-btn edit" data-detailsurl="' . route('owner.building.details', $building->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>
+                <button onclick="deleteItem(\'' . route('owner.building.destroy', $building->id) . '\', \'buildingDatatable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
+            </div>';
             })
-            ->rawColumns(['name', 'address','action'])
+            ->rawColumns(['name', 'address', 'action'])
             ->make(true);
     }
 
+    public function store($request)
+    {
+        DB::beginTransaction();
+        try {
+            if($request->building_id){
+                $building = Building::findOrFail($request->building_id);
+            }else{
+                $building = new Building();
+            }
+            $building->name = $request->name;
+            $building->address = $request->address;
+            if ($building->save()) {
+                if (!empty($request->images)) {
+                    foreach ($request->images as $image) {
+                        $buildingMedia = new BuildingMedia();
+                        $buildingMedia->building_id = $building->id;
+                        $uniqueName = uniqid() . '___' . str_replace(' ', '_', $image->getClientOriginalName());
+                        $filePath = $image->storeAs("/building/images", $uniqueName, "public");
+                        $buildingMedia->media = $filePath;
+                        $buildingMedia->media_type = 'image';
+                        $buildingMedia->save();
+                    }
+                }
+
+                if (!empty($request->videos)) {
+                    foreach ($request->videos as $videos) {
+                        $buildingMedia = new BuildingMedia();
+                        $buildingMedia->building_id = $building->id;
+                        $uniqueName = uniqid() . '___' . str_replace(' ', '_', $videos->getClientOriginalName());
+                        $filePath = $videos->storeAs("/building/videos", $uniqueName, "public");
+                        $buildingMedia->media = $filePath;
+                        $buildingMedia->media_type = 'videos';
+                        $buildingMedia->save();
+                    }
+                }
+            }
+            DB::commit();
+            $message = $request->id ? __(UPDATED_SUCCESSFULLY) : __(CREATED_SUCCESSFULLY);
+            return $this->success([], $message);
+        } catch (Exception $e) {
+            DB::rollBack();
+            $message = getErrorMessage($e, $e->getMessage());
+            return $this->error([],  $message);
+        }
+    }
+
+    public function getById($id){
+        $building = Building::findOrFail($id);
+        return $building;
+    }
+
+    public function destroy($id){
+        $building = Building::findOrFail($id);
+        return $building->delete();
+    }
 }

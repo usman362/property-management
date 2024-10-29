@@ -33,29 +33,7 @@
                             <div class="property-search-inner-bg bg-off-white theme-border radius-4 p-25 pb-0 mb-25">
                                 <div class="row">
                                     <div class="col-xl-12 col-xxl-6 tenants-top-bar-left">
-                                        <div class="row">
-                                            @if (getOption('app_card_data_show', 1) == 1)
-                                                <div class="col-md-6 col-lg-6 col-xl-4 col-xxl-4 mb-25">
-                                                    <select class="form-select flex-shrink-0 property_id">
-                                                        <option value="0">--{{ __('Select Property') }}--</option>
-                                                        @foreach ($properties as $property)
-                                                            <option value="{{ $property->id }}">{{ $property->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6 col-lg-6 col-xl-4 col-xxl-4 mb-25">
-                                                    <select class="form-select flex-shrink-0 unit_id">
-                                                        <option value="0" selected>--{{ __('Select Unit') }}--</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-auto mb-25">
-                                                    <button type="button" class="default-btn theme-btn-purple w-auto"
-                                                        id="applySearch"
-                                                        title="{{ __('Apply') }}">{{ __('Apply') }}</button>
-                                                </div>
-                                            @endif
-                                        </div>
+
                                     </div>
 
                                     <div class="col-xl-12 col-xxl-6 tenants-top-bar-right">

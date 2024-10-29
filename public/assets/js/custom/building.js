@@ -40,6 +40,10 @@ $('#addTypeModal').on('hidden.bs.modal', function () {
 
 $('.addBuilding').on('click', function () {
     var selector = $('#addBuildingModal');
+    $('#addBuildingModalLabel').text('Add Building');
+    selector.find('.id').val('')
+    selector.find('.name').val('')
+    selector.find('.address').val('')
     selector.modal('show')
 })
 
@@ -48,38 +52,13 @@ $(document).on('click', '.edit', function () {
 });
 
 function getDataEditRes(response) {
-    var selector = $('#editExpensesModal');
+    var selector = $('#addBuildingModal');
+    $('#addBuildingModalLabel').text('Edit Building');
     selector.find('.is-invalid').removeClass('is-invalid');
     selector.find('.error-message').remove();
     selector.find('.id').val(response.data.id)
     selector.find('.name').val(response.data.name)
-    selector.find('.property_id').val(response.data.property_id)
-    selector.find('.expense_type_id').val(response.data.expense_type_id)
-    selector.find('.description').text(response.data.description)
-    selector.find('.total_amount').val(response.data.total_amount)
-
-    var html = '<option value="">--Select Option--</option>';
-    Object.entries(response.data.units).forEach((unit) => {
-        if (unit[1].id == response.data.property_unit_id) {
-            html += '<option value="' + unit[1].id + '" selected>' + unit[1].unit_name + '</option>';
-        } else {
-            html += '<option value="' + unit[1].id + '">' + unit[1].unit_name + '</option>';
-        }
-    });
-    selector.find('.unitOption').html(html);
-
-    if (response.data.responsibilities.tenant == 1) {
-        selector.find("#responseTenantEdit").attr("checked", true);
-    } else {
-        selector.find("#responseTenantEdit").attr("checked", false);
-    }
-
-    if (response.data.responsibilities.owner == 2) {
-        selector.find("#responseOwnerEdit").attr("checked", true);
-    } else {
-        selector.find("#responseOwnerEdit").attr("checked", false);
-    }
-
+    selector.find('.address').val(response.data.address)
     selector.modal('show')
 }
 

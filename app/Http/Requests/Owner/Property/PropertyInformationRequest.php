@@ -24,16 +24,20 @@ class PropertyInformationRequest extends FormRequest
     public function rules()
     {
         $rules =  [
-            'property_type' => 'required|in:1,2',
-            'own_property_name' => 'exclude_unless:property_type,1|required',
-            'own_number_of_unit' => 'exclude_unless:property_type,1|required|numeric',
-            'own_description' => 'exclude_unless:property_type,1|required',
-            'lease_property_name' => 'exclude_unless:property_type,2|required',
-            'lease_number_of_unit' => 'exclude_unless:property_type,2|required|numeric',
-            'lease_amount' => 'exclude_unless:property_type,2|required|numeric',
-            'lease_start_date' => 'exclude_unless:property_type,2|required',
-            'lease_end_date' => 'exclude_unless:property_type,2|required',
-            'lease_description' => 'exclude_unless:property_type,2|required',
+            'building_id' => 'required',
+            'apartment_name' => 'required',
+            'floor' => 'required',
+            'monthly_rental_price' => 'required',
+            'balcony_area' => 'required',
+            'living_room_area' => 'required',
+            'dining_room_area' => 'required',
+            'kitchen_area' => 'required',
+            'alley_area' => 'required',
+            'main_bedroom_area' => 'required',
+            'second_bedroom_area' => 'required',
+            'third_bedroom_area' => 'required',
+            'bathroom_area' => 'required',
+            'public_area' => 'required',
         ];
 
         return $rules;

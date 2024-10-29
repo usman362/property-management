@@ -37,44 +37,17 @@ class  BuildingController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
-        DB::beginTransaction();
-        try {
-            $building = new Building();
-            $building->name = $request->name;
-            $building->address = $request->address;
-            if ($building->save()) {
-                if (!empty($request->images)) {
-                    foreach ($request->images as $image) {
-                        $buildingMedia = new BuildingMedia();
-                        $buildingMedia->building_id = $building->id;
-                        $uniqueName = uniqid() . '___' . str_replace(' ', '_', $image->getClientOriginalName());
-                        $filePath = $image->storeAs("/building/images", $uniqueName, "public");
-                        $buildingMedia->media = $filePath;
-                        $buildingMedia->media_type = 'image';
-                        $buildingMedia->save();
-                    }
-                }
+        return $this->buildingService->store($request);
+    }
 
-                if (!empty($request->videos)) {
-                    foreach ($request->videos as $videos) {
-                        $buildingMedia = new BuildingMedia();
-                        $buildingMedia->building_id = $building->id;
-                        $uniqueName = uniqid() . '___' . str_replace(' ', '_', $videos->getClientOriginalName());
-                        $filePath = $videos->storeAs("/building/videos", $uniqueName, "public");
-                        $buildingMedia->media = $filePath;
-                        $buildingMedia->media_type = 'videos';
-                        $buildingMedia->save();
-                    }
-                }
-            }
-            DB::commit();
-            $message = $request->id ? __(UPDATED_SUCCESSFULLY) : __(CREATED_SUCCESSFULLY);
-            return $this->success([], $message);
-        } catch (Exception $e) {
-            DB::rollBack();
-            $message = getErrorMessage($e, $e->getMessage());
-            return $this->error([],  $message);
-        }
+    public function details($id)
+    {
+        $data = $this->buildingService->getById($id);
+        return $this->success($data);
+    }
+
+    public function destroy($id)
+    {
+        return $this->buildingService->destroy($id);
     }
 }

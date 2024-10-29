@@ -22,43 +22,19 @@
                             <a href="{{ route('owner.building.allBuilding') }}"
                                 class="{{ @$subNavAllBuildingActiveClass }}">{{ __('All Buildings') }}</a>
                         </li>
-                        {{-- <li class="{{ @$subNavAllUnitMMActiveClass }}">
-                            <a href="{{ route('owner.property.allUnit') }}"
-                                class="{{ @$subNavAllUnitActiveClass }}">{{ __('All Unit') }}</a>
-                        </li>
-                        <li class="{{ @$subNavOwnPropertyActiveClass }}">
-                            <a href="{{ route('owner.property.ownProperty') }}"
-                                class="{{ @$subNavOwnPropertyActiveClass }}">{{ __('Own Property') }}</a>
-                        </li>
-                        <li class="{{ @$subNavLeasePropertyActiveClass }}">
-                            <a href="{{ route('owner.property.leaseProperty') }}"
-                                class="{{ @$subNavLeasePropertyActiveClass }}">{{ __('Lease Property') }}</a>
-                        </li> --}}
                     </ul>
                 </li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="ri-building-line"></i>
-                        <span>{{ __('Properties') }}</span>
+                        <span>{{ __('Apartments') }}</span>
                     </a>
-                    <ul class="sub-menu {{ @$navPropertyMMShowClass }}" aria-expanded="false">
-                        <li class="{{ @$subNavAllPropertyMMActiveClass }}">
+                    <ul class="sub-menu {{ @$navApartmentMMShowClass }}" aria-expanded="false">
+                        <li class="{{ @$subNavAllApartmentMMActiveClass }}">
                             <a href="{{ route('owner.property.allProperty') }}"
-                                class="{{ @$subNavAllPropertyActiveClass }}">{{ __('All Property') }}</a>
+                                class="{{ @$subNavAllApartmentActiveClass }}">{{ __('All Apartments') }}</a>
                         </li>
-                        {{-- <li class="{{ @$subNavAllUnitMMActiveClass }}">
-                            <a href="{{ route('owner.property.allUnit') }}"
-                                class="{{ @$subNavAllUnitActiveClass }}">{{ __('All Unit') }}</a>
-                        </li>
-                        <li class="{{ @$subNavOwnPropertyActiveClass }}">
-                            <a href="{{ route('owner.property.ownProperty') }}"
-                                class="{{ @$subNavOwnPropertyActiveClass }}">{{ __('Own Property') }}</a>
-                        </li>
-                        <li class="{{ @$subNavLeasePropertyActiveClass }}">
-                            <a href="{{ route('owner.property.leaseProperty') }}"
-                                class="{{ @$subNavLeasePropertyActiveClass }}">{{ __('Lease Property') }}</a>
-                        </li> --}}
                     </ul>
                 </li>
 
@@ -72,28 +48,8 @@
                             <a href="{{ route('owner.tenant.index', ['type' => 'all']) }}"
                                 class="{{ @$subNavAllTenantActiveClass }}">{{ __('All Tenants') }}</a>
                         </li>
-                        <li class="{{ @$subNavTenantHistoryMMActiveClass }}">
-                            <a href="{{ route('owner.tenant.index', ['type' => 'history']) }}"
-                                class="{{ @$subNavTenantHistoryActiveClass }}">{{ __('Tenant History') }}</a>
-                        </li>
                     </ul>
                 </li>
-
-                {{-- <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i class="ri-wallet-line"></i>
-                        <span>{{ __('Billing Center') }}</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li class="">
-                            <a href="{{ route('owner.invoice.index') }}" class="">{{ __('All Invoices') }}</a>
-                        </li>
-                        <li class="">
-                            <a href="{{ route('owner.invoice.recurring-setting.index') }}"
-                                class="">{{ __('Recurring Setting') }}</a>
-                        </li>
-                    </ul>
-                </li> --}}
 
                 <li>
                     <a href="{{ route('owner.expense.index') }}">
@@ -101,20 +57,6 @@
                         <span>{{ __('Expenses') }}</span>
                     </a>
                 </li>
-
-                {{-- <li>
-                    <a href="{{ route('owner.documents.index') }}">
-                        <i class="ri-article-line"></i>
-                        <span>{{ __('Documents') }}</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('owner.information.index') }}">
-                        <i class="ri-folder-info-line"></i>
-                        <span>{{ __('Information') }}</span>
-                    </a>
-                </li> --}}
 
                 @if (isAddonInstalled('PROTYLISTING') > 0)
                     @if (getOption('LISTING_STATUS', 0) == ACTIVE)
