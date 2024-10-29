@@ -51,13 +51,6 @@
                     </ul>
                 </li>
 
-                <li>
-                    <a href="{{ route('owner.expense.index') }}">
-                        <i class="ri-file-list-line"></i>
-                        <span>{{ __('Expenses') }}</span>
-                    </a>
-                </li>
-
                 @if (isAddonInstalled('PROTYLISTING') > 0)
                     @if (getOption('LISTING_STATUS', 0) == ACTIVE)
                         <li>

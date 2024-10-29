@@ -109,15 +109,6 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         Route::get('delete/{id}', [NoticeBoardController::class, 'delete'])->name('delete');
     });
 
-    Route::group(['prefix' => 'expense', 'as' => 'expense.'], function () {
-        Route::get('/', [ExpenseController::class, 'index'])->name('index');
-        Route::get('details/{id}', [ExpenseController::class, 'details'])->name('details');
-        Route::post('store', [ExpenseController::class, 'store'])->name('store');
-        Route::post('update/{id}', [ExpenseController::class, 'update'])->name('update');
-        Route::get('destroy/{id}', [ExpenseController::class, 'destroy'])->name('destroy');
-        Route::post('new-expense-type', [ExpenseController::class, 'expenseTypeStore'])->name('expenseType.store');
-    });
-
     Route::group(['prefix' => 'documents', 'as' => 'documents.'], function () {
         Route::get('/', [DocumentController::class, 'index'])->name('index');
         Route::get('status/{id}', [DocumentController::class, 'statusChange'])->name('status');
@@ -223,12 +214,6 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
             Route::delete('destroy/{id}', [TicketTopicController::class, 'destroy'])->name('destroy');
         });
 
-        Route::group(['prefix' => 'expense-type', 'as' => 'expense-type.'], function () {
-            Route::get('/', [ExpenseTypeController::class, 'index'])->name('index');
-            Route::post('store', [ExpenseTypeController::class, 'store'])->name('store');
-            Route::delete('destroy/{id}', [ExpenseTypeController::class, 'destroy'])->name('destroy');
-        });
-
         Route::group(['prefix' => 'invoice-type', 'as' => 'invoice-type.'], function () {
             Route::get('/', [InvoiceTypeController::class, 'index'])->name('index');
             Route::post('store', [InvoiceTypeController::class, 'store'])->name('store');
@@ -236,11 +221,4 @@ Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'o
         });
     });
     // setting end
-
-    // Tenancy setting
-    Route::group(['prefix' => 'domain', 'as' => 'domain.'], function () {
-        Route::get('/', [DomainController::class, 'index'])->name('index');
-        Route::post('store', [DomainController::class, 'store'])->name('store');
-        Route::get('info', [DomainController::class, 'info'])->name('info');
-    });
 });
