@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Owner;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Expense;
 use App\Models\Invoice;
 use App\Models\Maintainer;
 use App\Models\Notification;
@@ -13,10 +12,8 @@ use App\Models\Tenant;
 use App\Services\OwnerService;
 use App\Services\PropertyService;
 use App\Services\TicketService;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {

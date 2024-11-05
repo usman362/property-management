@@ -1,15 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Owner;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Building;
-use App\Models\BuildingMedia;
 use App\Services\BuildingService;
 use App\Traits\ResponseTrait;
-use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class  BuildingController extends Controller
 {
