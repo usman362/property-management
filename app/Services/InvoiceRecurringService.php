@@ -52,9 +52,9 @@ class InvoiceRecurringService
             })
             ->addColumn('action', function ($invoiceRecurring) {
                 $html = '<div class="tbl-action-btns d-inline-flex">';
-                $html .= '<button type="button" class="p-1 tbl-action-btn edit" data-detailsurl="' . route('owner.invoice.recurring-setting.details', $invoiceRecurring->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>';
-                $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('owner.invoice.recurring-setting.details', $invoiceRecurring->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
-                $html .= '<button type="button" onclick="deleteItem(\'' . route('owner.invoice.recurring-setting.destroy', $invoiceRecurring->id) . '\', \'allInvoiceDatatable\')" class="p-1 tbl-action-btn" title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>';
+                $html .= '<button type="button" class="p-1 tbl-action-btn edit" data-detailsurl="' . route('invoice.recurring-setting.details', $invoiceRecurring->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>';
+                $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('invoice.recurring-setting.details', $invoiceRecurring->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
+                $html .= '<button type="button" onclick="deleteItem(\'' . route('invoice.recurring-setting.destroy', $invoiceRecurring->id) . '\', \'allInvoiceDatatable\')" class="p-1 tbl-action-btn" title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>';
                 $html .= '</div>';
                 return $html;
             })

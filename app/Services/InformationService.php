@@ -49,7 +49,7 @@ class InformationService
                                 <span class="iconify" data-icon="carbon:view-filled"></span>
                             </button>
                             <button type="button" class="p-1 tbl-action-btn edit" data-id="' . $id . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>
-                            <button onclick="deleteItem(\'' . route('owner.information.delete', $id) . '\', \'allDatatable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
+                            <button onclick="deleteItem(\'' . route('information.delete', $id) . '\', \'allDatatable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
                         </div>';
             })
             ->rawColumns(['image', 'action'])

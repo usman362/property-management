@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="Dashboard">{{ __('Dashboard') }}</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ __('Properties') }}</li>
                                     </ol>
@@ -33,7 +33,7 @@
                         <div class="property-top-search-bar">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <a href="{{ route('owner.property.add') }}" class="theme-btn mb-25"
+                                    <a href="{{ route('property.add') }}" class="theme-btn mb-25"
                                         title="{{ __('Add New Property') }}">{{ __('Add New Property') }}</a>
                                 </div>
                                 <div class="col-md-6">
@@ -56,7 +56,7 @@
                                         <div class="col-md-6 col-lg-6 col-xl-4 col-xxl-3">
                                             <div
                                                 class="property-item bg-off-white theme-border radius-10 position-relative mb-25">
-                                                <a href="{{ route('owner.property.show', $property->id) }}"
+                                                <a href="{{ route('property.show', $property->id) }}"
                                                     class="property-item-img-wrap d-block position-relative overflow-hidden radius-10">
                                                     <div class="property-item-img">
                                                         <img src="{{ $property->thumbnail_image }}" alt=""
@@ -65,7 +65,7 @@
                                                 </a>
                                                 <div class="property-item-content p-20">
                                                     <h4 class="property-item-title position-relative">
-                                                        <a href="{{ route('owner.property.show', $property->id) }}"
+                                                        <a href="{{ route('property.show', $property->id) }}"
                                                             class="color-heading link-hover-effect me-3">{{ substr_replace($property->name, '...', 20) }}</a>
                                                         <!-- Property Item Action Dropdown Start -->
                                                         <div
@@ -79,7 +79,7 @@
                                                                 <ul
                                                                     class="dropdown-menu {{ selectedLanguage()->rtl == 1 ? 'dropdown-menu-start' : 'dropdown-menu-end' }}">
                                                                     <li><a class="dropdown-item font-13"
-                                                                            href="{{ route('owner.property.edit', $property->id) }}"
+                                                                            href="{{ route('property.edit', $property->id) }}"
                                                                             title="{{ __('Edit') }}">{{ __('Edit') }}</a>
                                                                     </li>
                                                                     <li>
@@ -88,7 +88,7 @@
                                                                             href="#"
                                                                             title="{{ __('Delete') }}">{{ __('Delete') }}</a>
                                                                         <form
-                                                                            action="{{ route('owner.property.destroy', [$property->id]) }}"
+                                                                            action="{{ route('property.destroy', [$property->id]) }}"
                                                                             method="post"
                                                                             id="delete_row_form_{{ $property->id }}">
                                                                             {{ method_field('DELETE') }}
@@ -128,7 +128,7 @@
                                                             {{ __('Available') }}
                                                         </div>
                                                     </div>
-                                                    <a href="{{ route('owner.property.show', $property->id) }}"
+                                                    <a href="{{ route('property.show', $property->id) }}"
                                                         class="theme-btn mt-20 w-100"
                                                         title="{{ __('View Details') }}">{{ __('View Details') }}</a>
                                                 </div>
@@ -185,8 +185,8 @@
         </div>
         <!-- End Page-content -->
     </div>
-    <input type="hidden" id="getAllPropertyRoute" value="{{ route('owner.property.ownProperty') }}">
-    <input type="hidden" id="getSearchRoute" value="{{ route('owner.property.own-property-search') }}">
+    <input type="hidden" id="getAllPropertyRoute" value="{{ route('property.ownProperty') }}">
+    <input type="hidden" id="getSearchRoute" value="{{ route('property.own-property-search') }}">
 
 @endsection
 @if (getOption('app_card_data_show', 1) != 1)

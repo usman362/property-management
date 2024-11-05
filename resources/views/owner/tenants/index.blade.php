@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="{{ __('Dashboard') }}">{{ __('Dashboard') }}</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
                                     </ol>
@@ -39,7 +39,7 @@
                                     <div class="col-xl-12 col-xxl-6 tenants-top-bar-right">
                                         <div class="row justify-content-end">
                                             <div class="col-auto mb-25">
-                                                <a href="{{ route('owner.tenant.create') }}" class="theme-btn w-auto"
+                                                <a href="{{ route('tenant.create') }}" class="theme-btn w-auto"
                                                     title="{{ __('Add New Tenant') }}">{{ __('Add New Tenant') }}</a>
                                             </div>
                                         </div>
@@ -63,11 +63,11 @@
                                                             {{ $tenant->last_name }}</h4>
                                                         <p class="font-13 text-break">{{ $tenant->email }}</p>
                                                     </div>
-                                                    <a href="{{ route('owner.tenant.edit', $tenant->id) }}"
+                                                    <a href="{{ route('tenant.edit', $tenant->id) }}"
                                                         class="p-1 tbl-action-btn" title="{{ __('Edit') }}"><span
                                                             class="iconify"
                                                             data-icon="material-symbols:edit-square-outline"></span></a>
-                                                    <a href="{{ route('owner.tenant.delete', $tenant->id) }}"
+                                                    <a href="{{ route('tenant.delete', $tenant->id) }}"
                                                         class="p-1 tbl-action-btn" title="{{ __('Delete') }}"><span
                                                             class="iconify"
                                                             data-icon="material-symbols:delete-outline"></span></a>
@@ -125,7 +125,7 @@
                                                     </div>
 
                                                 </div>
-                                                <a href="{{ route('owner.tenant.details', [$tenant->id]) }}"
+                                                <a href="{{ route('tenant.details', [$tenant->id]) }}"
                                                     class="theme-btn mt-20 w-100"
                                                     title="{{ __('View Details') }}">{{ __('View Details') }}</a>
                                             </div>
@@ -155,8 +155,8 @@
         </div>
         <!-- End Page-content -->
     </div>
-    <input type="hidden" id="getAllTenantRoute" value="{{ route('owner.tenant.index', ['type' => 'all']) }}">
-    <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('owner.property.getPropertyUnits') }}">
+    <input type="hidden" id="getAllTenantRoute" value="{{ route('tenant.index', ['type' => 'all']) }}">
+    <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('property.getPropertyUnits') }}">
 @endsection
 @if (getOption('app_card_data_show', 1) != 1)
     @push('style')

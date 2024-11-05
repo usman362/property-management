@@ -34,7 +34,7 @@ class MaintainerService
                 $id = $maintainer->id;
                 return '<div class="tbl-action-btns d-inline-flex">
                             <button type="button" class="p-1 tbl-action-btn edit" data-id="' . $id . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>
-                            <button onclick="deleteItem(\'' . route('owner.maintainer.delete', $id) . '\', \'allMaintainerDataTable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
+                            <button onclick="deleteItem(\'' . route('maintainer.delete', $id) . '\', \'allMaintainerDataTable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
                         </div>';
             })
             ->rawColumns(['status', 'action'])

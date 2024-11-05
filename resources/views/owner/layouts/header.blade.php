@@ -2,7 +2,7 @@
     <div class="navbar-header">
         <div class="d-flex">
             <div class="navbar-brand-box">
-                <a href="{{ route('owner.dashboard') }}" class="logo logo-light">
+                <a href="{{ route('dashboard') }}" class="logo logo-light">
                     <span class="logo-sm">
                         <img src="{{ getSettingImage('app_logo') }}" alt="logo-sm-light">
                     </span>
@@ -29,7 +29,7 @@
                     </button>
                     <div class="text-center exclamation-area">
                         {{ __('Currently you doesn\'t have any subscription!') }} <a
-                            href="{{ route('owner.subscription.index', ['current_plan' => 'no']) }}"
+                            href="{{ route('subscription.index', ['current_plan' => 'no']) }}"
                             class="text-danger px-1" title="{{ __('Choose a plan') }}">{{ __('Choose a plan') }}</a>
                     </div>
                     <button type="button" class="close topBannerClose ms-2"><span>&times;</span></button>

@@ -53,7 +53,7 @@ class MaintenanceRequestService
                 return '<div class="tbl-action-btns d-inline-flex">
                             <button type="button" class="p-1 tbl-action-btn view" data-bs-toggle="modal" data-id="' . $id . '" data-bs-target="#viewModal" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>
                             <button type="button" class="p-1 tbl-action-btn edit" data-id="' . $id . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>
-                            <button onclick="deleteItem(\'' . route('owner.maintenance-request.delete', $id) . '\', \'allDatatable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
+                            <button onclick="deleteItem(\'' . route('maintenance-request.delete', $id) . '\', \'allDatatable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
                         </div>';
             })
             ->rawColumns(['status', 'action'])
@@ -89,7 +89,7 @@ class MaintenanceRequestService
                 $button = '<div class="tbl-action-btns d-inline-flex">';
                 if ($maintenance->status == MAINTENANCE_REQUEST_STATUS_PENDING) {
                     $button .= ' <button type="button" class="p-1 tbl-action-btn edit" data-id="' . $id . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>';
-                    $button .= '<button onclick="deleteItem(\'' . route('owner.maintenance-request.delete', $id) . '\', \'allDatatable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>';
+                    $button .= '<button onclick="deleteItem(\'' . route('maintenance-request.delete', $id) . '\', \'allDatatable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>';
                 }
                 $button .= '</div>';
                 return $button;

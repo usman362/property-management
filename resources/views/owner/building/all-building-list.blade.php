@@ -14,7 +14,7 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="{{ __('Dashboard') }}">{{ __('Dashboard') }}</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
                                     </ol>
@@ -62,7 +62,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
                             class="iconify" data-icon="akar-icons:cross"></span></button>
                 </div>
-                <form class="ajax" action="{{ route('owner.building.store') }}" method="post"
+                <form class="ajax" action="{{ route('building.store') }}" method="post"
                     enctype="multipart/form-data" data-handler="getShowMessage">
                     <input type="hidden" name="building_id" class="id">
                     <div class="modal-body">
@@ -111,7 +111,7 @@
         </div>
     </div>
 
-    <input type="hidden" id="buildingIndexRoute" value="{{ route('owner.building.allBuilding') }}">
+    <input type="hidden" id="buildingIndexRoute" value="{{ route('building.allBuilding') }}">
 @endsection
 
 @push('style')

@@ -16,9 +16,9 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="Dashboard">{{ __('Dashboard') }}</a></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.property.allProperty') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('property.allProperty') }}"
                                                 title="{{ __('Apartments') }}">{{ __('Apartments') }}</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
                                     </ol>
@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="property-details-right text-end">
-                                        <a href="{{ route('owner.property.edit', $apartment->id) }}" class="edit-btn"
+                                        <a href="{{ route('property.edit', $apartment->id) }}" class="edit-btn"
                                             title="{{ __('Edit Info') }}">{{ __('Edit Info') }}<i
                                                 class="ri-arrow-right-line ms-2"></i></a>
                                     </div>

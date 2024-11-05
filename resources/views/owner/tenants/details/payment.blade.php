@@ -16,9 +16,9 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="Dashboard">{{ __('Dashboard') }}</a></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.tenant.index') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('tenant.index') }}"
                                                 title="Home">{{ __('Tenants') }}</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
                                     </ol>
@@ -133,7 +133,7 @@
                         <span class="iconify" data-icon="akar-icons:cross"></span>
                     </button>
                 </div>
-                <form class="ajax" action="{{ route('owner.invoice.store') }}" method="post"
+                <form class="ajax" action="{{ route('invoice.store') }}" method="post"
                     data-handler="getShowMessage">
                     @csrf
                     <div class="modal-body">
@@ -232,7 +232,7 @@
                         <span class="iconify" data-icon="akar-icons:cross"></span>
                     </button>
                 </div>
-                <form class="ajax" action="{{ route('owner.invoice.payment.status') }}" method="post"
+                <form class="ajax" action="{{ route('invoice.payment.status') }}" method="post"
                     data-handler="getShowMessage">
                     <input type="hidden" name="id">
                     <div class="modal-body">
@@ -261,7 +261,7 @@
         </div>
     </div>
     <input type="hidden" class="invoiceTypes" value="{{ $invoiceTypes }}">
-    <input type="hidden" id="route" value="{{ route('owner.tenant.details', [$tenant->id, 'tab' => 'payment']) }}">
+    <input type="hidden" id="route" value="{{ route('tenant.details', [$tenant->id, 'tab' => 'payment']) }}">
 @endsection
 @push('style')
     @include('common.layouts.datatable-style')

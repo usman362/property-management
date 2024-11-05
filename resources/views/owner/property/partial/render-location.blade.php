@@ -1,4 +1,4 @@
-<form class="ajax" action="{{ route('owner.property.location.store') }}" method="post" data-handler="stepChange">
+<form class="ajax" action="{{ route('property.location.store') }}" method="post" data-handler="stepChange">
     @csrf
     <input type="text" name="property_id" class="d-none property_id" value="{{ $property->id }}">
     <div class="form-card add-property-box bg-off-white theme-border radius-4 p-20">

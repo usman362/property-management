@@ -16,9 +16,9 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="Dashboard">{{ __('Dashboard') }}</a></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.tenant.index') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('tenant.index') }}"
                                                 title="{{ __('Tenants') }}">{{ __('Tenants') }}</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
                                     </ol>

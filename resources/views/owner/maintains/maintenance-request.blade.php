@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="Dashboard">{{ __('Dashboard') }}</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
                                     </ol>
@@ -99,7 +99,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
                             class="iconify" data-icon="akar-icons:cross"></span></button>
                 </div>
-                <form class="ajax" action="{{ route('owner.maintenance-request.store') }}" method="POST"
+                <form class="ajax" action="{{ route('maintenance-request.store') }}" method="POST"
                     data-handler="getShowMessage">
                     <div class="modal-body">
                         <!-- Modal Inner Form Box Start -->
@@ -191,7 +191,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
                             class="iconify" data-icon="akar-icons:cross"></span></button>
                 </div>
-                <form class="ajax" action="{{ route('owner.maintenance-request.store') }}" method="POST"
+                <form class="ajax" action="{{ route('maintenance-request.store') }}" method="POST"
                     data-handler="getShowMessage">
                     <input type="hidden" name="id" id="id">
                     <div class="modal-body">
@@ -284,7 +284,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
                             class="iconify" data-icon="akar-icons:cross"></span></button>
                 </div>
-                <form class="ajax" action="{{ route('owner.maintenance-request.status.change') }}" method="POST"
+                <form class="ajax" action="{{ route('maintenance-request.status.change') }}" method="POST"
                     data-handler="getShowMessage">
                     <input type="hidden" name="id" id="viewId">
                     <div class="modal-body">
@@ -372,9 +372,9 @@
         </div>
     </div>
     <!-- Add Information Modal End -->
-    <input type="hidden" id="getInfoRoute" value="{{ route('owner.maintenance-request.get.info') }}">
-    <input type="hidden" id="route" value="{{ route('owner.maintenance-request.index') }}">
-    <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('owner.property.getPropertyUnits') }}">
+    <input type="hidden" id="getInfoRoute" value="{{ route('maintenance-request.get.info') }}">
+    <input type="hidden" id="route" value="{{ route('maintenance-request.index') }}">
+    <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('property.getPropertyUnits') }}">
 @endsection
 @push('style')
     @include('common.layouts.datatable-style')

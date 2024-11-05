@@ -66,7 +66,7 @@ class PaymentSubscriptionController extends Controller
 
                 DB::commit();
 
-                return redirect()->route('owner.subscription.index')->with('success', __('Bank Details Sent Successfully! Wait for approval'));
+                return redirect()->route('subscription.index')->with('success', __('Bank Details Sent Successfully! Wait for approval'));
             } elseif ($gateway->slug == 'cash') {
                 $order = $this->placeOrder($package, $durationType, $quantity, $gateway, $gatewayCurrency); // new order create
                 $order->save();
@@ -76,7 +76,7 @@ class PaymentSubscriptionController extends Controller
                 addNotification($title, $body, null, null, $user->id, auth()->id());
 
                 DB::commit();
-                return redirect()->route('owner.subscription.index')->with('success', __('Cash Payment Request Sent Successfully! Wait for approval'));
+                return redirect()->route('subscription.index')->with('success', __('Cash Payment Request Sent Successfully! Wait for approval'));
             } else {
                 $order = $this->placeOrder($package, $durationType, $quantity, $gateway, $gatewayCurrency); // new order create
                 DB::commit();
@@ -101,7 +101,7 @@ class PaymentSubscriptionController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('owner.subscription.index')->with('error', __('Payment Failed!'));
+            return redirect()->route('subscription.index')->with('error', __('Payment Failed!'));
         }
     }
 
@@ -149,7 +149,7 @@ class PaymentSubscriptionController extends Controller
 
         $order = SubscriptionOrder::findOrFail($order_id);
         if ($order->status == ORDER_PAYMENT_STATUS_PAID) {
-            return redirect()->route('owner.subscription.index')->with('error', __('Your order has been paid!'));
+            return redirect()->route('subscription.index')->with('error', __('Your order has been paid!'));
         }
 
         $gateway = Gateway::find($order->gateway_id);
@@ -212,19 +212,19 @@ class PaymentSubscriptionController extends Controller
                             $mailService->sendSubscriptionSuccessMail($emails, $subject, $message, $ownerUserId, $title, $method, $status, $amount, $duration);
                         }
                     }
-                    return redirect()->route('owner.subscription.index')->with('success', __('Payment Successful!'));
+                    return redirect()->route('subscription.index')->with('success', __('Payment Successful!'));
                 }
             } else {
-                return redirect()->route('owner.subscription.index')->with('error', __('Payment Failed!'));
+                return redirect()->route('subscription.index')->with('error', __('Payment Failed!'));
             }
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('owner.subscription.index')->with('error', __('Payment Failed!'));
+            return redirect()->route('subscription.index')->with('error', __('Payment Failed!'));
         }
     }
 
     public function failed(Request $request)
     {
-        return redirect()->route('owner.subscription.index')->with('error', __('Payment Failed!'));
+        return redirect()->route('subscription.index')->with('error', __('Payment Failed!'));
     }
 }

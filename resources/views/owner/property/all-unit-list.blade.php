@@ -14,10 +14,10 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="{{ __('Dashboard') }}">{{ __('Dashboard') }}</a></li>
                                         <li class="breadcrumb-item">
-                                            <a href="{{ route('owner.property.allUnit') }}"
+                                            <a href="{{ route('property.allUnit') }}"
                                                 title="{{ __('Properties') }}">{{ __('Properties') }}</a>
                                         </li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
@@ -72,7 +72,7 @@
                                                                                 data-icon="ep:delete-filled"></span>
                                                                         </button>
                                                                         <form
-                                                                            action="{{ route('owner.property.unit.delete', [$unit->id]) }}"
+                                                                            action="{{ route('property.unit.delete', [$unit->id]) }}"
                                                                             method="post"
                                                                             id="delete_row_form_{{ $unit->id }}">
                                                                             {{ method_field('DELETE') }}

@@ -56,7 +56,7 @@ class TicketService
             })
             ->addColumn('action', function ($ticket) {
                 return '<div class="tbl-action-btns d-inline-flex">
-                            <a href="' . route('owner.ticket.details', $ticket->id) . '" class="p-1 tbl-action-btn" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></a>
+                            <a href="' . route('ticket.details', $ticket->id) . '" class="p-1 tbl-action-btn" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></a>
                             <div class="ticket-item-dropdown text-end ms-2 mt-1">
                                 <div class="dropdown">
                                     <a class="dropdown-toggle dropdown-toggle-nocaret"
@@ -67,19 +67,19 @@ class TicketService
                                     <ul
                                         class="dropdown-menu">
                                         <li><a class="dropdown-item font-13 statusChange"
-                                                data-url="' . route('owner.ticket.status.change') . '"
+                                                data-url="' . route('ticket.status.change') . '"
                                                 data-id="' . $ticket->id . '" data-status="2"
                                                 href="javascript:;"
                                                 title="' . __('In Processing') . '">' . __('In Processing') . '</a>
                                         </li>
                                         <li><a class="dropdown-item font-13 statusChange"
-                                                data-url="' . route('owner.ticket.status.change') . '"
+                                                data-url="' . route('ticket.status.change') . '"
                                                 data-id="' . $ticket->id . '" data-status="3"
                                                 href="javascript:;"
                                                 title="' . __('Close') . '">' . __('Close') . '</a>
                                         </li>
                                         <li><a class="dropdown-item font-13 statusChange"
-                                                data-url="' . route('owner.ticket.status.change') . '"
+                                                data-url="' . route('ticket.status.change') . '"
                                                 data-id="' . $ticket->id . '" data-status="5"
                                                 href="javascript:;"
                                                 title="' . __('Resolved') . '">' . __('Resolved') . '</a>

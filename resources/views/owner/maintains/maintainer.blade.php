@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="Dashboard">{{ __('Dashboard') }}</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
                                     </ol>
@@ -87,7 +87,7 @@
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <form class="ajax" action="{{ route('owner.maintainer.store') }}" method="POST"
+                <form class="ajax" action="{{ route('maintainer.store') }}" method="POST"
                     enctype="multipart/form-data" data-handler="getShowMessage">
                     <input type="hidden" id="id" name="repair_id" value="">
                     <div class="modal-header">
@@ -193,8 +193,8 @@
         </div>
     </div>
     <!-- Add Information Modal End -->
-    <input type="hidden" id="getInfoRoute" value="{{ route('owner.maintainer.get.info') }}">
-    <input type="hidden" id="route" value="{{ route('owner.maintainer.index') }}">
+    <input type="hidden" id="getInfoRoute" value="{{ route('maintainer.get.info') }}">
+    <input type="hidden" id="route" value="{{ route('maintainer.index') }}">
 @endsection
 @push('style')
     @include('common.layouts.datatable-style')

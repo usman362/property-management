@@ -9,7 +9,7 @@
                 <div class="row sign-up-page-wrap-row">
                     <div class="col-md-6">
                         <div class="sign-up-right-content bg-white">
-                            <form action="{{ route('owner.register.store') }}" method="post">
+                            <form action="{{ route('register.store') }}" method="post">
                                 @csrf
                                 <div class="mb-25 sign-up-top-logo">
                                     <a href="{{ route('frontend') }}">

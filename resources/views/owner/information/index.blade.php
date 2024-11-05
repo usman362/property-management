@@ -14,7 +14,7 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="{{ __('Dashboard') }}">{{ __('Dashboard') }}</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
                                     </ol>
@@ -78,7 +78,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
                             class="iconify" data-icon="akar-icons:cross"></span></button>
                 </div>
-                <form class="ajax" action="{{ route('owner.information.store') }}" method="POST"
+                <form class="ajax" action="{{ route('information.store') }}" method="POST"
                     data-handler="getShowMessage">
                     <div class="modal-body">
                         @csrf
@@ -157,7 +157,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
                             class="iconify" data-icon="akar-icons:cross"></span></button>
                 </div>
-                <form class="ajax" action="{{ route('owner.information.store') }}" method="POST"
+                <form class="ajax" action="{{ route('information.store') }}" method="POST"
                     data-handler="getShowMessage">
                     @csrf
                     <input type="hidden" name="id" id="id">
@@ -281,8 +281,8 @@
         </div>
     </div>
     <!-- Add Information Modal End -->
-    <input type="hidden" id="getInfoRoute" value="{{ route('owner.information.get.info') }}">
-    <input type="hidden" id="route" value="{{ route('owner.information.index') }}">
+    <input type="hidden" id="getInfoRoute" value="{{ route('information.get.info') }}">
+    <input type="hidden" id="route" value="{{ route('information.index') }}">
 @endsection
 @push('style')
     @include('common.layouts.datatable-style')

@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="{{ __('Dashboard') }}">{{ __('Dashboard') }}</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
                                     </ol>
@@ -40,7 +40,7 @@
 
                                         <!-- fieldsets 1 -->
                                         <fieldset>
-                                            <form class="ajax" action="{{ route('owner.tenant.store') }}" method="POST" data-handler="stepChange">
+                                            <form class="ajax" action="{{ route('tenant.store') }}" method="POST" data-handler="stepChange">
                                                 @csrf
                                                 <input type="hidden" name="tenant_id" value="{{@$tenant->id}}">
                                                 <div class="form-card add-property-box bg-off-white theme-border radius-4 p-20">
@@ -242,13 +242,13 @@
         <!-- End Page-content -->
 
     </div>
-    <input type="hidden" id="getStateListRoute" value="{{ route('owner.location.state.list') }}">
-    <input type="hidden" id="getCityListRoute" value="{{ route('owner.location.city.list') }}">
-    <input type="hidden" id="propertyShowRoute" value="{{ route('owner.property.show', 0) }}">
-    <input type="hidden" id="tenantStoreRoute" value="{{ route('owner.tenant.store') }}">
-    <input type="hidden" id="tenantListRoute" value="{{ route('owner.tenant.index') }}">
+    <input type="hidden" id="getStateListRoute" value="{{ route('location.state.list') }}">
+    <input type="hidden" id="getCityListRoute" value="{{ route('location.city.list') }}">
+    <input type="hidden" id="propertyShowRoute" value="{{ route('property.show', 0) }}">
+    <input type="hidden" id="tenantStoreRoute" value="{{ route('tenant.store') }}">
+    <input type="hidden" id="tenantListRoute" value="{{ route('tenant.index') }}">
     <input type="hidden" id="getPropertyWithUnitsByIdRoute"
-        value="{{ route('owner.property.getPropertyWithUnitsById') }}">
+        value="{{ route('property.getPropertyWithUnitsById') }}">
 @endsection
 
 @push('script')

@@ -16,9 +16,9 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="Dashboard">{{ __('Dashboard') }}</a></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.property.allProperty') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('property.allProperty') }}"
                                                 title="{{ __('Properties') }}">{{ __('Properties') }}</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
                                     </ol>
@@ -50,7 +50,7 @@
                                             data-bs-target="#tenantAssignModal"
                                             title="{{ __('Tenant Assign') }}">{{ __('Tenant Assign') }}<i
                                                 class="user-add-line ms-2"></i></button> --}}
-                                        <a href="{{ route('owner.property.edit', $property->id) }}" class="edit-btn"
+                                        <a href="{{ route('property.edit', $property->id) }}" class="edit-btn"
                                             title="{{ __('Edit Info') }}">{{ __('Edit Info') }}<i
                                                 class="ri-arrow-right-line ms-2"></i></a>
                                     </div>
@@ -112,7 +112,7 @@
                                         </div>
                                         {{-- <div class="col-md-6">
                                             <div class="property-details-right text-end">
-                                                <a href="{{ route('owner.property.edit', $property->id) }}"
+                                                <a href="{{ route('property.edit', $property->id) }}"
                                                     class="edit-btn" title="{{ __('Edit Info') }}">{{ __('Edit Info') }}<i
                                                         class="ri-arrow-right-line ms-2"></i></a>
                                             </div>
@@ -257,7 +257,7 @@
                         <span class="iconify" data-icon="akar-icons:cross"></span>
                     </button>
                 </div>
-                <form class="ajax" action="{{ route('owner.invoice.store') }}" method="post"
+                <form class="ajax" action="{{ route('invoice.store') }}" method="post"
                     data-handler="getShowMessage">
                     @csrf
                     <input type="hidden" name="property_id" value="{{ $property->id }}">

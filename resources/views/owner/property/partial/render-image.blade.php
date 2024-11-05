@@ -1,4 +1,4 @@
-<form class="ajax" action="{{ route('owner.property.image.store') }}" method="post" enctype="multipart/form-data">
+<form class="ajax" action="{{ route('property.image.store') }}" method="post" enctype="multipart/form-data">
     @csrf
     <input type="text" name="property_id" class="d-none property_id" value="{{ $property->id }}">
     <div class="form-card add-property-box bg-off-white theme-border radius-4 p-20">
@@ -20,7 +20,7 @@
                                     <div class="avatar-xs p-0 rounded-circle app-logo-profile-photo-edit">
                                         <input id="app-logo-profile-img-file-input" type="file"
                                             class="thumbnailImage app-logo-profile-img-file-input"
-                                            data-route="{{ route('owner.property.thumbnailImage.update', $property->id) }}">
+                                            data-route="{{ route('property.thumbnailImage.update', $property->id) }}">
                                         <label for="app-logo-profile-img-file-input"
                                             class="app-logo-profile-photo-edit avatar-xs">
                                             <span class="avatar-title rounded-circle" title="Upload Image">
@@ -79,7 +79,7 @@
                                             <div class="dropzone-remove-icon">
                                                 <button type="button" data-dz-remove
                                                     class="btn btn-sm btn-danger removeImage"
-                                                    data-route="{{ route('owner.property.image.delete', $propertyImage->id) }}">x
+                                                    data-route="{{ route('property.image.delete', $propertyImage->id) }}">x
                                                 </button>
                                             </div>
                                         </div>
@@ -109,5 +109,5 @@
         </div>
     </div>
     <input type="button" name="previous" class="imageBack action-button-previous theme-btn mt-25" value="Back">
-    <a href="{{ route('owner.property.allProperty') }}" class="action-button theme-btn mt-25">{{ __('Done') }}</a>
+    <a href="{{ route('property.allProperty') }}" class="action-button theme-btn mt-25">{{ __('Done') }}</a>
 </form>

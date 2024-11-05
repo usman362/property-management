@@ -106,9 +106,9 @@ class KycVerificationService
             ->addColumn('action', function ($data) {
                 return '<div class="tbl-action-btns d-inline-flex">
                         <button type="button" data-id="' . $data->id . '" class="p-1 tbl-action-btn view" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>
-                        <button type="button" data-url="' . route('owner.documents.status', $data->id) . '" class="p-1 tbl-action-btn accept" title="' . __('Accept') . '"><span class="iconify" data-icon="material-symbols:check-box-outline"></span></button>
+                        <button type="button" data-url="' . route('documents.status', $data->id) . '" class="p-1 tbl-action-btn accept" title="' . __('Accept') . '"><span class="iconify" data-icon="material-symbols:check-box-outline"></span></button>
                         <button type="button" data-id="' . $data->id . '" class="p-1 tbl-action-btn reject" title="' . __('Reject') . '"><span class="iconify" data-icon="charm:circle-cross"></span></button>
-                        <button onclick="deleteItem(\'' . route('owner.documents.delete', $data->id) . '\', \'allDataTableDoc\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
+                        <button onclick="deleteItem(\'' . route('documents.delete', $data->id) . '\', \'allDataTableDoc\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
                     </div>';
             })
             ->rawColumns(['front', 'back', 'status', 'action'])

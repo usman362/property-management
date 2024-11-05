@@ -1,4 +1,4 @@
-<form class="ajax" action="{{ route('owner.property.rentCharge.store') }}" method="post" data-handler="stepChange">
+<form class="ajax" action="{{ route('property.rentCharge.store') }}" method="post" data-handler="stepChange">
     @csrf
     <input type="text" name="ids[]" class="d-none" id="property_unit_ids" value="{{ @json_encode($propertyUnitIds) }}">
     <input type="text" name="property_id" class="d-none property_id" value="{{ $property->id }}">

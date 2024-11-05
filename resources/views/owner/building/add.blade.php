@@ -16,9 +16,9 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="{{ __('Dashboard') }}">{{ __('Dashboard') }}</a></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.property.allProperty') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('property.allProperty') }}"
                                                 title="{{ __('Properties') }}">{{ __('Properties') }}</a>
                                         </li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
@@ -88,14 +88,14 @@
     </div>
 
     <input type="hidden" id="property_id" value="{{ @$property->id }}">
-    <input type="hidden" id="getStateListRoute" value="{{ route('owner.location.state.list') }}">
-    <input type="hidden" id="getCityListRoute" value="{{ route('owner.location.city.list') }}">
-    <input type="hidden" id="imageStoreRoute" value="{{ route('owner.property.image.store') }}">
-    <input type="hidden" id="imageDoc" value="{{ route('owner.property.image.doc') }}">
-    <input type="hidden" id="getPropertyInformationRoute" value="{{ route('owner.property.getPropertyInformation') }}">
-    <input type="hidden" id="getLocationRoute" value="{{ route('owner.property.getLocation') }}">
-    <input type="hidden" id="getUnitRoute" value="{{ route('owner.property.getUnitByPropertyId') }}">
-    <input type="hidden" id="getRentChargeRoute" value="{{ route('owner.property.getRentCharge') }}">
+    <input type="hidden" id="getStateListRoute" value="{{ route('location.state.list') }}">
+    <input type="hidden" id="getCityListRoute" value="{{ route('location.city.list') }}">
+    <input type="hidden" id="imageStoreRoute" value="{{ route('property.image.store') }}">
+    <input type="hidden" id="imageDoc" value="{{ route('property.image.doc') }}">
+    <input type="hidden" id="getPropertyInformationRoute" value="{{ route('property.getPropertyInformation') }}">
+    <input type="hidden" id="getLocationRoute" value="{{ route('property.getLocation') }}">
+    <input type="hidden" id="getUnitRoute" value="{{ route('property.getUnitByPropertyId') }}">
+    <input type="hidden" id="getRentChargeRoute" value="{{ route('property.getRentCharge') }}">
 @endsection
 
 @push('script')

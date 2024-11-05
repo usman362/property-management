@@ -100,7 +100,7 @@ class TenantService
             })
             ->addColumn('action', function ($tenant) {
                 return '<div class="tbl-action-btns d-inline-flex">
-                        <a href="' . route('owner.tenant.details', [$tenant->id, 'tab' => 'profile']) . '" class="p-1 tbl-action-btn" title="' . __('Edit') . '"><span class="iconify" data-icon="carbon:view-filled"></span></a>
+                        <a href="' . route('tenant.details', [$tenant->id, 'tab' => 'profile']) . '" class="p-1 tbl-action-btn" title="' . __('Edit') . '"><span class="iconify" data-icon="carbon:view-filled"></span></a>
                     </div>';
             })
             ->rawColumns(['name', 'property', 'status', 'action'])
@@ -157,7 +157,7 @@ class TenantService
             })
             ->addColumn('action', function ($tenant) {
                 return '<div class="tbl-action-btns d-inline-flex">
-                        <a href="' . route('owner.tenant.details', [$tenant->id, 'tab' => 'profile']) . '" class="p-1 tbl-action-btn" title="Edit"><span class="iconify" data-icon="carbon:view-filled"></span></a>
+                        <a href="' . route('tenant.details', [$tenant->id, 'tab' => 'profile']) . '" class="p-1 tbl-action-btn" title="Edit"><span class="iconify" data-icon="carbon:view-filled"></span></a>
                     </div>';
             })
             ->rawColumns(['name', 'property', 'status', 'action'])
@@ -218,12 +218,12 @@ class TenantService
                 } elseif ($invoice->status == INVOICE_STATUS_PENDING) {
                     $html = '<div class="d-flex justify-content-start">';
                     $html .=  '<div class="status-btn status-btn-orange font-13 radius-4">' . __('Unpaid') . '</div>';
-                    $html .= '<button type="button" class="p-1 tbl-action-btn payStatus" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="Payment Status Change"><span class="iconify" data-icon="ic:outline-payments"></span></button>';
+                    $html .= '<button type="button" class="p-1 tbl-action-btn payStatus" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="Payment Status Change"><span class="iconify" data-icon="ic:outline-payments"></span></button>';
                     $html .= '</div>';
                 } else {
                     $html = '<div class="d-flex justify-content-start">';
                     $html =  '<div class="status-btn status-btn-red font-13 radius-4">' . __('Due') . '</div>';
-                    $html .= '<button type="button" class="p-1 tbl-action-btn payStatus" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="Payment Status Change"><span class="iconify" data-icon="ic:outline-payments"></span></button>';
+                    $html .= '<button type="button" class="p-1 tbl-action-btn payStatus" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="Payment Status Change"><span class="iconify" data-icon="ic:outline-payments"></span></button>';
                     $html .= '</div>';
                 }
                 return $html;
@@ -338,7 +338,7 @@ class TenantService
             DB::commit();
             $message = __(DELETED_SUCCESSFULLY);
             // return $this->success([], $message);
-            return redirect()->route('owner.tenant.index');
+            return redirect()->route('tenant.index');
         } catch (Exception $e) {
             DB::rollBack();
             $message = getErrorMessage($e, $e->getMessage());

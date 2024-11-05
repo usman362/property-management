@@ -14,7 +14,7 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="Dashboard">{{ __('Dashboard') }}</a></li>
                                         <li class="breadcrumb-item" aria-current="page">{{ __('Report') }}</li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
@@ -89,8 +89,8 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="earningReportRoute" value="{{ route('owner.reports.earning') }}">
-    <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('owner.property.getPropertyUnits') }}">
+    <input type="hidden" id="earningReportRoute" value="{{ route('reports.earning') }}">
+    <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('property.getPropertyUnits') }}">
     <input type="hidden" id="allTotal" value="{{__('All Total')}}">
     <input type="hidden" id="pageTotal" value="{{__('Page Total')}}">
 @endsection

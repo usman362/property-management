@@ -102,16 +102,16 @@ class InvoiceService
             ->addColumn('action', function ($invoice) {
                 $html = '<div class="tbl-action-btns d-inline-flex">';
                 if ($invoice->status == INVOICE_STATUS_PENDING) {
-                    $html .= '<button type="button" class="p-1 tbl-action-btn edit" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>';
-                    $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
-                    $html .= '<button type="button" onclick="deleteItem(\'' . route('owner.invoice.destroy', $invoice->id) . '\', \'allInvoiceDatatable\')" class="p-1 tbl-action-btn" title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>';
+                    $html .= '<button type="button" class="p-1 tbl-action-btn edit" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>';
+                    $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
+                    $html .= '<button type="button" onclick="deleteItem(\'' . route('invoice.destroy', $invoice->id) . '\', \'allInvoiceDatatable\')" class="p-1 tbl-action-btn" title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>';
                     if ($invoice->gatewaySlug == 'bank') {
                         $html .= '<a href="' . getFileUrl($invoice->folder_name, $invoice->file_name) . '"  class="p-1 tbl-action-btn" title="' . __('Bank slip download') . '" download><span class="iconify" data-icon="fa6-solid:download"></span></a>';
-                        $html .= '<button type="button" class="p-1 tbl-action-btn payStatus" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('Payment Status Change') . '"><span class="iconify" data-icon="fluent:text-change-previous-20-filled"></span></button>';
+                        $html .= '<button type="button" class="p-1 tbl-action-btn payStatus" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('Payment Status Change') . '"><span class="iconify" data-icon="fluent:text-change-previous-20-filled"></span></button>';
                     }
                     $html .= '<button type="button" class="p-1 tbl-action-btn reminder" data-id="' . $invoice->id . '" title="' . __('Send Reminder') . '"><span class="iconify" data-icon="ri:send-plane-fill"></span></button>';
                 } elseif ($invoice->status == INVOICE_STATUS_PAID) {
-                    $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
+                    $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
                     $html .= '<button type="button" class="p-1 tbl-action-btn reminder" data-id="' . $invoice->id . '" title="' . __('Send Reminder') . '"><span class="iconify" data-icon="ri:send-plane-fill"></span></button>';
                 }
                 $html .= '</div>';
@@ -156,15 +156,15 @@ class InvoiceService
             ->addColumn('action', function ($invoice) {
                 $html = '<div class="tbl-action-btns d-inline-flex">';
                 if ($invoice->status == INVOICE_STATUS_PENDING) {
-                    $html .= '<button type="button" class="p-1 tbl-action-btn edit" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>';
-                    $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
-                    $html .= '<button type="button" onclick="deleteItem(\'' . route('owner.invoice.destroy', $invoice->id) . '\', \'allInvoiceDatatable\')" class="p-1 tbl-action-btn" title="Delete"><span class="iconify" data-icon="ep:delete-filled"></span></button>';
+                    $html .= '<button type="button" class="p-1 tbl-action-btn edit" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>';
+                    $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
+                    $html .= '<button type="button" onclick="deleteItem(\'' . route('invoice.destroy', $invoice->id) . '\', \'allInvoiceDatatable\')" class="p-1 tbl-action-btn" title="Delete"><span class="iconify" data-icon="ep:delete-filled"></span></button>';
                     if ($invoice->gatewaySlug == 'bank') {
                         $html .= '<a href="' . getFileUrl($invoice->folder_name, $invoice->file_name) . '"  class="p-1 tbl-action-btn" title="' . __('Bank slip download') . '" download><span class="iconify" data-icon="fa6-solid:download"></span></a>';
-                        $html .= '<button type="button" class="p-1 tbl-action-btn payStatus" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('Payment Status Change') . '"><span class="iconify" data-icon="fluent:text-change-previous-20-filled"></span></button>';
+                        $html .= '<button type="button" class="p-1 tbl-action-btn payStatus" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('Payment Status Change') . '"><span class="iconify" data-icon="fluent:text-change-previous-20-filled"></span></button>';
                     }
                 } elseif ($invoice->status == INVOICE_STATUS_PAID) {
-                    $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
+                    $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
                 }
                 $html .= '</div>';
                 return $html;
@@ -212,17 +212,17 @@ class InvoiceService
             ->addColumn('action', function ($invoice) {
                 $html = '<div class="tbl-action-btns d-inline-flex">';
                 if ($invoice->status == INVOICE_STATUS_PENDING) {
-                    $html .= '<button type="button" class="p-1 tbl-action-btn edit" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>';
-                    $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
-                    $html .= '<button type="button" onclick="deleteItem(\'' . route('owner.invoice.destroy', $invoice->id) . '\', \'allInvoiceDatatable\')" class="p-1 tbl-action-btn" title="Delete"><span class="iconify" data-icon="ep:delete-filled"></span></button>';
+                    $html .= '<button type="button" class="p-1 tbl-action-btn edit" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>';
+                    $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
+                    $html .= '<button type="button" onclick="deleteItem(\'' . route('invoice.destroy', $invoice->id) . '\', \'allInvoiceDatatable\')" class="p-1 tbl-action-btn" title="Delete"><span class="iconify" data-icon="ep:delete-filled"></span></button>';
                     if ($invoice->gatewaySlug == 'bank') {
                         $html .= '<a href="' . getFileUrl($invoice->folder_name, $invoice->file_name) . '"  class="p-1 tbl-action-btn" title="' . __('Bank slip download') . '" download><span class="iconify" data-icon="fa6-solid:download"></span></a>';
-                        $html .= '<button type="button" class="p-1 tbl-action-btn payStatus" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('Payment Status Change') . '"><span class="iconify" data-icon="fluent:text-change-previous-20-filled"></span></button>';
+                        $html .= '<button type="button" class="p-1 tbl-action-btn payStatus" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('Payment Status Change') . '"><span class="iconify" data-icon="fluent:text-change-previous-20-filled"></span></button>';
                     } else {
-                        $html .= '<button type="button" class="p-1 tbl-action-btn payStatus" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('Payment Status Change') . '"><span class="iconify" data-icon="fluent:text-change-previous-20-filled"></span></button>';
+                        $html .= '<button type="button" class="p-1 tbl-action-btn payStatus" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('Payment Status Change') . '"><span class="iconify" data-icon="fluent:text-change-previous-20-filled"></span></button>';
                     }
                 } elseif ($invoice->status == INVOICE_STATUS_PAID) {
-                    $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
+                    $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
                 }
                 $html .= '</div>';
                 return $html;
@@ -275,15 +275,15 @@ class InvoiceService
             ->addColumn('action', function ($invoice) {
                 $html = '<div class="tbl-action-btns d-inline-flex">';
                 if ($invoice->status == INVOICE_STATUS_PENDING) {
-                    $html .= '<button type="button" class="p-1 tbl-action-btn edit" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>';
-                    $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
-                    $html .= '<button type="button" onclick="deleteItem(\'' . route('owner.invoice.destroy', $invoice->id) . '\', \'allInvoiceDatatable\')" class="p-1 tbl-action-btn" title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>';
+                    $html .= '<button type="button" class="p-1 tbl-action-btn edit" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>';
+                    $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
+                    $html .= '<button type="button" onclick="deleteItem(\'' . route('invoice.destroy', $invoice->id) . '\', \'allInvoiceDatatable\')" class="p-1 tbl-action-btn" title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>';
                     if ($invoice->gatewaySlug == 'bank') {
                         $html .= '<a href="' . getFileUrl($invoice->folder_name, $invoice->file_name) . '"  class="p-1 tbl-action-btn" title="' . __('Bank slip download') . '" download><span class="iconify" data-icon="fa6-solid:download"></span></a>';
-                        $html .= '<button type="button" class="p-1 tbl-action-btn payStatus" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('Payment Status Change') . '"><span class="iconify" data-icon="fluent:text-change-previous-20-filled"></span></button>';
+                        $html .= '<button type="button" class="p-1 tbl-action-btn payStatus" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('Payment Status Change') . '"><span class="iconify" data-icon="fluent:text-change-previous-20-filled"></span></button>';
                     }
                 } elseif ($invoice->status == INVOICE_STATUS_PAID) {
-                    $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
+                    $html .= '<button type="button" class="p-1 tbl-action-btn view" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>';
                 }
                 $html .= '</div>';
                 return $html;
@@ -321,9 +321,9 @@ class InvoiceService
             })
             ->addColumn('action', function ($invoice) {
                 return '<div class="tbl-action-btns d-inline-flex">
-                            <a href="#" data-updateurl="' . route('owner.invoice.update', $invoice->id) . '" class="p-1 tbl-action-btn edit" data-id="' . $invoice->id . '" data-detailsurl="' . route('owner.invoice.details', $invoice->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></a>
+                            <a href="#" data-updateurl="' . route('invoice.update', $invoice->id) . '" class="p-1 tbl-action-btn edit" data-id="' . $invoice->id . '" data-detailsurl="' . route('invoice.details', $invoice->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></a>
                             <a href="#" class="p-1 tbl-action-btn" title="View"><span class="iconify" data-icon="carbon:view-filled"></span></a>
-                            <button onclick="deleteItem(\'' . route('owner.invoice.destroy', $invoice->id) . '\', \'overdueInvoiceDatatable\')" class="p-1 tbl-action-btn" title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
+                            <button onclick="deleteItem(\'' . route('invoice.destroy', $invoice->id) . '\', \'overdueInvoiceDatatable\')" class="p-1 tbl-action-btn" title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
                         </div>';
             })
             ->rawColumns(['invoice', 'property', 'status', 'action'])

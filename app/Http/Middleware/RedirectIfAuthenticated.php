@@ -26,7 +26,7 @@ class RedirectIfAuthenticated
                 if (Auth::user()->role == USER_ROLE_ADMIN) {
                     return redirect(route('admin.dashboard'))->with('success', __('Login Successful'));
                 } else if (Auth::user()->role == USER_ROLE_OWNER) {
-                    return redirect(route('owner.dashboard'))->with('success', __('Login Successful'));
+                    return redirect(route('dashboard'))->with('success', __('Login Successful'));
                 } else if (Auth::user()->role == USER_ROLE_TENANT) {
                     return redirect(route('tenant.dashboard'))->with('success', __('Login Successful'));
                 } else if (Auth::user()->role == USER_ROLE_MAINTAINER) {

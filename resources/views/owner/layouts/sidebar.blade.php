@@ -6,7 +6,7 @@
             <ul class="metismenu list-unstyled" id="side-menu">
 
                 <li>
-                    <a href="{{ route('owner.dashboard') }}">
+                    <a href="{{ route('dashboard') }}">
                         <i class="ri-dashboard-line"></i>
                         <span>{{ __('Dashboard') }}</span>
                     </a>
@@ -19,7 +19,7 @@
                     </a>
                     <ul class="sub-menu {{ @$navBuildingMMShowClass }}" aria-expanded="false">
                         <li class="{{ @$subNavAllBuildingMMActiveClass }}">
-                            <a href="{{ route('owner.building.allBuilding') }}"
+                            <a href="{{ route('building.allBuilding') }}"
                                 class="{{ @$subNavAllBuildingActiveClass }}">{{ __('All Buildings') }}</a>
                         </li>
                     </ul>
@@ -32,7 +32,7 @@
                     </a>
                     <ul class="sub-menu {{ @$navApartmentMMShowClass }}" aria-expanded="false">
                         <li class="{{ @$subNavAllApartmentMMActiveClass }}">
-                            <a href="{{ route('owner.property.allProperty') }}"
+                            <a href="{{ route('property.allProperty') }}"
                                 class="{{ @$subNavAllApartmentActiveClass }}">{{ __('All Apartments') }}</a>
                         </li>
                     </ul>
@@ -45,7 +45,7 @@
                     </a>
                     <ul class="sub-menu {{ @$navTenantMMShowClass }}" aria-expanded="false">
                         <li class="{{ @$subNavAllTenantMMActiveClass }}">
-                            <a href="{{ route('owner.tenant.index', ['type' => 'all']) }}"
+                            <a href="{{ route('tenant.index', ['type' => 'all']) }}"
                                 class="{{ @$subNavAllTenantActiveClass }}">{{ __('All Tenants') }}</a>
                         </li>
                     </ul>
@@ -57,8 +57,8 @@
                         <span>{{ __('Maintenance') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('owner.maintainer.index') }}">{{ __('Maintenance') }}</a></li>
-                        {{-- <li><a href="{{ route('owner.maintenance-request.index') }}">{{ __('Maintenance Request') }}</a></li> --}}
+                        <li><a href="{{ route('maintainer.index') }}">{{ __('Maintenance') }}</a></li>
+                        {{-- <li><a href="{{ route('maintenance-request.index') }}">{{ __('Maintenance Request') }}</a></li> --}}
                     </ul>
                 </li>
 
@@ -69,23 +69,23 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li>
-                            <a href="{{ route('owner.reports.earning') }}">{{ __('Earning') }}</a>
+                            <a href="{{ route('reports.earning') }}">{{ __('Earning') }}</a>
                         </li>
                         <li>
                             <a
-                                href="{{ route('owner.reports.loss-profit.by.month') }}">{{ __('Loss / Profit By Month') }}</a>
+                                href="{{ route('reports.loss-profit.by.month') }}">{{ __('Loss / Profit By Month') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('owner.reports.expenses') }}">{{ __('Expenses') }}</a>
+                            <a href="{{ route('reports.expenses') }}">{{ __('Expenses') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('owner.reports.occupancy') }}">{{ __('Occupancy') }}</a>
+                            <a href="{{ route('reports.occupancy') }}">{{ __('Occupancy') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('owner.reports.maintenance') }}">{{ __('Maintenance') }}</a>
+                            <a href="{{ route('reports.maintenance') }}">{{ __('Maintenance') }}</a>
                         </li>
                         <li>
-                            <a href="{{ route('owner.reports.tenant') }}">{{ __('Tenant') }}</a>
+                            <a href="{{ route('reports.tenant') }}">{{ __('Tenant') }}</a>
                         </li>
                     </ul>
                 </li>

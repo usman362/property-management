@@ -14,7 +14,7 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="Dashboard">{{ __('Dashboard') }}</a></li>
                                         <li class="breadcrumb-item" aria-current="page">{{ __('Report') }}</li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
@@ -53,7 +53,7 @@
             </div>
         </div>
     </div>
-    <input type="hidden" id="leaseReportRoute" value="{{ route('owner.reports.lease') }}">
+    <input type="hidden" id="leaseReportRoute" value="{{ route('reports.lease') }}">
 @endsection
 @push('style')
     @include('common.layouts.datatable-style')

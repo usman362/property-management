@@ -16,8 +16,8 @@
                             </div>
                             <div class="page-title-right">
                                 <ol class="breadcrumb mb-0">
-                                    <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}" title="{{ __('Dashboard') }}">{{ __('Dashboard') }}</a></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('owner.property.allProperty') }}" title="{{ __('Apartments') }}">{{ __('Apartments') }}</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" title="{{ __('Dashboard') }}">{{ __('Dashboard') }}</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('property.allProperty') }}" title="{{ __('Apartments') }}">{{ __('Apartments') }}</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
                                 </ol>
@@ -36,7 +36,7 @@
                             <div class="col-12">
                                 <div id="msform">
                                     <!-- Start:: fieldSets -->
-                                    <form class="ajax" action="{{route('owner.property.property-information.store')}}" method="post" data-handler="stepChange">
+                                    <form class="ajax" action="{{route('property.property-information.store')}}" method="post" data-handler="stepChange">
                                         @csrf
                                         <input type="hidden" name="apartment_id" value="{{ @$apartment->id }}">
                                         <div class="form-card add-property-box bg-off-white theme-border radius-4 p-20">

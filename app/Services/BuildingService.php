@@ -34,8 +34,8 @@ class BuildingService
             })
             ->addColumn('action', function ($building) {
                 return '<div class="tbl-action-btns d-inline-flex">
-                <button type="button" class="p-1 tbl-action-btn edit" data-detailsurl="' . route('owner.building.details', $building->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>
-                <button onclick="deleteItem(\'' . route('owner.building.destroy', $building->id) . '\', \'buildingDatatable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
+                <button type="button" class="p-1 tbl-action-btn edit" data-detailsurl="' . route('building.details', $building->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>
+                <button onclick="deleteItem(\'' . route('building.destroy', $building->id) . '\', \'buildingDatatable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
             </div>';
             })
             ->rawColumns(['name', 'address', 'action'])

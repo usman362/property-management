@@ -16,9 +16,9 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="{{ __('Dashboard') }}">{{ __('Dashboard') }}</a></li>
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.tenant.index') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('tenant.index') }}"
                                                 title="{{ __('Tenants') }}">{{ __('Tenants') }}</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
                                     </ol>
@@ -51,7 +51,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="property-details-right text-end">
-                                                            <a href="{{ route('owner.tenant.edit', $tenant->id) }}"
+                                                            <a href="{{ route('tenant.edit', $tenant->id) }}"
                                                                 class="edit-btn"
                                                                 title="{{ __('Edit Info') }}">{{ __('Edit Info') }}<i
                                                                     class="ri-arrow-right-line ms-2"></i></a>
@@ -356,7 +356,7 @@
     </div>
 
     <!-- Add Currency Modal End -->
-    <input type="hidden" id="tenantListRoute" value="{{ route('owner.tenant.index') }}">
+    <input type="hidden" id="tenantListRoute" value="{{ route('tenant.index') }}">
 @endsection
 @push('script')
     <script src="{{ asset('assets/js/custom/tenant.js') }}"></script>

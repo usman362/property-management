@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="page-title-right">
                                     <ol class="breadcrumb mb-0">
-                                        <li class="breadcrumb-item"><a href="{{ route('owner.dashboard') }}"
+                                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"
                                                 title="{{ __('Dashboard') }}">{{ __('Dashboard') }}</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">{{ $pageTitle }}</li>
                                     </ol>
@@ -60,7 +60,7 @@
 
                                         <!-- fieldsets 1 -->
                                         <fieldset>
-                                            <form class="ajax" action="{{ route('owner.tenant.store') }}" method="POST"
+                                            <form class="ajax" action="{{ route('tenant.store') }}" method="POST"
                                                 data-handler="stepChange">
                                                 @csrf
                                                 <input type="hidden" name="step" class="d-none" value="1">
@@ -284,7 +284,7 @@
 
                                         <!-- fieldsets 2 -->
                                         <fieldset>
-                                            <form class="ajax" action="{{ route('owner.tenant.store') }}"
+                                            <form class="ajax" action="{{ route('tenant.store') }}"
                                                 method="POST" data-handler="stepChange">
                                                 @csrf
                                                 <input type="hidden" name="step" class="d-none" value="2">
@@ -527,7 +527,7 @@
 
                                         <!-- fieldsets 3 -->
                                         <fieldset>
-                                            <form class="ajax" action="{{ route('owner.tenant.store') }}"
+                                            <form class="ajax" action="{{ route('tenant.store') }}"
                                                 method="POST" data-handler="stepChange" enctype="multipart/form-data">
                                                 @csrf
                                                 <input type="hidden" name="step" class="d-none" value="3">
@@ -575,7 +575,7 @@
                                                                                         <button type="button"
                                                                                             data-dz-remove
                                                                                             class="uploaded-document-icon font-20 theme-link-red me-2 removeDocument"
-                                                                                            data-route="{{ route('owner.tenant.document.destroy', $document->id) }}"><i
+                                                                                            data-route="{{ route('tenant.document.destroy', $document->id) }}"><i
                                                                                                 class="ri-delete-bin-6-line"></i></button>
                                                                                     </div>
                                                                                 </div>
@@ -592,7 +592,7 @@
                                                 <input type="button" name="previous"
                                                     class="previousStep action-button-previous theme-btn mt-25"
                                                     value="Back">
-                                                {{-- <a href="{{ route('owner.tenant.index') }}" class="action-button theme-btn mt-25">{{ __('Save') }}</a> --}}
+                                                {{-- <a href="{{ route('tenant.index') }}" class="action-button theme-btn mt-25">{{ __('Save') }}</a> --}}
                                                 <input type="submit" class="action-button theme-btn mt-25"
                                                     value="Save">
                                             </form>
@@ -618,13 +618,13 @@
         <!-- End Page-content -->
 
     </div>
-    <input type="hidden" id="getStateListRoute" value="{{ route('owner.location.state.list') }}">
-    <input type="hidden" id="getCityListRoute" value="{{ route('owner.location.city.list') }}">
-    <input type="hidden" id="propertyShowRoute" value="{{ route('owner.property.show', 0) }}">
-    <input type="hidden" id="tenantStoreRoute" value="{{ route('owner.tenant.store') }}">
-    <input type="hidden" id="tenantListRoute" value="{{ route('owner.tenant.index') }}">
+    <input type="hidden" id="getStateListRoute" value="{{ route('location.state.list') }}">
+    <input type="hidden" id="getCityListRoute" value="{{ route('location.city.list') }}">
+    <input type="hidden" id="propertyShowRoute" value="{{ route('property.show', 0) }}">
+    <input type="hidden" id="tenantStoreRoute" value="{{ route('tenant.store') }}">
+    <input type="hidden" id="tenantListRoute" value="{{ route('tenant.index') }}">
     <input type="hidden" id="getPropertyWithUnitsByIdRoute"
-        value="{{ route('owner.property.getPropertyWithUnitsById') }}">
+        value="{{ route('property.getPropertyWithUnitsById') }}">
 @endsection
 
 @push('script')

@@ -15,7 +15,7 @@
                                             data-icon="openmoji:waving-hand"></span></p>
                                 </div>
                                 <div class="page-title-right">
-                                    <a href="{{ route('owner.property.add') }}" class="theme-btn"
+                                    <a href="{{ route('property.add') }}" class="theme-btn"
                                         title="{{ __('Add Property') }}">{{ __('Add Property') }}</a>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@
 
                                                 <div>
                                                     <a class="theme-link font-14 font-medium d-flex align-items-center justify-content-center mt-20"
-                                                        href="{{ route('owner.property.allProperty') }}">
+                                                        href="{{ route('property.allProperty') }}">
                                                         {{ __('View All') }}<i class="ri-arrow-right-line ms-2"></i>
                                                     </a>
                                                 </div>
@@ -160,7 +160,7 @@
                                                 <h4 class="mb-0">{{ __('Tickets') }}</h4>
                                                 <div>
                                                     <a class="theme-link font-14 font-medium d-flex align-items-center justify-content-center"
-                                                        href="{{ route('owner.ticket.index') }}">
+                                                        href="{{ route('ticket.index') }}">
                                                         {{ __('View All') }}<i class="ri-arrow-right-line ms-2"></i>
                                                     </a>
                                                 </div>
@@ -187,7 +187,7 @@
                                                                             <h6>{{ Str::limit($ticket->title, 25, '...') }}
                                                                             </h6>
                                                                             <div>
-                                                                                <a href="{{ route('owner.ticket.details', $ticket->id) }}"
+                                                                                <a href="{{ route('ticket.details', $ticket->id) }}"
                                                                                     class="primary-color font-13 me-2">{{ Str::limit($ticket->topic->name, 25, '...') }}</a>
                                                                                 <span href="#"
                                                                                     class="orange-color font-13 me-2">{{ __('Issue') }}</span>

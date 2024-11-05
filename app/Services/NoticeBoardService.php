@@ -45,7 +45,7 @@ class NoticeBoardService
                 return '<div class="tbl-action-btns d-inline-flex">
                             <button type="button" class="p-1 tbl-action-btn view" data-bs-toggle="modal" data-id="' . $id . '" data-bs-target="#viewNoticeBoardDetailsModal" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></button>
                             <button type="button" class="p-1 tbl-action-btn edit" data-id="' . $id . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>
-                            <button onclick="deleteItem(\'' . route('owner.noticeboard.delete', $id) . '\', \'allDatatable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
+                            <button onclick="deleteItem(\'' . route('noticeboard.delete', $id) . '\', \'allDatatable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
                         </div>';
             })
             ->rawColumns(['details', 'property', 'action'])
