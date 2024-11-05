@@ -21,16 +21,7 @@ class TenantService
 
     public function getAll()
     {
-        $data = Tenant::query()
-            ->join('users', 'tenants.user_id', '=', 'users.id')
-            ->leftJoin('properties', 'tenants.property_id', '=', 'properties.id')
-            ->leftJoin('property_units', 'tenants.unit_id', '=', 'property_units.id')
-            ->leftJoin(DB::raw('(select tenant_id, SUM(amount) as due from invoices where status = 0 AND deleted_at IS NULL group By tenant_id) as inv'), ['inv.tenant_id' => 'tenants.id'])
-            ->leftJoin(DB::raw('(select tenant_id, MAX(updated_at) as last_payment from invoices where status = 1 AND deleted_at IS NULL group By tenant_id) as inv_last'), ['inv_last.tenant_id' => 'tenants.id'])
-            ->whereNull('users.deleted_at')
-            ->select(['tenants.*', 'inv.due', 'inv_last.last_payment', 'users.first_name', 'users.last_name', 'users.status as userStatus', 'users.contact_number', 'users.email', 'property_units.unit_name', 'properties.name as property_name'])
-            ->where('tenants.owner_user_id', auth()->id())
-            ->get();
+        $data = Tenant::all();
         return $data?->makeHidden(['created_at', 'updated_at', 'deleted_at']);
     }
 
@@ -181,22 +172,7 @@ class TenantService
 
     public function getDetailsById($id)
     {
-        if (auth()->user()->role == USER_ROLE_OWNER) {
-            $userId = auth()->id();
-        } else {
-            $userId = auth()->user()->owner_user_id;
-        }
-        $data = Tenant::query()
-            ->join('users', 'tenants.user_id', '=', 'users.id')
-            ->whereNull('users.deleted_at')
-            ->leftJoin('tenant_details', 'tenants.id', '=', 'tenant_details.tenant_id')
-            ->leftJoin('properties', 'tenants.property_id', '=', 'properties.id')
-            ->leftJoin('property_details', 'properties.id', '=', 'property_details.property_id')
-            ->leftJoin('property_units', 'tenants.unit_id', '=', 'property_units.id')
-            ->select(['tenants.*', 'users.first_name', 'users.last_name', 'users.contact_number', 'users.email', 'property_units.unit_name', 'properties.name as property_name', 'property_details.address as property_address', 'tenant_details.previous_address', 'tenant_details.previous_country_id', 'tenant_details.previous_state_id', 'tenant_details.previous_city_id', 'tenant_details.previous_zip_code', 'tenant_details.permanent_address', 'tenant_details.permanent_country_id', 'tenant_details.permanent_state_id', 'tenant_details.permanent_city_id', 'tenant_details.permanent_zip_code'])
-            ->where('tenants.owner_user_id', $userId)
-            ->where('tenants.id', $id)
-            ->firstOrFail();
+        $data = Tenant::findOrFail($id);
         return $data?->makeHidden(['created_at', 'updated_at', 'deleted_at']);
     }
 
@@ -280,177 +256,49 @@ class TenantService
         return $this->success([], __(DELETED_SUCCESSFULLY));
     }
 
-    public function step1(Request $request)
+    public function store(Request $request)
     {
         DB::beginTransaction();
         try {
-            $id = $request->get('id', '');
-            if ($id != '') {
-                $tenant = Tenant::where('owner_user_id', auth()->id())->findOrFail($request->id);
-                $user = User::where('owner_user_id', auth()->id())->findOrFail($tenant->user_id);
-                $details = TenantDetails::firstOrNew(['tenant_id' => $tenant->id]);
-            } else {
-                if (!getOwnerLimit(RULES_TENANT) > 0) {
-                    throw new Exception(__('Your Tenant Limit finished'));
-                }
-                $user = new User();
-                $tenant = new Tenant();
-                $details = new TenantDetails();
-            }
-
-            // User
-            $user->first_name = $request->first_name;
-            $user->last_name = $request->last_name;
-            $user->email = $request->email;
-            $user->contact_number = $request->contact_number;
-            if ($request->password) {
-                $user->password = Hash::make($request->password);
-            }
-            $user->role = USER_ROLE_TENANT;
-            $user->status = ACTIVE;
-            $user->owner_user_id = auth()->id();
-            $user->save();
-
-            // Tenant
-            $tenant->user_id = $user->id;
-            $tenant->owner_user_id = auth()->id();
-            $tenant->job = $request->job;
-            $tenant->age = $request->age;
-            $tenant->family_member = $request->family_member;
-            $tenant->status = TENANT_STATUS_DRAFT;
-            $tenant->save();
-
-            // Detail
-            $details->tenant_id = $tenant->id;
-            $details->permanent_country_id = $request->permanent_country_id;
-            $details->permanent_state_id = $request->permanent_state_id;
-            $details->permanent_city_id = $request->permanent_city_id;
-            $details->permanent_address = $request->permanent_address;
-            $details->permanent_zip_code = $request->permanent_zip_code;
-            $details->previous_country_id = $request->previous_country_id;
-            $details->previous_state_id = $request->previous_state_id;
-            $details->previous_city_id = $request->previous_city_id;
-            $details->previous_address = $request->previous_address;
-            $details->previous_zip_code = $request->previous_zip_code;
-            $details->save();
-
-            /*File Manager Call upload for Thumbnail Image*/
-            if ($request->image) {
-                $new_file = FileManager::where('origin_type', 'App\Models\Tenant')->where('id', $tenant->image_id)->first();
-                if ($new_file) {
-                    $new_file->removeFile();
-                    $upload = $new_file->updateUpload($new_file->id, 'Tenant', $request->image);
-                } else {
-                    $new_file = new FileManager();
-                    $upload = $new_file->upload('Tenant', $request->image);
-                }
-
-                if ($upload['status']) {
-                    $tenant->image_id = $upload['file']->id;
-                    $tenant->save();
-
-                    $upload['file']->origin_type = "App\Models\Tenant";
-                    $upload['file']->save();
-                } else {
-                    throw new Exception($upload['message']);
-                }
-            }
-            /*End*/
-
             DB::commit();
-            if (getOption('send_email_status', 0) == ACTIVE) {
-                if ($id == '') {
-                    $emails = [$user->email];
-                    $subject = getOption('app_name') . ' ' . __('welcome you');
-                    $message = __('You have successfully been registered');
-                    $ownerUserId = auth()->id();
-                    $password = $request->password;
-
-                    $mailService = new MailService;
-                    $template = EmailTemplate::where('owner_user_id', $ownerUserId)->where('category', EMAIL_TEMPLATE_SIGN_UP)->where('status', ACTIVE)->first();
-                    if ($template) {
-                        $customizedFieldsArray = [
-                            '{{email}}' => $user->email,
-                            '{{password}}' => $password,
-                            '{{app_name}}' => getOption('app_name')
-                        ];
-                        $content = getEmailTemplate($template->body, $customizedFieldsArray);
-                        $mailService->sendCustomizeMail($emails, $template->subject, $content);
-                    } else {
-                        $mailService->sendSignUpMail($emails, $subject, $message, $ownerUserId, $password);
-                    }
-                }
+            if($request->tenant_id){
+                $data = Tenant::findOrFail($request->tenant_id);
+            }else{
+                $data = new Tenant();
             }
-            $data = $tenant;
-            $data->step = 'nextStep1';
-            $message = $request->id ? __(UPDATED_SUCCESSFULLY) : __(CREATED_SUCCESSFULLY);
-            return $this->success($data, $message);
-        } catch (Exception $e) {
-            DB::rollBack();
-            $message = getErrorMessage($e, $e->getMessage());
-            return $this->error([],  $message);
-        }
-    }
-
-    public function step2(Request $request)
-    {
-        DB::beginTransaction();
-        try {
-            $unitExist = Tenant::where('owner_user_id', auth()->id())->where('unit_id', $request->unit_id)->where('status', TENANT_STATUS_ACTIVE)->whereNot('id', $request->id)->first();
-            if (!is_null($unitExist)) {
-                throw new Exception(__('Unit already Used'));
-            }
-            $tenant = Tenant::where('owner_user_id', auth()->id())->findOrFail($request->id);
-            $tenant->property_id = $request->property_id;
-            $tenant->unit_id = $request->unit_id;
-            $tenant->lease_start_date = $request->lease_start_date;
-            $tenant->lease_end_date = $request->lease_end_date;
-            $tenant->general_rent = $request->general_rent;
-            $tenant->security_deposit_type = $request->security_deposit_type;
-            $tenant->security_deposit = $request->security_deposit;
-            $tenant->late_fee_type = $request->late_fee_type;
-            $tenant->late_fee = $request->late_fee;
-            $tenant->incident_receipt = $request->incident_receipt;
-            $tenant->due_date = $request->due_date;
-            $tenant->save();
-
-            DB::commit();
-            $data = $tenant;
-            $data->step = 'nextStep2';
-            $message = __(UPDATED_SUCCESSFULLY);
-            return $this->success($data, $message);
-        } catch (Exception $e) {
-            DB::rollBack();
-            $message = getErrorMessage($e, $e->getMessage());
-            return $this->error([],  $message);
-        }
-    }
-
-    public function step3(Request $request)
-    {
-        DB::beginTransaction();
-        try {
-            $tenant = Tenant::where('owner_user_id', auth()->id())->findOrFail($request->id);
-            $tenant->status = TENANT_STATUS_ACTIVE;
-            $tenant->save();
-            /*File Manager Call upload*/
-            if ($request->file('file')) {
-                $new_file = new FileManager();
-                $upload = $new_file->upload('Tenant', $request->file);
-
-                if ($upload['status']) {
-                    $upload['file']->origin_id = $tenant->id;
-                    $upload['file']->origin_type = "App\Models\Tenant";
-                    $upload['file']->save();
-                } else {
-                    throw new Exception($upload['message']);
-                }
-            }
-            /*End*/
-            DB::commit();
-            $data = $tenant;
-            $data->step = 'lastStep';;
-            $message = __(UPDATED_SUCCESSFULLY);
+            $data->first_name = $request->first_name;
+            $data->last_name = $request->last_name;
+            $data->partner_first_name = $request->partner_first_name;
+            $data->partner_last_name = $request->partner_last_name;
+            $data->address = $request->address;
+            $data->phone_number = $request->phone_number;
+            $data->cellphone_number = $request->cellphone_number;
+            $data->working_place_name = $request->workplace_name;
+            $data->working_place_address = $request->workplace_address;
+            $data->working_place_contact = $request->workplace_contact;
+            $data->working_place_email = $request->workplace_email;
+            $data->guarantor_first_name = $request->guarantor_first_name;
+            $data->guarantor_last_name = $request->guarantor_last_name;
+            $data->guarantor_address = $request->guarantor_address;
+            $data->guarantor_phone_number = $request->guarantor_phone_number;
+            $data->guarantor_cellphone_number = $request->guarantor_cellphone_number;
+            $data->guarantor_working_place_name = $request->guarantor_workplace_name;
+            $data->guarantor_working_place_address = $request->guarantor_workplace_address;
+            $data->guarantor_working_place_contact = $request->guarantor_workplace_contact;
+            $data->guarantor_working_place_email = $request->guarantor_workplace_email;
+            $data->building_name = $request->building_name;
+            $data->apartment_number = $request->apartment_number;
+            $data->check_in_date = $request->check_in_date;
+            $data->check_out_date = $request->check_out_date;
+            $data->contract_date = $request->contract_date;
+            $data->monthly_fees = $request->monthly_fees;
+            $data->deposit_amount = $request->deposit_amount;
+            $data->deposit_type = $request->payment_type;
+            $data->monthly_due_date = $request->monthly_due_date;
+            $data->late_fees = $request->late_fees;
+            $data->dob = $request->dob;
+            $data->save();
+            $message = $request->tenant_id ? __(UPDATED_SUCCESSFULLY) : __(CREATED_SUCCESSFULLY);
             return $this->success($data, $message);
         } catch (Exception $e) {
             DB::rollBack();
@@ -481,20 +329,16 @@ class TenantService
         }
     }
 
-    public function delete($request)
+    public function delete($id)
     {
         DB::beginTransaction();
         try {
-            $tenant = Tenant::where('owner_user_id', auth()->id())->findOrFail($request->tenant_id);
-            if ($tenant->user->email != $request->email) {
-                throw new Exception(__('Tenant Not Found'));
-            }
-            User::findOrFail($tenant->user_id)->delete();
-            TenantDetails::where('tenant_id', $tenant->id)->delete();
+            $tenant = Tenant::findOrFail($id);
             $tenant->delete();
             DB::commit();
             $message = __(DELETED_SUCCESSFULLY);
-            return $this->success([], $message);
+            // return $this->success([], $message);
+            return redirect()->route('owner.tenant.index');
         } catch (Exception $e) {
             DB::rollBack();
             $message = getErrorMessage($e, $e->getMessage());

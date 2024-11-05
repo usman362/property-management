@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Owner;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MaintainerRequest;
 use App\Services\MaintainerService;
-use App\Services\PropertyService;
 use App\Traits\ResponseTrait;
 use Exception;
 use Illuminate\Http\Request;
@@ -14,18 +13,15 @@ class MaintainerController extends Controller
 {
     use ResponseTrait;
     public $maintainerService;
-    public $propertyService;
 
     public function __construct()
     {
         $this->maintainerService = new MaintainerService;
-        $this->propertyService = new PropertyService;
     }
 
     public function index(Request $request)
     {
-        $data['pageTitle'] = __('Maintainer');
-        $data['properties'] = $this->propertyService->getAll();
+        $data['pageTitle'] = __('Maintenance');
         if ($request->ajax()) {
             return $this->maintainerService->getAllData();
         }

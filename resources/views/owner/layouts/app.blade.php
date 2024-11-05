@@ -49,7 +49,6 @@
 
     <!-- App Custom js -->
     <script src="{{ asset('assets/js/custom.js') }}"></script>
-    <input type="hidden" id="topSearchRoute" value="{{ route('owner.top.search') }}">
 </body>
 
 </html>

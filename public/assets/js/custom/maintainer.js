@@ -3,7 +3,7 @@ $(document).on('click', '.add', function () {
     selector.find('.is-invalid').removeClass('is-invalid');
     selector.find('.error-message').remove();
     selector.modal('show');
-    selector.find('#addMaintainerModalLabel').html('Add Maintainer');
+    selector.find('#addMaintainerModalLabel').html('Add Maintenance');
     selector.find('form').trigger("reset");
     selector.find('#id').val('');
 });
@@ -17,22 +17,58 @@ function getDataEditRes(response) {
     selector.find('.is-invalid').removeClass('is-invalid');
     selector.find('.error-message').remove();
     selector.modal('show');
-    selector.find('#addMaintainerModalLabel').html('Edit Maintainer')
+    selector.find('#addMaintainerModalLabel').html('Edit Maintenance')
     selector.find('#id').val(response.data.id)
-    selector.find('#user_id').val(response.data.user_id)
-    selector.find('.image').attr('src', response.data.image)
-    var ids = [];
-    for (var i = 0; i < response.data.properties.length; i++) {
-        ids.push(response.data.properties[i].id.toString());
-    }
-    selector.find('.property_id').selectpicker('val', ids).trigger('change');
+    selector.find('#building_name').val(response.data.building_name)
+    selector.find('#apartment_number').val(response.data.apartment_number)
+    selector.find('#date').val(response.data.date)
+    selector.find('#repair_fees').val(response.data.repair_fees)
+    selector.find('#utensils_fees').val(response.data.utensils_fees)
+    selector.find('#repair_details').val(response.data.repair_details)
+    selector.find('#monthly_maintenance_fees').val(response.data.monthly_maintenance_fees)
+    let mtypeData = [
+        'Plumber',
+        'Electric',
+        'Structure',
+        'Other'
+    ];
+    let mtype_html = '';
+    mtypeData.forEach((unit) => {
+        if (unit === response.data.maintenance_type) {
+            mtype_html += '<option value="' + unit + '" selected>' + unit + '</option>';
+        } else {
+            mtype_html += '<option value="' + unit + '">' + unit + '</option>';
+        }
+    });
+    selector.find('#maintenance_type').html(mtype_html);
 
+    let statusData = [
+        'Checked In',
+        'Checked Out'
+    ];
+    let status_html = '';
+    statusData.forEach((status) => {
+        if (status === response.data.status) {
+            status_html += '<option value="' + status + '" selected>' + status + '</option>';
+        } else {
+            status_html += '<option value="' + status + '">' + status + '</option>';
+        }
+    });
+    selector.find('#status').html(status_html);
 
-    selector.find('.first_name').val(response.data.first_name)
-    selector.find('.last_name').val(response.data.last_name)
-    selector.find('.email').val(response.data.email)
-    selector.find('.contact_number').val(response.data.contact_number)
-    selector.find('.status').val(response.data.status)
+    let servicesData = [
+        'Included',
+        'No Included'
+    ];
+    let services_html = '';
+    servicesData.forEach((service) => {
+        if (service === response.data.services_included) {
+            services_html += '<option value="' + service + '" selected>' + service + '</option>';
+        } else {
+            services_html += '<option value="' + service + '">' + service + '</option>';
+        }
+    });
+    selector.find('#services_included').html(services_html);
 }
 
 (function ($) {
@@ -62,13 +98,15 @@ function getDataEditRes(response) {
         },
         columns: [
             { "data": 'DT_RowIndex', "name": 'DT_RowIndex', orderable: false, searchable: false },
-            { "data": "image" },
-            { "data": "name", "name": "users.first_name" },
-            { "data": "name", "visible": false, "name": "users.last_name" },
-            { "data": "email", "name": "users.email" },
-            { "data": "contact_number", "name": "users.contact_number" },
-            { "data": "property", "name": "properties.name" },
+            { "data": "building_name" },
+            { "data": "apartment_number"},
             { "data": "status" },
+            { "data": "maintenance_type"},
+            { "data": "date" },
+            { "data": "repair_fees"},
+            { "data": "utensils_fees" },
+            { "data": "monthly_maintenance_fees" },
+            { "data": "services_included" },
             { "data": "action", "class": "text-end" },
         ]
     });

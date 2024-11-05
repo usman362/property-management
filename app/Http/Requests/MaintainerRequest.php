@@ -27,30 +27,18 @@ class MaintainerRequest extends FormRequest
      */
     public function rules()
     {
-        $userId = isset($this->user_id) ? $this->user_id : null;
         $rules = [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|unique:users,email,' . $userId,
-            'contact_number' => 'bail|required|numeric|unique:users,contact_number,' . $userId,
-            'password' => (is_null($userId)) ? 'required|min:6' : 'nullable',
-            'property_id' => 'required',
+            'building_name' => 'required|string|max:255',
+            'apartment_number' => 'required|string|max:100',
+            'status' => 'required|in:Checked In,Checked Out',
+            'maintenance_type' => 'required|in:Plumber,Electric,Structure,Other',
+            'repair_fees' => 'nullable|numeric|min:0',
+            'utensils_fees' => 'nullable|numeric|min:0',
+            'repair_details' => 'nullable|string|max:1000',
+            'monthly_maintenance_fees' => 'nullable|numeric|min:0',
+            'services_included' => 'required|in:Included,Not Included',
         ];
+        
         return $rules;
-    }
-
-    public function failedValidation(Validator $validator)
-    {
-        if ($this->header('accept') == "application/json") {
-            $error = '';
-            if ($validator->fails()) {
-                $error = $validator->errors()->first();
-            }
-            return $this->validationErrorApi($validator, $error);
-        } else {
-            throw (new ValidationException($validator))
-                ->errorBag($this->errorBag)
-                ->redirectTo($this->getRedirectUrl());
-        }
     }
 }

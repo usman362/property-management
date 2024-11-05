@@ -51,56 +51,16 @@
                     </ul>
                 </li>
 
-                @if (isAddonInstalled('PROTYLISTING') > 0)
-                    @if (getOption('LISTING_STATUS', 0) == ACTIVE)
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow">
-                                <i class="ri-information-line"></i>
-                                <span>{{ __('My Listing') }}</span>
-                            </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                <li>
-                                    <a href="{{ route('owner.listing.create') }}">{{ __('Upload List') }}</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('owner.listing.index') }}">{{ __('All List') }}</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('owner.listing.contact') }}">{{ __('Contact List') }}</a>
-                                </li>
-                            </ul>
-                        </li>
-                    @endif
-                @endif
-
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="ri-account-circle-line"></i>
-                        <span>{{ __('Maintains') }}</span>
+                        <span>{{ __('Maintenance') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{ route('owner.maintainer.index') }}">{{ __('Maintainers') }}</a></li>
-                        <li><a
-                                href="{{ route('owner.maintenance-request.index') }}">{{ __('Maintenance Request') }}</a>
-                        </li>
+                        <li><a href="{{ route('owner.maintainer.index') }}">{{ __('Maintenance') }}</a></li>
+                        {{-- <li><a href="{{ route('owner.maintenance-request.index') }}">{{ __('Maintenance Request') }}</a></li> --}}
                     </ul>
                 </li>
-            {{--@if (isAddonInstalled('PROTYSAAS') < 1 || ownerCurrentPackage(auth()->id())?->ticket_support == ACTIVE)
-                    <li>
-                        <a href="{{ route('owner.ticket.index') }}">
-                            <i class="ri-bookmark-2-line"></i>
-                            <span>{{ __('Tickets') }}</span>
-                        </a>
-                    </li>
-                @endif --}}
-                {{-- @if (isAddonInstalled('PROTYSAAS') < 1 || ownerCurrentPackage(auth()->id())?->notice_support == ACTIVE)
-                    <li>
-                        <a href="{{ route('owner.noticeboard.index') }}">
-                            <i class="ri-artboard-line"></i>
-                            <span>{{ __('Notice Board') }}</span>
-                        </a>
-                    </li>
-                @endif --}}
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
@@ -118,9 +78,6 @@
                         <li>
                             <a href="{{ route('owner.reports.expenses') }}">{{ __('Expenses') }}</a>
                         </li>
-                        {{-- <li>
-                            <a href="{{ route('owner.reports.lease') }}">{{ __('Lease') }}</a>
-                        </li> --}}
                         <li>
                             <a href="{{ route('owner.reports.occupancy') }}">{{ __('Occupancy') }}</a>
                         </li>
@@ -132,52 +89,7 @@
                         </li>
                     </ul>
                 </li>
-                {{-- <li>
-                    <a href="{{ route('owner.setting.gateway.index') }}">
-                        <i class="ri-settings-3-line"></i>
-                        <span>{{ __('Settings') }}</span>
-                    </a>
-                </li> --}}
 
-                @if (isAddonInstalled('PROTYSMS') > 0)
-                    <li>
-                        <a href="javascript: void(0);" class="has-arrow">
-                            <i class="ri-mail-send-line"></i>
-                            <span>{{ __('Bulk Sms/Mail') }}</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li>
-                                <a href="{{ route('sms-mail.sms') }}">{{ __('Sms') }}</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('sms-mail.mail') }}">{{ __('Email') }}</a>
-                            </li>
-                            @if (isAddonInstalled('PROTYSMS') > 2)
-                                <li>
-                                    <a href="{{ route('sms-mail.template.index') }}">{{ __('Email Template') }}</a>
-                                </li>
-                            @endif
-                        </ul>
-                    </li>
-                @endif
-                @if (isAddonInstalled('PROTYAGREEMENT') > 0)
-                    <li>
-                        <a href="{{ route('owner.agreement.index') }}">
-                            <i class="ri-contacts-line"></i>
-                            <span>{{ __('Agreement') }}</span>
-                        </a>
-                    </li>
-                @endif
-                @if (isAddonInstalled('PROTYTENANCY') > 0)
-                    @if (env('TENANCY_STATUS') == ACTIVE)
-                        <li>
-                            <a href="{{ route('owner.domain.index') }}">
-                                <i class="ri-cloud-line"></i>
-                                <span>{{ __('Domain Config') }}</span>
-                            </a>
-                        </li>
-                    @endif
-                @endif
                 <li>
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="ri-account-circle-line"></i>
@@ -189,14 +101,6 @@
                         <li><a href="{{ route('change-password') }}">{{ __('Change Password') }}</a></li>
                     </ul>
                 </li>
-                @if (isAddonInstalled('PROTYSAAS') > 1)
-                    <li>
-                        <a href="{{ route('owner.subscription.index') }}">
-                            <i class="ri-exchange-dollar-fill"></i>
-                            <span>{{ __('My Subscription') }}</span>
-                        </a>
-                    </li>
-                @endif
             </ul>
         </div>
         <!-- Sidebar -->

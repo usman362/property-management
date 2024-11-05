@@ -24,47 +24,39 @@ class TenantRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'step' => 'required'
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'partner_first_name' => 'nullable|string|max:255',
+            'partner_last_name' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:500',
+            'phone_numbers' => 'nullable|string|max:255',
+            'cellphone_numbers' => 'nullable|string|max:255',
+            'working_place_name' => 'nullable|string|max:255',
+            'working_place_address' => 'nullable|string|max:500',
+            'working_place_contact' => 'nullable|string|max:255',
+            'working_place_email' => 'nullable|email|max:255',
+            'guarantor_first_name' => 'nullable|string|max:255',
+            'guarantor_last_name' => 'nullable|string|max:255',
+            'guarantor_address' => 'nullable|string|max:500',
+            'guarantor_phone_numbers' => 'nullable|string|max:255',
+            'guarantor_cellphone_numbers' => 'nullable|string|max:255',
+            'guarantor_working_place_name' => 'nullable|string|max:255',
+            'guarantor_working_place_address' => 'nullable|string|max:500',
+            'guarantor_working_place_contact' => 'nullable|string|max:255',
+            'guarantor_working_place_email' => 'nullable|email|max:255',
+            'building_name' => 'nullable|string|max:255',
+            'apartment_number' => 'nullable|string|max:50',
+            'check_in_date' => 'nullable|date',
+            'check_out_date' => 'nullable|date|after_or_equal:check_in_date',
+            'contract_date' => 'nullable|date',
+            'monthly_fees' => 'nullable|numeric|min:0',
+            'deposit_amount' => 'nullable|numeric|min:0',
+            'deposit_type' => 'nullable|in:cash,deposit',
+            'monthly_due_day' => 'nullable|integer|between:1,31',
+            'late_fees' => 'nullable|numeric|min:0',
         ];
-        if ($this->step == FORM_STEP_ONE) {
-            $userId = isset($this->user_id) ? $this->user_id : null;
-            $rules = [
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'email' => 'required|unique:users,email,' . $userId,
-                'contact_number' => 'required|unique:users,contact_number,' . $userId,
-                'password' => (is_null($userId)) ? 'required' : 'nullable',
-                'permanent_address' => 'required',
-                'permanent_country_id' => 'required',
-                'permanent_state_id' => 'required',
-                'permanent_city_id' => 'required',
-                'permanent_zip_code' => 'required',
-                'family_member' => 'required|numeric',
-                'age' => 'numeric',
-                'job' => 'required',
-            ];
-        }
-        if ($this->step == FORM_STEP_TWO) {
-            $rules = [
-                'property_id' => 'required',
-                'unit_id' => 'required',
-                'lease_start_date' => 'required',
-                'general_rent' => 'required|min:1|numeric',
-                'due_date' => 'required',
-            ];
-        }
 
         return $rules;
     }
 
-    public function messages()
-    {
-        return [
-            'permanent_address.required' => 'The address field is required.',
-            'permanent_country_id.required' => 'The country field is required.',
-            'permanent_state_id.required' => 'The state is required.',
-            'permanent_city_id.required' => 'The city is required.',
-            'permanent_zip_code.required' => 'The zip is required.',
-        ];
-    }
 }
