@@ -85,21 +85,6 @@
                                                             </div>
                                                             <div class="col-md-12 mb-25">
                                                                 <label
-                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Default Currency') }}</label>
-                                                                <select name="currency_id"
-                                                                    class="form-select flex-shrink-0">
-                                                                    <option value="">{{ __('Select Option') }}
-                                                                    </option>
-                                                                    @foreach ($currencies as $currency)
-                                                                        <option value="{{ $currency->id }}"
-                                                                            {{ $currency->id == @$current_currency->id ? 'selected' : '' }}>
-                                                                            {{ $currency->currency_code . '(' . $currency->symbol . ')' }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-md-12 mb-25">
-                                                                <label
                                                                     class="label-text-title color-heading font-medium mb-2">{{ __('Default Language') }}</label>
                                                                 <select name="language_id"
                                                                     class="form-select flex-shrink-0">

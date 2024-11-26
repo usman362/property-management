@@ -178,10 +178,6 @@ class MaintenanceRequestService
                 }
             }
             /*End*/
-            $property = Property::find($request->property_id);
-            if (isset($property)) {
-                addNotification(__('New maintenance Request'), $request->details, null, null, $property->maintainer_id, auth()->id());
-            }
 
             DB::commit();
             $message = $request->id ? __(UPDATED_SUCCESSFULLY) : __(CREATED_SUCCESSFULLY);

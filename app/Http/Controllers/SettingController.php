@@ -20,8 +20,6 @@ class SettingController extends Controller
         $data['subGeneralSettingActiveClass'] = 'active';
         $data['navApplicationSettingParentActiveClass'] = 'mm-active';
         $data['subNavGeneralSettingActiveClass'] = 'mm-active';
-        $data['currencies'] = Currency::all();
-        $data['current_currency'] = Currency::where('current_currency', 'on')->first();
         $data['languages'] = Language::all();
         $data['default_language'] = Language::where('default', 1)->first();
         return view('owner.setting.general-setting')->with($data);

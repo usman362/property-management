@@ -20,18 +20,7 @@ class ProfileController extends Controller
     public function myProfile()
     {
         $data['pageTitle'] = __('My Profile');
-        if (auth()->user()->role == USER_ROLE_OWNER) {
-            $data['owner'] = Owner::query()
-                ->leftJoin('file_managers', 'owners.logo_id', '=', 'file_managers.id')
-                ->where('user_id', auth()->id())
-                ->select(['owners.print_name', 'owners.print_address', 'owners.print_contact', 'file_managers.folder_name', 'file_managers.file_name'])
-                ->first();
-        }
 
-        if (auth()->user()->role == USER_ROLE_TENANT) {
-            $data['tenant'] = Tenant::where('user_id', auth()->id())->first();
-            $data['details'] = TenantDetails::where('tenant_id', $data['tenant']->id)->first();
-        }
         return view('common.profile.my-profile', $data);
     }
 

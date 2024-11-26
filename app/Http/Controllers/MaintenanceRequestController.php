@@ -43,7 +43,6 @@ class MaintenanceRequestController extends Controller
     public function getInfo(Request $request)
     {
         $data = $this->maintenanceRequestService->getInfo($request->id);
-        $data->units = $this->propertyService->getUnitsByPropertyId($data->property_id)->getData()->data;
         return $this->success($data);
     }
 
