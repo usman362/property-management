@@ -33,6 +33,9 @@ class  BuildingController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+        ]);
         return $this->buildingService->store($request);
     }
 

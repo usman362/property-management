@@ -28,16 +28,6 @@ class PropertyInformationRequest extends FormRequest
             'apartment_name' => 'required',
             'floor' => 'required',
             'monthly_rental_price' => 'required',
-            'balcony_area' => 'required',
-            'living_room_area' => 'required',
-            'dining_room_area' => 'required',
-            'kitchen_area' => 'required',
-            'alley_area' => 'required',
-            'main_bedroom_area' => 'required',
-            'second_bedroom_area' => 'required',
-            'third_bedroom_area' => 'required',
-            'bathroom_area' => 'required',
-            'public_area' => 'required',
         ];
 
         return $rules;

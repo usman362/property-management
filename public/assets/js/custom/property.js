@@ -17,27 +17,7 @@ function stepChange(response) {
         output = output + response['message'];
         type = 'success';
         toastr.success(response.data.message)
-        $('#addHtmlForm').html(response.data.view)
-        stepActiveClass(response.data.step)
-        if (response.data.step == 4) {
-            propertyUnitIds = response.data.propertyUnitIds
-        }
-        if (response.data.property.property_detail) {
-            country_id = response.data.property.property_detail.country_id;
-            state_id = response.data.property.property_detail.state_id;
-            city_id = response.data.property.property_detail.city_id;
-            if (country_id) {
-                getStateByCountryId(country_id)
-            }
-            if (state_id) {
-                getCitiesByState(state_id)
-            }
-        }
-        datePicker()
-        if (response.data.step == 5) {
-            thumbmnilImage()
-            dropzone()
-        }
+        window.location.href = '/apartments/all-apartments';
         // alertAjaxMessage(type, output);
     } else {
         commonHandler(response)

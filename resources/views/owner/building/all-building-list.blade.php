@@ -64,6 +64,7 @@
                 </div>
                 <form class="ajax" action="{{ route('building.store') }}" method="post"
                     enctype="multipart/form-data" data-handler="getShowMessage">
+                    @csrf
                     <input type="hidden" name="building_id" class="id">
                     <div class="modal-body">
                         <div class="modal-inner-form-box border-bottom mb-25">

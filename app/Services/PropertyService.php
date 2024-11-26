@@ -103,25 +103,29 @@ class PropertyService
 
             if (!empty($request->images)) {
                 foreach ($request->images as $image) {
-                    $apartmentMedia = new ApartmentMedia();
-                    $apartmentMedia->apartment_id = $apartment->id;
-                    $uniqueName = uniqid() . '___' . str_replace(' ', '_', $image->getClientOriginalName());
-                    $filePath = $image->storeAs("/apartment/images", $uniqueName, "public");
-                    $apartmentMedia->media = $filePath;
-                    $apartmentMedia->media_type = 'image';
-                    $apartmentMedia->save();
+                    if ($image !== null) {
+                        $apartmentMedia = new ApartmentMedia();
+                        $apartmentMedia->apartment_id = $apartment->id;
+                        $uniqueName = uniqid() . '___' . str_replace(' ', '_', $image->getClientOriginalName());
+                        $filePath = $image->storeAs("/apartment/images", $uniqueName, "public");
+                        $apartmentMedia->media = $filePath;
+                        $apartmentMedia->media_type = 'image';
+                        $apartmentMedia->save();
+                    }
                 }
             }
 
             if (!empty($request->videos)) {
                 foreach ($request->videos as $videos) {
-                    $apartmentMedia = new ApartmentMedia();
-                    $apartmentMedia->apartment_id = $apartment->id;
-                    $uniqueName = uniqid() . '___' . str_replace(' ', '_', $videos->getClientOriginalName());
-                    $filePath = $videos->storeAs("/apartment/videos", $uniqueName, "public");
-                    $apartmentMedia->media = $filePath;
-                    $apartmentMedia->media_type = 'videos';
-                    $apartmentMedia->save();
+                    if ($videos !== null) {
+                        $apartmentMedia = new ApartmentMedia();
+                        $apartmentMedia->apartment_id = $apartment->id;
+                        $uniqueName = uniqid() . '___' . str_replace(' ', '_', $videos->getClientOriginalName());
+                        $filePath = $videos->storeAs("/apartment/videos", $uniqueName, "public");
+                        $apartmentMedia->media = $filePath;
+                        $apartmentMedia->media_type = 'videos';
+                        $apartmentMedia->save();
+                    }
                 }
             }
 
@@ -139,7 +143,7 @@ class PropertyService
     {
         DB::beginTransaction();
         try {
-            $media = ApartmentMedia::where('apartment_id',$id)->delete();
+            $media = ApartmentMedia::where('apartment_id', $id)->delete();
             $apartment = Apartment::find($id)->delete();
             DB::commit();
             return redirect()->back()->with('success', __(DELETED_SUCCESSFULLY));
@@ -148,5 +152,4 @@ class PropertyService
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
-
 }
