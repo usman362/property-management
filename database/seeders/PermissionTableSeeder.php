@@ -25,7 +25,6 @@ class PermissionTableSeeder extends Seeder
             Permission::firstOrCreate(['name' => $permission]);
         }
 
-
         try {
             $admin = Role::firstOrCreate(['name' => 'Admin']);
             $admin ? $admin->syncPermissions(Permission::pluck("id")->all()) : "";

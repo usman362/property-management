@@ -79,12 +79,6 @@ class SettingController extends Controller
             }
         }
 
-        /**  ====== Set Currency ====== */
-        if ($request->currency_id) {
-            Currency::where('id', $request->currency_id)->update(['current_currency' => 'on']);
-            Currency::where('id', '!=', $request->currency_id)->update(['current_currency' => 'off']);
-        }
-
         /**  ====== Set Language ====== */
         if ($request->language_id) {
             Language::where('id', $request->language_id)->update(['default' => 1]);

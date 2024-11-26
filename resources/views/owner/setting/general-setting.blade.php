@@ -111,19 +111,6 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-12 mb-25">
-                                                                <label
-                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Card Data Show') }}</label>
-                                                                <select name="app_card_data_show"
-                                                                    class="form-select flex-shrink-0">
-                                                                    <option value="1"
-                                                                        {{ getOption('app_card_data_show', 1) == 1 ? 'selected' : '' }}>
-                                                                        {{ __('Cart Show') }}</option>
-                                                                    <option value="2"
-                                                                        {{ getOption('app_card_data_show', 1) != 1 ? 'selected' : '' }}>
-                                                                        {{ __('Table Show') }}</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-md-12 mb-25">
                                                                 <div class="app-logo-favicon-preloader-box">
                                                                     <div class="row">
                                                                         <div class="col-md-4">

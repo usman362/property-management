@@ -46,55 +46,6 @@ class ProfileController extends Controller
                 $user->email = $request->email;
             }
             $user->save();
-            if (auth()->user()->role == USER_ROLE_OWNER) {
-                $owner = Owner::where('user_id', auth()->id())->first();
-                $owner->print_name = $request->print_name;
-                $owner->print_address = $request->print_address;
-                $owner->print_contact = $request->print_contact;
-                $owner->save();
-
-                if ($request->hasFile('print_logo')) {
-                    $existFile = FileManager::where('origin_type', 'App\Models\Owner')->where('id', $owner->logo_id)->first();
-                    if ($existFile) {
-                        $existFile->removeFile();
-                        $upload = $existFile->updateUpload($existFile->id, 'Owner', $request->print_logo);
-                    } else {
-                        $newFile = new FileManager();
-                        $upload = $newFile->upload('Owner', $request->print_logo);
-                    }
-
-                    if ($upload['status']) {
-                        $owner->logo_id =  $upload['file']->id;
-                        $owner->save();
-                        $upload['file']->origin_id = $owner->id;
-                        $upload['file']->origin_type = "App\Models\Owner";
-                        $upload['file']->save();
-                    } else {
-                        throw new Exception($upload['message']);
-                    }
-                }
-            }
-            if (auth()->user()->role == USER_ROLE_TENANT) {
-                $tenant = Tenant::where('user_id', auth()->id())->first();
-                $tenant->job = $request->job;
-                $tenant->family_member = $request->family_member;
-                $tenant->age = $request->age;
-                $tenant->save();
-
-                $details = TenantDetails::where('tenant_id', $tenant->id)->first();
-                $details->permanent_country_id = $request->permanent_country_id;
-                $details->permanent_state_id = $request->permanent_state_id;
-                $details->permanent_city_id = $request->permanent_city_id;
-                $details->permanent_address = $request->permanent_address;
-                $details->permanent_zip_code = $request->permanent_zip_code;
-
-                $details->previous_country_id = $request->previous_country_id;
-                $details->previous_state_id = $request->previous_state_id;
-                $details->previous_city_id = $request->previous_city_id;
-                $details->previous_address = $request->previous_address;
-                $details->previous_zip_code = $request->previous_zip_code;
-                $details->save();
-            }
             /*File Manager Call upload*/
             if ($request->image) {
                 $new_file = FileManager::where('origin_type', 'App\Models\User')->where('origin_id', $user->id)->first();
