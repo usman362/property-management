@@ -62,7 +62,6 @@ class TenantController extends Controller
 
     public function store(TenantRequest $request)
     {
-        dd($request->all());
         return $this->tenantService->store($request);
     }
 

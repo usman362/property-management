@@ -40,7 +40,7 @@
                                     <span class="iconify primary-color" data-icon="material-symbols:garage-home"></span>
                                 </div>
                                 <p class="mt-2">{{ __('Total Units') }}</p>
-                                <h2 class="mt-1">{{ $totalUnits }}</h2>
+                                <h2 class="mt-1">0</h2>
 
                             </div>
                         </div>
@@ -67,30 +67,6 @@
                         </div>
                     </div>
                     <!-- dashboard-feature-item row -->
-
-                    <!-- Chart row -->
-                    <div class="row">
-                        <div class="col-12 col-lg-12 col-xl-12">
-                            <div class="bg-off-white radius-4 mb-25 theme-border p-20 w-100">
-                                <div class="bg-transparent">
-                                    <div class="row align-items-center">
-                                        <div class="col-12">
-                                            <div class="d-flex align-items-center justify-content-between">
-                                                <h4 class="mb-0">{{ __('Rent Overview') }}</h4>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <h2>{{ currencyPrice($yearlyTotalAmount) }}</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <div id="chart1"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Chart row -->
 
                     <div class="row">
                         <div class="col-lg-7">
@@ -172,6 +148,7 @@
                                             <div class="table-responsive">
                                                 <table class="table theme-border p-20">
                                                     <tbody>
+                                                       {{--
                                                         @forelse ($tickets as $ticket)
                                                             <tr>
                                                                 <td>
@@ -201,6 +178,10 @@
                                                                 <td class="text-center">{{ __('No data found') }}</td>
                                                             </tr>
                                                         @endforelse
+                                                       --}}
+                                                       <tr>
+                                                        <td class="text-center">{{ __('No data found') }}</td>
+                                                    </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -217,10 +198,6 @@
 @endsection
 
 @push('script')
-    <script>
-        const MONTHS = @json($months);
-        const INVOICEMONTLYAMOUNT = @json($invoiceMonthlyAmount);
-    </script>
     <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/index-charts.js') }}"></script>
 @endpush
