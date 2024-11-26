@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MaintainerRequest;
+use App\Models\Apartment;
+use App\Models\Building;
 use App\Services\MaintainerService;
 use App\Traits\ResponseTrait;
 use Exception;
@@ -22,6 +24,8 @@ class MaintainerController extends Controller
     public function index(Request $request)
     {
         $data['pageTitle'] = __('Maintenance');
+        $data['apartments'] = Apartment::select('id','apartment_name')->get();
+        $data['buildings'] = Building::select('id','name')->get();
         if ($request->ajax()) {
             return $this->maintainerService->getAllData();
         }

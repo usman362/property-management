@@ -256,15 +256,19 @@ class TenantService
         return $this->success([], __(DELETED_SUCCESSFULLY));
     }
 
-    public function store(Request $request)
+    public function store($request)
     {
         DB::beginTransaction();
         try {
             DB::commit();
             if($request->tenant_id){
                 $data = Tenant::findOrFail($request->tenant_id);
+                if($data->user_id == 0 || $data->user_id == null){
+                    $data->user_id = auth()->user()->id;
+                }
             }else{
                 $data = new Tenant();
+                $data->user_id = auth()->user()->id;
             }
             $data->first_name = $request->first_name;
             $data->last_name = $request->last_name;
@@ -286,8 +290,8 @@ class TenantService
             $data->guarantor_working_place_address = $request->guarantor_workplace_address;
             $data->guarantor_working_place_contact = $request->guarantor_workplace_contact;
             $data->guarantor_working_place_email = $request->guarantor_workplace_email;
-            $data->building_name = $request->building_name;
-            $data->apartment_number = $request->apartment_number;
+            $data->building_id = $request->building_id;
+            $data->apartment_id = $request->apartment_id;
             $data->check_in_date = $request->check_in_date;
             $data->check_out_date = $request->check_out_date;
             $data->contract_date = $request->contract_date;
@@ -296,7 +300,8 @@ class TenantService
             $data->deposit_type = $request->payment_type;
             $data->monthly_due_date = $request->monthly_due_date;
             $data->late_fees = $request->late_fees;
-            $data->dob = $request->dob;
+            $data->date = $request->date;
+            $data->status = $request->status ?? 'pending';
             $data->save();
             $message = $request->tenant_id ? __(UPDATED_SUCCESSFULLY) : __(CREATED_SUCCESSFULLY);
             return $this->success($data, $message);

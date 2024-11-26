@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CommonController;
 use App\Http\Controllers\NotificationController;
@@ -15,7 +16,9 @@ use App\Http\Controllers\MaintainerController;
 use App\Http\Controllers\MaintenanceRequestController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\BuildingController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TenantController;
 use App\Models\Language;
 use Carbon\Carbon;
@@ -49,10 +52,21 @@ Route::get('/local/{ln}', function ($ln) {
     return redirect()->back();
 })->name('local');
 
-Route::group(['middleware' => ['version.update', 'addon.update', 'isFrontend']], function () {
-    Route::get('/', [CommonController::class, 'index'])->name('frontend');
-    Route::get('recurring-generate-invoice', [CommonController::class, 'generateInvoice'])->name('recurring.generate.invoice');
-});
+// Route::group(['middleware' => ['version.update', 'addon.update', 'isFrontend']], function () {
+//     Route::get('/', [CommonController::class, 'index'])->name('frontend');
+//     Route::get('recurring-generate-invoice', [CommonController::class, 'generateInvoice'])->name('recurring.generate.invoice');
+// });
+
+
+// Frontend Pages
+
+Route::get('/',[HomeController::class,'index'])->name('home.index');
+Route::get('/apartments',[HomeController::class,'apartments'])->name('home.apartments');
+Route::get('/apartment-details/{id}',[HomeController::class,'apartmentDetail'])->name('apartment.details');
+Route::get('/buildings',[HomeController::class,'buildings'])->name('home.buildings');
+Route::get('/building-details/{id}',[HomeController::class,'buildingDetail'])->name('building.show');
+Route::post('/apartment-comment/{id}',[HomeController::class,'storeApartmentComment'])->name('store.ApartmentComment');
+Route::post('/application-store', [HomeController::class, 'applicationStore'])->name('application.store');
 
 Route::group(['middleware' => ['auth', 'version.update']], function () {
     Route::get('/logout', [LoginController::class, 'logout']);
@@ -88,15 +102,18 @@ Route::get('version-check', [VersionUpdateController::class, 'versionCheck'])->n
 // New Routes
 
 Route::group(['middleware' => ['auth', 'owner']], function () {
-    Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
-    Route::group(['prefix' => 'property', 'as' => 'property.'], function () {
-        Route::get('all-property', [PropertyController::class, 'allProperty'])->name('allProperty');
+    Route::group(['prefix' => 'apartments', 'as' => 'property.'], function () {
+        Route::get('all-apartments', [PropertyController::class, 'allProperty'])->name('allProperty');
         Route::get('add', [PropertyController::class, 'add'])->name('add');
         Route::get('show/{id}', [PropertyController::class, 'show'])->name('show');
         Route::get('edit/{id}', [PropertyController::class, 'edit'])->name('edit');
         Route::delete('destroy/{id}', [PropertyController::class, 'destroy'])->name('destroy');
         Route::get('delete/{id}', [PropertyController::class, 'destroy'])->name('delete');
+        Route::post('property-information/store', [PropertyController::class, 'propertyInformationStore'])->name('property-information.store');
+        Route::get('comments', [PropertyController::class, 'comments'])->name('comments');
+        Route::get('apartment-comment-status', [PropertyController::class, 'commentStatus'])->name('apartmentComments.status');
     });
 
     Route::group(['prefix' => 'building', 'as' => 'building.'], function () {
@@ -114,6 +131,11 @@ Route::group(['middleware' => ['auth', 'owner']], function () {
         Route::post('store', [TenantController::class, 'store'])->name('store');
         Route::get('details/{id}', [TenantController::class, 'details'])->name('details');
         Route::get('delete/{id}', [TenantController::class, 'delete'])->name('delete');
+    });
+
+    Route::group(['prefix' => 'applications', 'as' => 'applications.'], function () {
+        Route::get('/', [ApplicationController::class, 'index'])->name('index');
+        Route::get('status', [ApplicationController::class, 'changeStatus'])->name('status');
     });
 
     Route::group(['prefix' => 'information', 'as' => 'information.'], function () {
@@ -146,5 +168,23 @@ Route::group(['middleware' => ['auth', 'owner']], function () {
         Route::get('occupancy', [ReportController::class, 'occupancy'])->name('occupancy');
         Route::get('maintenance', [ReportController::class, 'maintenance'])->name('maintenance');
         Route::get('tenant', [ReportController::class, 'tenant'])->name('tenant');
+        Route::get('apartment', [ReportController::class, 'apartment'])->name('apartment');
+    });
+
+    Route::group(['prefix' => 'setting', 'as' => 'setting.'], function () {
+        Route::get('general-setting', [SettingController::class, 'generalSetting'])->name('general-setting');
+        Route::post('general-settings-update', [SettingController::class, 'generalSettingUpdate'])->name('general-setting.update');
+        Route::get('color-setting', [SettingController::class, 'colorSetting'])->name('color-setting');
+        Route::get('smtp-setting', [SettingController::class, 'smtpSetting'])->name('smtp.setting');
+        Route::get('recaptcha-setting', [SettingController::class, 'recaptchaSetting'])->name('recaptcha.setting');
+        Route::get('map-box-setting', [SettingController::class, 'mapBoxSetting'])->name('map-box.setting')->middleware('isDemo');
+        Route::post('general-settings-env-update', [SettingController::class, 'generalSettingEnvUpdate'])->name('general-setting-env.update');
+        Route::get('sms-setting', [SettingController::class, 'smsSetting'])->name('sms.setting');
+        Route::get('tenancy-setting', [SettingController::class, 'tenancySetting'])->name('tenancy.setting');
+        Route::get('frontend-setting', [SettingController::class, 'frontendSetting'])->name('frontend.setting');
+        Route::get('listing-setting', [SettingController::class, 'listingSetting'])->name('listing.setting');
+        Route::get('agreement-setting', [SettingController::class, 'agreementSetting'])->name('agreement.setting');
+        Route::get('reminder-setting', [SettingController::class, 'reminderSetting'])->name('reminder.setting');
+        Route::get('cron-setting', [SettingController::class, 'cronSetting'])->name('cron.setting');
     });
 });

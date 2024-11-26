@@ -3,11 +3,14 @@
 namespace App\Services;
 
 use App\Http\Requests\MaintainerRequest;
+use App\Models\Apartment;
 use App\Models\Expense;
 use App\Models\Invoice;
 use App\Models\MaintenanceRequest;
 use App\Models\Property;
+use App\Models\Repair;
 use App\Models\Tenant;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class ReportService
@@ -231,29 +234,31 @@ class ReportService
             ->make(true);
     }
 
-    public function maintenance()
+    public function maintenance($request)
     {
-        $maintenance = MaintenanceRequest::query()
-            ->join('properties', 'maintenance_requests.property_id', '=', 'properties.id')
-            ->join('property_units', 'maintenance_requests.unit_id', '=', 'property_units.id')
-            ->join('tenants', 'maintenance_requests.unit_id', '=', 'tenants.unit_id')
-            ->join('users', 'tenants.user_id', '=', 'users.id')
-            ->join('maintenance_issues', 'maintenance_requests.issue_id', '=', 'maintenance_issues.id')
-            ->whereNull('users.deleted_at')
-            ->where('maintenance_requests.owner_user_id', auth()->id())
-            ->select('maintenance_requests.*', 'properties.name as property_name', 'maintenance_issues.name as issue_name', 'property_units.unit_name', 'users.first_name', 'users.last_name');
+
+        $year = request('year');
+        $month = request('month');
+        $apartment = request('apartment_id');
+
+        $maintenance = Repair::when($year, function ($query) use ($year) {
+            $query->whereYear('date', $year);
+        })->when($month, function ($query) use ($month) {
+            $query->whereMonth('date', Carbon::parse($month)->format('m') );
+        })->when($apartment, function ($query) use ($apartment) {
+            $query->where('apartment_id', $apartment);
+        })->get();
         return datatables($maintenance)
             ->addIndexColumn()
-            ->addColumn('tenant_name', function ($maintenance) {
-                return $maintenance->first_name . ' ' . $maintenance->last_name;
+            ->addColumn('apartment_name', function($row){
+                return $row->apartment->apartment_name ?? '';
             })
             ->addColumn('status', function ($maintenance) {
-                if ($maintenance->status == MAINTENANCE_REQUEST_STATUS_COMPLETE) {
-                    return '<div class="status-btn status-btn-green font-13 radius-4">' . __('Completed') . '</div>';
-                } elseif ($maintenance->status == MAINTENANCE_REQUEST_STATUS_INPROGRESS) {
-                    return '<div class="status-btn status-btn-orange font-13 radius-4">' . __('In Progress') . '</div>';
-                } else {
-                    return '<div class="status-btn status-btn-red font-13 radius-4">' . __('Pending') . '</div>';
+                if ($maintenance->status == 'Checked Out') {
+                    return '<div class="status-btn status-btn-green font-13 radius-4">' . __('Checked In') . '</div>';
+                }else {
+                    // return '<div class="status-btn status-btn-red font-13 radius-4">' . __('Pending') . '</div>';
+                    return '<div class="status-btn status-btn-orange font-13 radius-4">' . __('Checked Out') . '</div>';
                 }
             })
             ->rawColumns(['status'])
@@ -262,54 +267,62 @@ class ReportService
 
     public function tenant()
     {
-        $tenants = Tenant::query()
-            ->join('users', 'tenants.user_id', '=', 'users.id')
-            ->whereNull('users.deleted_at')
-            ->leftJoin('properties', 'tenants.property_id', '=', 'properties.id')
-            ->leftJoin('property_units', 'tenants.unit_id', '=', 'property_units.id')
-            ->leftJoin(DB::raw('(select tenant_id, SUM(amount) as paid from invoices where status = 1 group By tenant_id) as inv_paid'), ['inv_paid.tenant_id' => 'tenants.id'])
-            ->leftJoin(DB::raw('(select tenant_id, SUM(amount) as due from invoices where status = 0 group By tenant_id) as inv_due'), ['inv_due.tenant_id' => 'tenants.id'])
-            ->select(['tenants.*', 'inv_paid.paid', 'inv_due.due', 'users.first_name', 'users.last_name', 'users.contact_number', 'users.email', 'property_units.unit_name', 'properties.name as property_name'])
-            ->where('tenants.owner_user_id', auth()->id());
+        $year = request('year');
+        $month = request('month');
+        $apartment = request('apartment_id');
+
+        $tenants = Tenant::when($year, function ($query) use ($year) {
+            $query->whereYear('check_in_date', $year)
+                ->orWhereYear('check_out_date', $year)
+                ->orWhereYear('contract_date', $year);
+        })->when($month, function ($query) use ($month) {
+            $query->whereMonth('check_in_date', $month)
+                ->orWhereMonth('check_out_date', $month)
+                ->orWhereMonth('contract_date', $month);
+        })->when($apartment, function ($query) use ($apartment) {
+            $query->where('apartment_id', $apartment);
+        })->get();
 
         return datatables($tenants)
             ->addIndexColumn()
             ->addColumn('name', function ($tenant) {
                 return $tenant->first_name . ' ' . $tenant->last_name;
             })
-            ->addColumn('email', function ($tenant) {
-                return $tenant->email;
-            })
-            ->addColumn('contact', function ($tenant) {
-                return $tenant->contact_number;
-            })
-            ->addColumn('property', function ($tenant) {
-                return $tenant->property_name;
-            })
-            ->addColumn('unit', function ($tenant) {
-                return $tenant->unit_name;
-            })
-            ->addColumn('paid', function ($tenant) {
-                return currencyPrice($tenant->paid);
-            })
-            ->addColumn('due', function ($tenant) {
-                return currencyPrice($tenant->due);
-            })
-            ->addColumn('status', function ($tenant) {
-                $html = '';
-                if ($tenant->status == TENANT_STATUS_ACTIVE) {
-                    $html = ' <div class="status-btn status-btn-green font-13 radius-4">' . __('Active') . '</div>';
-                } elseif ($tenant->status == TENANT_STATUS_INACTIVE) {
-                    $html = ' <div class="status-btn status-btn-orange font-13 radius-4">' . __('Inactive') . '</div>';
-                } elseif ($tenant->status == TENANT_STATUS_DRAFT) {
-                    $html = ' <div class="status-btn status-btn-blue font-13 radius-4">' . __('Draft') . '</div>';
-                } elseif ($tenant->status == TENANT_STATUS_CLOSE) {
-                    $html = ' <div class="status-btn status-btn-red font-13 radius-4">' . __('Close') . '</div>';
-                }
-                return $html;
+            ->addColumn('apartment_name', function ($tenant) {
+                return $tenant->apartment->apartment_name ?? '';
             })
 
-            ->rawColumns(['name', 'property', 'status'])
+            ->rawColumns(['name','apartment_name'])
+            ->make(true);
+    }
+
+    public function apartment()
+    {
+        $year = request('year');
+        $month = request('month');
+
+        $apartments = Apartment::when($year, function ($query) use ($year) {
+            $query->whereYear('created_at', $year);
+        })->when($month, function ($query) use ($month) {
+            $query->whereMonth('created_at', $month);
+        })->with(['repairs' => function ($query) use ($year, $month) {
+            $query->when($year, function ($query) use ($year) {
+                $query->whereYear('date', $year);
+            })->when($month, function ($query) use ($month) {
+                $query->whereMonth('date', $month);
+            });
+        }])->get();
+
+        return datatables($apartments)
+            ->addIndexColumn()
+            ->addColumn('name', function ($apartment) {
+                return $apartment->first_name . ' ' . $apartment->last_name;
+            })
+            ->addColumn('apartment_name', function ($apartment) {
+                return $apartment->apartment->apartment_name ?? '';
+            })
+
+            ->rawColumns(['name','apartment_name'])
             ->make(true);
     }
 }

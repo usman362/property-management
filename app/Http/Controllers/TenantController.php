@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TenantCloseRequest;
 use App\Http\Requests\TenantDeleteRequest;
 use App\Http\Requests\TenantRequest;
+use App\Models\Apartment;
+use App\Models\Building;
 use App\Models\Property;
 use App\Services\InvoiceTypeService;
 use App\Services\LocationService;
@@ -42,6 +44,8 @@ class TenantController extends Controller
         $data['pageTitle'] = __('Add Tenant');
         $data['subNavAllTenantMMActiveClass'] = 'mm-active';
         $data['subNavAllTenantActiveClass'] = 'active';
+        $data['apartments'] = Apartment::select('id','apartment_name')->get();
+        $data['buildings'] = Building::select('id','name')->get();
         return view('owner.tenants.add', $data);
     }
 
@@ -51,12 +55,14 @@ class TenantController extends Controller
         $data['subNavAllTenantMMActiveClass'] = 'mm-active';
         $data['subNavAllTenantActiveClass'] = 'active';
         $data['tenant'] = $this->tenantService->getDetailsById($id);
+        $data['apartments'] = Apartment::select('id','apartment_name')->get();
+        $data['buildings'] = Building::select('id','name')->get();
         return view('owner.tenants.add', $data);
     }
 
     public function store(TenantRequest $request)
     {
-        // dd($request->all());
+        dd($request->all());
         return $this->tenantService->store($request);
     }
 

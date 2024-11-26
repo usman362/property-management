@@ -11,11 +11,16 @@ class Building extends Model
 
     public function images()
     {
-        return $this->hasMany(BuildingMedia::class, 'id', 'building_id')->where('media_type','image');
+        return $this->hasMany(BuildingMedia::class, 'building_id', 'id')->where('media_type','image');
     }
 
     public function videos()
     {
-        return $this->hasMany(BuildingMedia::class, 'id', 'building_id')->where('media_type','videos');
+        return $this->hasMany(BuildingMedia::class, 'building_id', 'id')->where('media_type','videos');
+    }
+
+    public function apartments()
+    {
+        return $this->hasMany(Apartment::class, 'building_id', 'id');
     }
 }

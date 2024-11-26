@@ -51,6 +51,8 @@
                     <!-- item-->
                     <a class="dropdown-item" href="{{ route('profile') }}"><i
                             class="ri-user-line align-middle me-1"></i> {{ __('Profile') }}</a>
+                    <a class="dropdown-item" href="{{ route('setting.general-setting') }}"><i
+                        class="ri-settings-2-line align-middle me-1"></i> {{ __('Settings') }}</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('logout') }}"><i
                             class="ri-shut-down-line align-middle me-1"></i> {{ __('Logout') }}</a>

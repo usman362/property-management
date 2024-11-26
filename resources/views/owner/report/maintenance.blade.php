@@ -24,6 +24,32 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="tenants-top-bar">
+                            <div class="property-search-inner-bg bg-off-white theme-border radius-4 p-25 pb-0 mb-25">
+                                <form action="">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-25">
+                                            <select class="form-select flex-shrink-0" name="apartment_id" id="apartment_id">
+                                                <option value="" selected>--{{ __('Select Apartment') }}--</option>
+                                                @foreach ($apartments as $apartment)
+                                                    <option value="{{$apartment->id}}">{{$apartment->apartment_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-25">
+                                            <div class="input-group">
+                                                <span class="input-group-text">{{ __('Month') }}</span>
+                                                <input type="month" class="form-control" placeholder="Month"
+                                                    id="month" name="month" aria-label="Month">
+                                                <span class="input-group-text">{{ __('Year') }}</span>
+                                                <input type="text" class="form-control" placeholder="Year"
+                                                    id="year" name="year" aria-label="Year">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                         <div class="notice-board-table-area">
                             <div class="bg-off-white theme-border radius-4 p-25">
                                 <table id="maintenanceReportDataTable"
@@ -31,11 +57,11 @@
                                     <thead>
                                         <tr>
                                             <th>{{ __('SL') }}</th>
-                                            <th class="text-center" data-priority="1">{{ __('Property Name') }}</th>
-                                            <th class="text-center">{{ __('Unit') }}</th>
-                                            <th class="text-center">{{ __('Tenant Name') }}</th>
+                                            <th class="text-center" data-priority="1">{{ __('Apartment Name') }}</th>
+                                            <th class="text-center">{{ __('Date') }}</th>
                                             <th class="text-center">{{ __('Issue') }}</th>
                                             <th class="text-center">{{ __('Status') }}</th>
+                                            <th class="text-center">{{ __('Repair Fees') }}</th>
                                         </tr>
                                     </thead>
                                 </table>

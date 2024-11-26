@@ -23,6 +23,12 @@ class MaintainerService
         $maintainer = Repair::all();
         return datatables($maintainer)
             ->addIndexColumn()
+            ->addColumn('building_name',function($row){
+                return $row->building->name ?? '';
+            })
+            ->addColumn('apartment_number',function($row){
+                return $row->apartment->apartment_name ?? '';
+            })
             ->addColumn('status', function ($maintainer) {
                 if ($maintainer->status == 'Checked In') {
                     return '<div class="status-btn status-btn-green font-13 radius-4">Checked In</div>';
@@ -61,9 +67,10 @@ class MaintainerService
                 $repair = Repair::findOrFail($request->repair_id);
             }else{
                 $repair = new Repair();
+                $repair->user_id = auth()->user()->id;
             }
-            $repair->building_name = $request->building_name;
-            $repair->apartment_number = $request->apartment_number;
+            $repair->building_id = $request->building_id;
+            $repair->apartment_id = $request->apartment_id;
             $repair->status = $request->status;
             $repair->maintenance_type = $request->maintenance_type;
             $repair->date = $request->date;

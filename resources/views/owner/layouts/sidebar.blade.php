@@ -35,6 +35,10 @@
                             <a href="{{ route('property.allProperty') }}"
                                 class="{{ @$subNavAllApartmentActiveClass }}">{{ __('All Apartments') }}</a>
                         </li>
+                        <li class="{{ @$subNavAllApartmentCommentMMActiveClass }}">
+                            <a href="{{ route('property.comments') }}"
+                                class="{{ @$subNavAllApartmentCommentActiveClass }}">{{ __('Comments') }}</a>
+                        </li>
                     </ul>
                 </li>
 
@@ -47,6 +51,19 @@
                         <li class="{{ @$subNavAllTenantMMActiveClass }}">
                             <a href="{{ route('tenant.index', ['type' => 'all']) }}"
                                 class="{{ @$subNavAllTenantActiveClass }}">{{ __('All Tenants') }}</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="ri-user-3-line"></i>
+                        <span>{{ __('Applications') }}</span>
+                    </a>
+                    <ul class="sub-menu {{ @$navApplicationMMShowClass }}" aria-expanded="false">
+                        <li class="{{ @$subNavAllApplicationMMActiveClass }}">
+                            <a href="{{ route('applications.index') }}"
+                                class="{{ @$subNavAllApplicationActiveClass }}">{{ __('All Applications') }}</a>
                         </li>
                     </ul>
                 </li>
@@ -68,19 +85,6 @@
                         <span>{{ __('Report') }}</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li>
-                            <a href="{{ route('reports.earning') }}">{{ __('Earning') }}</a>
-                        </li>
-                        <li>
-                            <a
-                                href="{{ route('reports.loss-profit.by.month') }}">{{ __('Loss / Profit By Month') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('reports.expenses') }}">{{ __('Expenses') }}</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('reports.occupancy') }}">{{ __('Occupancy') }}</a>
-                        </li>
                         <li>
                             <a href="{{ route('reports.maintenance') }}">{{ __('Maintenance') }}</a>
                         </li>

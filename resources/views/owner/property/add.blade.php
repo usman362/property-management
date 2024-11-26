@@ -66,9 +66,7 @@
                                                                     @endforeach
                                                                 </select>
                                                             </div>
-                                                        </div>
 
-                                                        <div class="row">
                                                             <div class="col-md-6 mb-25">
                                                                 <label class="label-text-title color-heading font-medium mb-2">Floor</label>
                                                                 <input type="text" class="form-control" name="floor" placeholder="Floor" value="{{@$apartment->floor}}">
@@ -79,9 +77,16 @@
                                                                     Rental Price</label>
                                                                 <input type="text" class="form-control" name="monthly_rental_price" placeholder="Monthly Rental Price" value="{{@$apartment->monthly_rental_price}}">
                                                             </div>
-                                                        </div>
 
-                                                        <div class="row">
+                                                            <div class="col-md-6 mb-25">
+                                                                <label class="label-text-title color-heading font-medium mb-2">Status</label>
+                                                                <select name="status" id="status" class="form-control">
+                                                                    <option value="empty" @selected(@$apartment->status == 'empty')>Empty</option>
+                                                                    <option value="occupied" @selected(@$apartment->status == 'occupied')>Occupied</option>
+                                                                    <option value="vacant" @selected(@$apartment->status == 'vacant')>Vacant</option>
+                                                                </select>
+                                                            </div>
+
                                                             <div class="col-md-6 mb-25">
                                                                 <label class="label-text-title color-heading font-medium mb-2">Balcony
                                                                     Area</label>
@@ -93,9 +98,7 @@
                                                                     Room Area</label>
                                                                 <input type="text" class="form-control" name="living_room_area" placeholder="Living Room Area" value="{{@$apartment->living_room_area}}">
                                                             </div>
-                                                        </div>
 
-                                                        <div class="row">
                                                             <div class="col-md-6 mb-25">
                                                                 <label class="label-text-title color-heading font-medium mb-2">Dining
                                                                     Room Area</label>
@@ -107,9 +110,7 @@
                                                                     Area</label>
                                                                 <input type="text" class="form-control" name="kitchen_area" placeholder="Kitchen Area" value="{{@$apartment->kitchen_area}}">
                                                             </div>
-                                                        </div>
 
-                                                        <div class="row">
                                                             <div class="col-md-6 mb-25">
                                                                 <label class="label-text-title color-heading font-medium mb-2">Alley
                                                                     Area</label>
@@ -121,9 +122,7 @@
                                                                     Bedroom Area</label>
                                                                 <input type="text" class="form-control" name="main_bedroom_area" placeholder="Main Bedroom Area" value="{{@$apartment->main_bedroom_area}}">
                                                             </div>
-                                                        </div>
 
-                                                        <div class="row">
                                                             <div class="col-md-6 mb-25">
                                                                 <label class="label-text-title color-heading font-medium mb-2">Second
                                                                     Bedroom Area</label>
@@ -135,9 +134,7 @@
                                                                     Bedroom Area</label>
                                                                 <input type="text" class="form-control" name="third_bedroom_area" placeholder="Third Bedroom Area" value="{{@$apartment->third_bedroom_area}}">
                                                             </div>
-                                                        </div>
 
-                                                        <div class="row">
                                                             <div class="col-md-6 mb-25">
                                                                 <label class="label-text-title color-heading font-medium mb-2">Bathroom
                                                                     Area</label>
@@ -149,9 +146,7 @@
                                                                     Area</label>
                                                                 <input type="text" class="form-control" name="public_area" placeholder="Public Area" value="{{@$apartment->public_area}}">
                                                             </div>
-                                                        </div>
 
-                                                        <div class="row">
                                                             <div class="col-md-6 mb-25">
                                                                 <label class="label-text-title color-heading font-medium mb-2">Upload
                                                                     Images</label>

@@ -7,6 +7,8 @@ use App\Http\Requests\Owner\Property\LocationRequest;
 use App\Http\Requests\Owner\Property\PropertyInformationRequest;
 use App\Http\Requests\Owner\Property\RentChargeRequest;
 use App\Http\Requests\UnitRequest;
+use App\Models\Apartment;
+use App\Models\ApartmentComment;
 use App\Models\Building;
 use App\Models\Property;
 use App\Services\PropertyService;
@@ -35,6 +37,55 @@ class PropertyController extends Controller
             $data['apartments'] = $this->propertyService->getAll();
         }
         return view('owner.property.all-property-list')->with($data);
+    }
+
+
+    public function comments(Request $request)
+    {
+        $data['pageTitle'] = __("Apartments Comments");
+        $data['navApartmentMMShowClass'] = 'mm-show';
+        $data['subNavAllApartmentCommentMMActiveClass'] = 'mm-active';
+        $data['subNavAllApartmentCommentActiveClass'] = 'active';
+        if ($request->ajax()) {
+            $comments = ApartmentComment::all();
+            return datatables($comments)
+                ->addIndexColumn()
+                // ->addColumn('image', function ($property) {
+                //     return '<img src="' . $property->thumbnail_image . '"
+                //     class="rounded-circle avatar-md tbl-user-image"
+                //     alt="">';
+                // })
+                ->addColumn('status', function ($property) {
+                    return '<label class="switch">
+                            <input type="checkbox" class="change-status" '.($property->status == true ? 'checked' : '').' data-id="'.$property->id.'">
+                            <span class="slider round"></span>
+                            </label>';
+                })
+                // ->addColumn('action', function ($property) {
+                //     return '<div class="tbl-action-btns d-inline-flex">
+                //                 <a type="button" class="p-1 tbl-action-btn" href="' . route('property.edit', $property->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></a>
+                //                 <a type="button" class="p-1 tbl-action-btn" href="' . route('property.show', $property->id) . '" title="' . __('View') . '"><span class="iconify" data-icon="carbon:view-filled"></span></a>
+                //                 <button onclick="deleteItem(\'' . route('property.delete', $property->id) . '\', \'allDataTable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
+                //             </div>';
+                // })
+                ->rawColumns(['status'])
+                ->make(true);
+        } else {
+            $data['comments'] = ApartmentComment::all();
+        }
+        return view('owner.property.comments')->with($data);
+    }
+
+    public function commentStatus(Request $request)
+    {
+        $apartment = ApartmentComment::find($request->id);
+        if(!empty($apartment)){
+            $apartment->status = (int)$request->value;
+            $apartment->save();
+            return response()->json(['message' => 'Comment Status has been Changed!'],201);
+        }else{
+            return response()->json(['message' => 'Comment Not Found!'],404);
+        }
     }
 
     public function allUnit()
@@ -138,7 +189,7 @@ class PropertyController extends Controller
 
     public function getImageDoc(Request $request)
     {
-        $id = $request->get('id',0);
+        $id = $request->get('id', 0);
         $property = Property::where('owner_user_id', auth()->id())->findOrFail($id);
         $response['property'] = $property;
         $response['step'] = IMAGE_ACTIVE_CLASS;

@@ -23,4 +23,9 @@ class Apartment extends Model
     {
         return $this->hasMany(ApartmentMedia::class, 'apartment_id', 'id')->where('media_type','videos');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(ApartmentComment::class, 'apartment_id', 'id')->where('status',true);
+    }
 }

@@ -2,7 +2,14 @@ var dt = $('#tenantReportDataTable').DataTable({
     processing: true,
     serverSide: true,
     responsive: true,
-    ajax: $('#tenantReportRoute').val(),
+    ajax: {
+        url: $('#tenantReportRoute').val(),
+        data: function(d) {
+            d.year = $('#year').val(),
+            d.month = $('#month').val(),
+            d.apartment_id = $('#apartment_id').val()
+        }
+    },
     order: [1, 'desc'],
     ordering: false,
     autoWidth: false,
@@ -24,7 +31,7 @@ var dt = $('#tenantReportDataTable').DataTable({
     buttons: [
         { extend: 'excel', className: 'theme-btn theme-button1 default-hover-btn' },
         { extend: 'pdf', className: 'theme-btn theme-button1 default-hover-btn' },
-        { extend: 'copy', className: 'theme-btn theme-button1 default-hover-btn' }
+        // { extend: 'copy', className: 'theme-btn theme-button1 default-hover-btn' }
     ],
     columnDefs: [
         { className: "text-center", targets: [1, 2, 3, 4, 5, 8] },
@@ -32,13 +39,25 @@ var dt = $('#tenantReportDataTable').DataTable({
     ],
     columns: [
         { "data": 'DT_RowIndex', "name": 'DT_RowIndex', orderable: false, searchable: false, },
-        { "data": "name", "name": "users.first_name" },
-        { "data": "email", "name": "users.email" },
-        { "data": "contact", "name": "users.contact_number" },
-        { "data": "property", "name": "properties.name" },
-        { "data": "unit", "name": "property_units.unit_name" },
-        { "data": "paid" },
-        { "data": "due" },
-        { "data": "status", },
+        { "data": "name", "name": "name" },
+        { "data": "apartment_name", "name": "apartment_name" },
+        { "data": "check_in_date", "name": "check_in_date" },
+        { "data": "check_out_date", "name": "check_out_date" },
+        { "data": "contract_date", "name": "contract_date" },
+        { "data": "monthly_fees", "name": "monthly_fees"  },
+        { "data": "deposit_amount", "name": "deposit_amount"  },
+        { "data": "deposit_type", "name": "deposit_type"  },
     ]
+});
+
+$('#apartment_id').change(function(){
+    dt.draw();
+});
+
+$('#month').change(function(){
+    dt.draw();
+});
+
+$('#year').keyup(function(){
+    dt.draw();
 });

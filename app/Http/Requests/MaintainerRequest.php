@@ -28,8 +28,8 @@ class MaintainerRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'building_name' => 'required|string|max:255',
-            'apartment_number' => 'required|string|max:100',
+            'building_id' => 'required|max:255',
+            'apartment_id' => 'required|max:100',
             'status' => 'required|in:Checked In,Checked Out',
             'maintenance_type' => 'required|in:Plumber,Electric,Structure,Other',
             'repair_fees' => 'nullable|numeric|min:0',
@@ -38,7 +38,7 @@ class MaintainerRequest extends FormRequest
             'monthly_maintenance_fees' => 'nullable|numeric|min:0',
             'services_included' => 'required|in:Included,Not Included',
         ];
-        
+
         return $rules;
     }
 }

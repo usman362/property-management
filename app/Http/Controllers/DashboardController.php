@@ -31,8 +31,8 @@ class DashboardController extends Controller
         $data['pageTitle'] = __('Dashboard');
         $data['totalProperties'] = Property::where('owner_user_id', auth()->id())->count();
         $data['totalUnits'] = PropertyUnit::query()->join('properties', 'property_units.property_id', '=', 'properties.id')->where('properties.owner_user_id', auth()->id())->count();
-        $data['totalTenants'] = Tenant::where('owner_user_id', auth()->id())->where('status', TENANT_STATUS_ACTIVE)->count();
-        $data['properties'] = $this->propertyService->getAllCount()->take(3);
+        $data['totalTenants'] = 1;
+        $data['properties'] = Property::all();
         $data['tickets'] = $this->ticketService->getAll();
         $data['totalMaintainers'] = Maintainer::where('owner_user_id', auth()->id())->count();
 

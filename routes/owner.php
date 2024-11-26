@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\InformationController;
-use App\Http\Controllers\MaintainerController;
-use App\Http\Controllers\MaintenanceRequestController;
-use App\Http\Controllers\PropertyController;
-use App\Http\Controllers\BuildingController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\TenantController;
+use App\Http\Controllers\Owner\DashboardController;
+use App\Http\Controllers\Owner\InformationController;
+use App\Http\Controllers\Owner\MaintainerController;
+use App\Http\Controllers\Owner\MaintenanceRequestController;
+use App\Http\Controllers\Owner\PropertyController;
+use App\Http\Controllers\Owner\BuildingController;
+use App\Http\Controllers\Owner\ReportController;
+use App\Http\Controllers\Owner\TenantController;
 use Illuminate\Support\Facades\Route;
 
 // Route::group(['prefix' => 'owner', 'as' => 'owner.', 'middleware' => ['auth', 'owner']], function () {
@@ -15,11 +15,32 @@ use Illuminate\Support\Facades\Route;
 
 //     Route::group(['prefix' => 'property', 'as' => 'property.'], function () {
 //         Route::get('all-property', [PropertyController::class, 'allProperty'])->name('allProperty');
+//         Route::get('all-unit', [PropertyController::class, 'allUnit'])->name('allUnit');
+//         Route::get('own-property', [PropertyController::class, 'ownProperty'])->name('ownProperty');
+//         Route::get('lease-property', [PropertyController::class, 'leaseProperty'])->name('leaseProperty');
 //         Route::get('add', [PropertyController::class, 'add'])->name('add');
 //         Route::get('show/{id}', [PropertyController::class, 'show'])->name('show');
 //         Route::get('edit/{id}', [PropertyController::class, 'edit'])->name('edit');
 //         Route::delete('destroy/{id}', [PropertyController::class, 'destroy'])->name('destroy');
 //         Route::get('delete/{id}', [PropertyController::class, 'destroy'])->name('delete');
+//         Route::post('property-information/store', [PropertyController::class, 'propertyInformationStore'])->name('property-information.store');
+//         Route::post('location/store', [PropertyController::class, 'locationStore'])->name('location.store');
+//         Route::post('unit/store', [PropertyController::class, 'unitStore'])->name('unit.store');
+//         Route::delete('unit/delete/{id}', [PropertyController::class, 'unitDelete'])->name('unit.delete');
+//         Route::post('rent-charge/store', [PropertyController::class, 'rentChargeStore'])->name('rentCharge.store');
+//         Route::get('image/doc', [PropertyController::class, 'getImageDoc'])->name('image.doc');
+//         Route::post('image/store/{id?}', [PropertyController::class, 'imageStore'])->name('image.store');
+//         Route::get('image/delete/{id}', [PropertyController::class, 'imageDelete'])->name('image.delete');
+//         Route::post('thumbnail-image/update/{id}', [PropertyController::class, 'thumbnailImageUpdate'])->name('thumbnailImage.update');
+
+//         Route::get('get-property-information', [PropertyController::class, 'getPropertyInformation'])->name('getPropertyInformation');
+//         Route::get('get-location', [PropertyController::class, 'getLocation'])->name('getLocation');
+//         Route::get('get-unit', [PropertyController::class, 'getUnitByPropertyId'])->name('getUnitByPropertyId');
+//         Route::get('get-unit-by-property-ids', [PropertyController::class, 'getUnitByPropertyIds'])->name('getUnitByPropertyIds');
+//         Route::get('get-rent-charge', [PropertyController::class, 'getRentCharge'])->name('getRentCharge');
+//         Route::get('get-property-units', [PropertyController::class, 'getPropertyUnits'])->name('getPropertyUnits');
+//         Route::get('get-property-with-units-by-id', [PropertyController::class, 'getPropertyWithUnitsById'])->name('getPropertyWithUnitsById');
+//         Route::get('own-property-search', [PropertyController::class, 'ownPropertySearch'])->name('own-property-search');
 //     });
 
 //     Route::group(['prefix' => 'building', 'as' => 'building.'], function () {

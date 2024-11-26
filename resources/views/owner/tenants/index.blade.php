@@ -95,7 +95,7 @@
                                                             </div>
                                                             <div class="col-md-7">
                                                                 <div class="tenants-info-right font-13 text-end">
-                                                                    {{ $tenant->building_name }}</div>
+                                                                    {{ $tenant->building->name ?? '' }}</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -107,7 +107,7 @@
                                                             </div>
                                                             <div class="col-md-7">
                                                                 <div class="tenants-info-right font-13 text-end">
-                                                                    {{ $tenant->apartment_number }}</div>
+                                                                    {{ $tenant->apartment->apartment_name ?? '' }}</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -155,8 +155,6 @@
         </div>
         <!-- End Page-content -->
     </div>
-    <input type="hidden" id="getAllTenantRoute" value="{{ route('tenant.index', ['type' => 'all']) }}">
-    <input type="hidden" id="getPropertyUnitsRoute" value="{{ route('property.getPropertyUnits') }}">
 @endsection
 @if (getOption('app_card_data_show', 1) != 1)
     @push('style')

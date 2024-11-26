@@ -169,11 +169,25 @@
                                                     <div class="row">
                                                         <div class="col-md-6 mb-25">
                                                             <label>{{ __('Building Name') }}</label>
-                                                            <input type="text" name="building_name" value="{{@$tenant->building_name}}" class="form-control" placeholder="{{ __('Building Name') }}">
+                                                            <select name="building_id" class="form-control" id="">
+                                                                <option value="">Select Building</option>
+                                                                @foreach ($buildings as $bldg)
+                                                                <option value="{{ $bldg->id }}" @selected(@$tenant->building_id == $bldg->id)>
+                                                                    {{ $bldg->name }}
+                                                                </option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                         <div class="col-md-6 mb-25">
                                                             <label>{{ __('Apartment Number') }}</label>
-                                                            <input type="text" name="apartment_number" value="{{@$tenant->apartment_number}}" class="form-control" placeholder="{{ __('Apartment Number') }}">
+                                                            <select name="apartment_id" class="form-control" id="">
+                                                                <option value="">Select Apartment</option>
+                                                                @foreach ($apartments as $apartment)
+                                                                <option value="{{ $apartment->id }}" @selected(@$tenant->apartment_id == $apartment->id)>
+                                                                    {{ $apartment->apartment_name }}
+                                                                </option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                         <div class="col-md-6 mb-25">
                                                             <label>{{ __('Check-In Date') }}</label>
@@ -211,8 +225,16 @@
                                                             <input type="number" step="0.01" name="late_fees" value="{{@$tenant->late_fees}}" class="form-control" placeholder="{{ __('Late Fees') }}">
                                                         </div>
                                                         <div class="col-md-6 mb-25">
-                                                            <label>{{ __('DOB') }}</label>
-                                                            <input type="date" name="dob" value="{{@$tenant->dob}}" class="form-control" placeholder="{{ __('DOB') }}">
+                                                            <label>{{ __('Date') }}</label>
+                                                            <input type="date" name="date" value="{{@$tenant->date}}" class="form-control" placeholder="{{ __('Date') }}">
+                                                        </div>
+                                                        <div class="col-md-6 mb-25">
+                                                            <label>{{ __('Status') }}</label>
+                                                            <select name="status" class="form-control">
+                                                                <option value="pending" @selected(@$tenant->status == 'pending')>{{ __('Pending') }}</option>
+                                                                <option value="approved" @selected(@$tenant->status == 'approved')>{{ __('Approved') }}</option>
+                                                                <option value="rejected" @selected(@$tenant->status == 'rejected')>{{ __('Rejected') }}</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -242,13 +264,9 @@
         <!-- End Page-content -->
 
     </div>
-    <input type="hidden" id="getStateListRoute" value="{{ route('location.state.list') }}">
-    <input type="hidden" id="getCityListRoute" value="{{ route('location.city.list') }}">
     <input type="hidden" id="propertyShowRoute" value="{{ route('property.show', 0) }}">
     <input type="hidden" id="tenantStoreRoute" value="{{ route('tenant.store') }}">
     <input type="hidden" id="tenantListRoute" value="{{ route('tenant.index') }}">
-    <input type="hidden" id="getPropertyWithUnitsByIdRoute"
-        value="{{ route('property.getPropertyWithUnitsById') }}">
 @endsection
 
 @push('script')

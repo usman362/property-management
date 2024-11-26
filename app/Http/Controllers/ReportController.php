@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Apartment;
+use App\Models\Repair;
+use App\Models\Tenant;
 use App\Services\PropertyService;
 use App\Services\ReportService;
 use Illuminate\Http\Request;
@@ -65,18 +68,39 @@ class ReportController extends Controller
     public function maintenance(Request $request)
     {
         $data['pageTitle'] = __('Maintenance Report');
+        $data['apartments'] = Apartment::select('id','apartment_name')->get();
         if ($request->ajax()) {
-            return $this->reportService->maintenance();
+            return $this->reportService->maintenance($request);
         }
         return view('owner.report.maintenance', $data);
     }
 
+    // public function tenant(Request $request)
+    // {
+    //     $data['pageTitle'] = __('Tenant Report');
+    //     if ($request->ajax()) {
+    //         return $this->reportService->tenant();
+    //     }
+    //     return view('owner.report.tenant', $data);
+    // }
+
     public function tenant(Request $request)
     {
         $data['pageTitle'] = __('Tenant Report');
+        $data['apartments'] = Apartment::select('id','apartment_name')->get();
         if ($request->ajax()) {
-            return $this->reportService->tenant();
+            return $this->reportService->tenant($request);
         }
         return view('owner.report.tenant', $data);
+    }
+
+    public function apartment(Request $request)
+    {
+        $data['pageTitle'] = __('Apartment Report');
+        $data['apartments'] = Apartment::select('id','apartment_name')->get();
+        if ($request->ajax()) {
+            return $this->reportService->apartment($request);
+        }
+        return view('owner.report.apartment', $data);
     }
 }

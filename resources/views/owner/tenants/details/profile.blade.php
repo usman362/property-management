@@ -245,7 +245,7 @@
                                                         <p class="color-heading">{{ __('Building Name') }}:</p>
                                                     </div>
                                                     <div class="col-md-6 col-lg-8 col-xl-8 col-xxl-10">
-                                                        <p>{{ $tenant->building_name }}</p>
+                                                        <p>{{ $tenant->building->name ?? '' }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row account-settings-info-item">
@@ -253,7 +253,7 @@
                                                         <p class="color-heading">{{ __('Apartment Number') }}:</p>
                                                     </div>
                                                     <div class="col-md-6 col-lg-8 col-xl-8 col-xxl-10">
-                                                        <p>{{ $tenant->apartment_number }}</p>
+                                                        <p>{{ $tenant->apartment->apartment_name ?? '' }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row account-settings-info-item">
@@ -329,10 +329,10 @@
                                                 </div>
                                                 <div class="row account-settings-info-item">
                                                     <div class="col-md-6 col-lg-4 col-xl-4 col-xxl-2">
-                                                        <p class="color-heading">{{ __('DOB') }}:</p>
+                                                        <p class="color-heading">{{ __('Date') }}:</p>
                                                     </div>
                                                     <div class="col-md-6 col-lg-8 col-xl-8 col-xxl-10">
-                                                        <p>{{ $tenant->dob }}
+                                                        <p>{{ $tenant->date }}
                                                         </p>
                                                     </div>
                                                 </div>

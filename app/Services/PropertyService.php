@@ -207,9 +207,9 @@ class PropertyService
             } else {
 
                 $apartment = new Apartment();
+                $apartment->user_id = auth()->user()->id;
             }
             $apartment->building_id = $request->building_id;
-            $apartment->building_name = $request->building_name;
             $apartment->apartment_name = $request->apartment_name;
             $apartment->floor = $request->floor;
             $apartment->monthly_rental_price = $request->monthly_rental_price;
@@ -223,6 +223,7 @@ class PropertyService
             $apartment->third_bedroom_area = $request->third_bedroom_area;
             $apartment->bathroom_area = $request->bathroom_area;
             $apartment->public_area = $request->public_area;
+            $apartment->status = $request->status;
             $apartment->save();
 
             if (!empty($request->images)) {

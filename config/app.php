@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => 'Zaiproty',
+    'name' => 'Resyahel',
 
     /*
     |--------------------------------------------------------------------------
@@ -203,6 +203,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TenancyServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
     ],
 

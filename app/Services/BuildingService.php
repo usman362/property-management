@@ -50,6 +50,7 @@ class BuildingService
                 $building = Building::findOrFail($request->building_id);
             }else{
                 $building = new Building();
+                $building->user_id = auth()->user()->id;
             }
             $building->name = $request->name;
             $building->address = $request->address;

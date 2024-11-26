@@ -160,7 +160,7 @@
                                                 <h4 class="mb-0">{{ __('Tickets') }}</h4>
                                                 <div>
                                                     <a class="theme-link font-14 font-medium d-flex align-items-center justify-content-center"
-                                                        href="{{ route('ticket.index') }}">
+                                                        href="">
                                                         {{ __('View All') }}<i class="ri-arrow-right-line ms-2"></i>
                                                     </a>
                                                 </div>
