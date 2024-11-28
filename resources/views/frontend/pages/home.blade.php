@@ -211,7 +211,7 @@
                                 <div class="room__slide__box radius-6">
                                     <div class="room__thumbnail jara-mask-2 jarallax">
                                         <img height="585" width="420" class="radius-6 jarallax-img"
-                                            src="{{ asset('storage/' . (isset($building->images[0]) ? $building->images[0]->media : '')) }}" alt="">
+                                            src="{{ asset((isset($building->images[0]) ? $building->images[0]->media : '')) }}" alt="">
                                     </div>
                                     <div class="room__content">
                                         <a href="{{route('building.show',$building->id)}}" class="room__title">
@@ -253,9 +253,9 @@
                             <!-- single gallery image -->
                             <div class="swiper-slide">
                                 <div class="gallery__item">
-                                    <a href="{{ asset('storage/' . $gallery->media) }}">
+                                    <a href="{{ asset($gallery->media) }}">
                                         <img style="height: 150px; width:100%"
-                                            src="{{ asset('storage/' . $gallery->media) }}" alt="">
+                                            src="{{ asset($gallery->media) }}" alt="">
                                     </a>
                                 </div>
                             </div>

@@ -1,6 +1,8 @@
 /node_modules
 /public/build
 /public/hot
+/public/apartment
+/public/building
 /public/storage
 /public/*.pdf
 /storage/*.key

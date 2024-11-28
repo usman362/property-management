@@ -45,8 +45,8 @@
                         <!-- single gallery image -->
                         <div class="swiper-slide">
                             <div class="gallery__item">
-                                <a href="{{ asset('storage/' . $image->media) }}">
-                                    <img style="height: 150px; width:100%" src="{{ asset('storage/' . $image->media) }}"
+                                <a href="{{ asset($image->media) }}">
+                                    <img style="height: 150px; width:100%" src="{{ asset($image->media) }}"
                                         alt="">
                                 </a>
                             </div>
@@ -76,7 +76,7 @@
                     <div class="room__image__group row row-cols-md-2 row-cols-sm-1 mt-30 mb-50 gap-4 gap-md-0">
                         @foreach ($apartment->videos as $image)
                             <div class="room__image__item">
-                                <video id="video" class="rounded-2" src="{{ asset('storage/' . $image->media) }}"
+                                <video id="video" class="rounded-2" src="{{ asset($image->media) }}"
                                     autoplay controls></video>
                             </div>
                         @endforeach

@@ -65,8 +65,23 @@ class BuildingService
                     foreach ($request->images as $image) {
                         $buildingMedia = new BuildingMedia();
                         $buildingMedia->building_id = $building->id;
+
+                        // Generate a unique name for the image
                         $uniqueName = uniqid() . '___' . str_replace(' ', '_', $image->getClientOriginalName());
-                        $filePath = $image->storeAs("/building/images", $uniqueName, "public");
+
+                        // Define the target path in the public directory
+                        $destinationPath = public_path('building/images');
+
+                        // Ensure the directory exists
+                        if (!file_exists($destinationPath)) {
+                            mkdir($destinationPath, 0755, true);
+                        }
+
+                        // Move the uploaded file to the public directory
+                        $image->move($destinationPath, $uniqueName);
+
+                        // Save the relative path in the database
+                        $filePath = "building/images/$uniqueName";
                         $buildingMedia->media = $filePath;
                         $buildingMedia->media_type = 'image';
                         $buildingMedia->save();
@@ -74,13 +89,28 @@ class BuildingService
                 }
 
                 if (!empty($request->videos)) {
-                    foreach ($request->videos as $videos) {
+                    foreach ($request->videos as $video) {
                         $buildingMedia = new BuildingMedia();
                         $buildingMedia->building_id = $building->id;
-                        $uniqueName = uniqid() . '___' . str_replace(' ', '_', $videos->getClientOriginalName());
-                        $filePath = $videos->storeAs("/building/videos", $uniqueName, "public");
+
+                        // Generate a unique name for the video
+                        $uniqueName = uniqid() . '___' . str_replace(' ', '_', $video->getClientOriginalName());
+
+                        // Define the target path in the public directory
+                        $destinationPath = public_path('building/videos');
+
+                        // Ensure the directory exists
+                        if (!file_exists($destinationPath)) {
+                            mkdir($destinationPath, 0755, true);
+                        }
+
+                        // Move the uploaded video to the public directory
+                        $video->move($destinationPath, $uniqueName);
+
+                        // Save the relative path in the database
+                        $filePath = "building/videos/$uniqueName";
                         $buildingMedia->media = $filePath;
-                        $buildingMedia->media_type = 'videos';
+                        $buildingMedia->media_type = 'video'; // Corrected type to 'video'
                         $buildingMedia->save();
                     }
                 }

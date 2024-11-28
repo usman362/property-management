@@ -105,7 +105,7 @@
                             <div class="room__card__top">
                                 <div class="room__card__image">
                                     <a href="{{ route('apartment.details', $apartment->id) }}">
-                                        <img src="{{ asset('storage/' . (isset($apartment->images[0]) ? $apartment->images[0]->media : '')) }}"
+                                        <img src="{{ asset((isset($apartment->images[0]) ? $apartment->images[0]->media : '')) }}"
                                             width="420" height="310" alt="room card">
                                     </a>
                                 </div>

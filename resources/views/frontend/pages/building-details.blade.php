@@ -33,7 +33,7 @@
                             <div class="room__card__top">
                                 <div class="room__card__image">
                                     <a href="{{ route('apartment.details', $apartment->id) }}">
-                                        <img src="{{ asset('storage/' . (isset($apartment->images[0]) ? $apartment->images[0]->media : '')) }}" width="420" height="310"
+                                        <img src="{{ asset((isset($apartment->images[0]) ? $apartment->images[0]->media : '')) }}" width="420" height="310"
                                             alt="room card">
                                     </a>
                                 </div>
@@ -70,8 +70,8 @@
                         <!-- single gallery image -->
                         <div class="swiper-slide">
                             <div class="gallery__item">
-                                <a href="{{ asset('storage/' . $image->media) }}">
-                                    <img style="height: 150px; width:100%" src="{{ asset('storage/' . $image->media) }}"
+                                <a href="{{ asset($image->media) }}">
+                                    <img style="height: 150px; width:100%" src="{{ asset($image->media) }}"
                                         alt="">
                                 </a>
                             </div>
@@ -101,7 +101,7 @@
                     <div class="room__image__group row row-cols-md-2 row-cols-sm-1 mt-30 mb-50 gap-4 gap-md-0">
                         @foreach ($building->videos as $image)
                             <div class="room__image__item">
-                                <video id="video" class="rounded-2" src="{{ asset('storage/' . $image->media) }}"
+                                <video id="video" class="rounded-2" src="{{ asset($image->media) }}"
                                     autoplay controls></video>
                             </div>
                         @endforeach

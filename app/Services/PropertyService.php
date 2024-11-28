@@ -106,8 +106,23 @@ class PropertyService
                     if ($image !== null) {
                         $apartmentMedia = new ApartmentMedia();
                         $apartmentMedia->apartment_id = $apartment->id;
+
+                        // Generate a unique name for the image
                         $uniqueName = uniqid() . '___' . str_replace(' ', '_', $image->getClientOriginalName());
-                        $filePath = $image->storeAs("/apartment/images", $uniqueName, "public");
+
+                        // Define the target path in the public directory
+                        $destinationPath = public_path('apartment/images');
+
+                        // Ensure the directory exists
+                        if (!file_exists($destinationPath)) {
+                            mkdir($destinationPath, 0755, true);
+                        }
+
+                        // Move the uploaded image to the public directory
+                        $image->move($destinationPath, $uniqueName);
+
+                        // Save the relative path in the database
+                        $filePath = "apartment/images/$uniqueName";
                         $apartmentMedia->media = $filePath;
                         $apartmentMedia->media_type = 'image';
                         $apartmentMedia->save();
@@ -116,18 +131,34 @@ class PropertyService
             }
 
             if (!empty($request->videos)) {
-                foreach ($request->videos as $videos) {
-                    if ($videos !== null) {
+                foreach ($request->videos as $video) {
+                    if ($video !== null) {
                         $apartmentMedia = new ApartmentMedia();
                         $apartmentMedia->apartment_id = $apartment->id;
-                        $uniqueName = uniqid() . '___' . str_replace(' ', '_', $videos->getClientOriginalName());
-                        $filePath = $videos->storeAs("/apartment/videos", $uniqueName, "public");
+
+                        // Generate a unique name for the video
+                        $uniqueName = uniqid() . '___' . str_replace(' ', '_', $video->getClientOriginalName());
+
+                        // Define the target path in the public directory
+                        $destinationPath = public_path('apartment/videos');
+
+                        // Ensure the directory exists
+                        if (!file_exists($destinationPath)) {
+                            mkdir($destinationPath, 0755, true);
+                        }
+
+                        // Move the uploaded video to the public directory
+                        $video->move($destinationPath, $uniqueName);
+
+                        // Save the relative path in the database
+                        $filePath = "apartment/videos/$uniqueName";
                         $apartmentMedia->media = $filePath;
-                        $apartmentMedia->media_type = 'videos';
+                        $apartmentMedia->media_type = 'video'; // Corrected type to 'video'
                         $apartmentMedia->save();
                     }
                 }
             }
+
 
             DB::commit();
             $response['apartment'] = $apartment;
