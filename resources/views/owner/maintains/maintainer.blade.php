@@ -29,22 +29,24 @@
                     <div class="row">
                         <!-- Property Top Search Bar Start -->
                         <h4 class="mb-20">{{ __('All Maintenance') }}</h4>
-                        <div class="property-top-search-bar">
-                            <div class="property-search-inner-bg bg-off-white theme-border radius-4 p-25 pb-0 mb-25">
-                                <div class="row align-items-center">
-                                    <div class="col-md-6">
-                                        <div class="property-top-search-bar-left">
+                        @can('add-maintenance')
+                            <div class="property-top-search-bar">
+                                <div class="property-search-inner-bg bg-off-white theme-border radius-4 p-25 pb-0 mb-25">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6">
+                                            <div class="property-top-search-bar-left">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="property-top-search-bar-right text-end">
-                                            <button type="button" class="theme-btn mb-25 add"
-                                                title="{{ __('Add Maintainer') }}">{{ __('Add Maintainer') }}</button>
+                                        <div class="col-md-6">
+                                            <div class="property-top-search-bar-right text-end">
+                                                <button type="button" class="theme-btn mb-25 add"
+                                                    title="{{ __('Add Maintainer') }}">{{ __('Add Maintainer') }}</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @endcan
                         <!-- Property Top Search Bar End -->
 
                         <!-- All Maintainer Table Area Start -->
@@ -82,131 +84,133 @@
         <!-- End Page-content -->
     </div>
 
-    <!-- Add Information Modal Start -->
-    <div class="modal fade" id="addMaintainerModal" tabindex="-1" aria-labelledby="addMaintainerModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <form class="ajax" action="{{ route('maintainer.store') }}" method="POST" enctype="multipart/form-data"
-                    data-handler="getShowMessage">
-                    <input type="hidden" id="id" name="repair_id" value="">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="addMaintainerModalLabel">{{ __('Add Maintainer') }}</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
-                                class="iconify" data-icon="akar-icons:cross"></span></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Modal Inner Form Box Start -->
-                        <div class="modal-inner-form-box">
-                            <div class="row">
-                                <div class="col-md-6 mb-25">
-                                    <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Building Name') }}</label>
-                                    <select name="building_id" class="form-control" id="building_id">
-                                        <option value="">Select Building</option>
-                                        @foreach ($buildings as $bldg)
-                                            <option value="{{ $bldg->id }}">
-                                                {{ $bldg->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-6 mb-25">
-                                    <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Apartment Number') }}</label>
-                                    <select name="apartment_id" class="form-control" id="apartment_id">
-                                        <option value="">Select Apartment</option>
-                                        @foreach ($apartments as $apartment)
-                                            <option value="{{ $apartment->id }}">
-                                                {{ $apartment->apartment_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-4 mb-25">
-                                    <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Status') }}</label>
-                                    <select name="status" id="status" class="form-control">
-                                        <option value="Checked In">{{ __('Checked In') }}</option>
-                                        <option value="Checked Out">{{ __('Checked Out') }}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 mb-25">
-                                    <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Maintenance Type') }}</label>
-                                    <select name="maintenance_type" id="maintenance_type" class="form-control">
-                                        <option value="Plumber">{{ __('Plumber') }}</option>
-                                        <option value="Electric">{{ __('Electric') }}</option>
-                                        <option value="Structure">{{ __('Structure') }}</option>
-                                        <option value="Other">{{ __('Other') }}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4 mb-25">
-                                    <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Date') }}</label>
-                                    <input type="date" name="date" id="date" class="form-control"
-                                        placeholder="{{ __('Date') }}">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-25">
-                                    <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Repair Fees') }}</label>
-                                    <input type="number" step="0.01" name="repair_fees" id="repair_fees"
-                                        class="form-control" placeholder="{{ __('Repair Fees') }}">
-                                </div>
-                                <div class="col-md-6 mb-25">
-                                    <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Utensils Fees') }}</label>
-                                    <input type="number" step="0.01" name="utensils_fees" id="utensils_fees"
-                                        class="form-control" placeholder="{{ __('Utensils Fees') }}">
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12 mb-25">
-                                    <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Details of Repair') }}</label>
-                                    <textarea name="repair_details" id="repair_details" class="form-control" rows="3"
-                                        placeholder="{{ __('Details of Repair') }}"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-25">
-                                    <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Monthly Maintenance Fees') }}</label>
-                                    <input type="number" step="0.01" name="monthly_maintenance_fees"
-                                        id="monthly_maintenance_fees" class="form-control"
-                                        placeholder="{{ __('Monthly Maintenance Fees') }}">
-                                </div>
-                                <div class="col-md-6 mb-25">
-                                    <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Services Included') }}</label>
-                                    <select name="services_included" class="form-control" id="services_included">
-                                        <option value="Included">{{ __('Included') }}</option>
-                                        <option value="Not Included">{{ __('Not Included') }}</option>
-                                    </select>
-                                </div>
-                            </div>
+    @can('add-maintenance')
+        <!-- Add Information Modal Start -->
+        <div class="modal fade" id="addMaintainerModal" tabindex="-1" aria-labelledby="addMaintainerModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form class="ajax" action="{{ route('maintainer.store') }}" method="POST" enctype="multipart/form-data"
+                        data-handler="getShowMessage">
+                        <input type="hidden" id="id" name="repair_id" value="">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="addMaintainerModalLabel">{{ __('Add Maintainer') }}</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
+                                    class="iconify" data-icon="akar-icons:cross"></span></button>
                         </div>
-                        <!-- Modal Inner Form Box End -->
-                    </div>
+                        <div class="modal-body">
+                            <!-- Modal Inner Form Box Start -->
+                            <div class="modal-inner-form-box">
+                                <div class="row">
+                                    <div class="col-md-6 mb-25">
+                                        <label
+                                            class="label-text-title color-heading font-medium mb-2">{{ __('Building Name') }}</label>
+                                        <select name="building_id" class="form-control" id="building_id">
+                                            <option value="">Select Building</option>
+                                            @foreach ($buildings as $bldg)
+                                                <option value="{{ $bldg->id }}">
+                                                    {{ $bldg->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-25">
+                                        <label
+                                            class="label-text-title color-heading font-medium mb-2">{{ __('Apartment Number') }}</label>
+                                        <select name="apartment_id" class="form-control" id="apartment_id">
+                                            <option value="">Select Apartment</option>
+                                            @foreach ($apartments as $apartment)
+                                                <option value="{{ $apartment->id }}">
+                                                    {{ $apartment->apartment_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
-                    <div class="modal-footer justify-content-start">
-                        <button type="button" class="theme-btn-back me-3" data-bs-dismiss="modal"
-                            title="{{ __('Back') }}">{{ __('Back') }}</button>
-                        <button type="submit" class="theme-btn me-3"
-                            title="{{ __('Submit') }}">{{ __('Submit') }}</button>
-                    </div>
-                </form>
+                                <div class="row">
+                                    <div class="col-md-4 mb-25">
+                                        <label
+                                            class="label-text-title color-heading font-medium mb-2">{{ __('Status') }}</label>
+                                        <select name="status" id="status" class="form-control">
+                                            <option value="Checked In">{{ __('Checked In') }}</option>
+                                            <option value="Checked Out">{{ __('Checked Out') }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mb-25">
+                                        <label
+                                            class="label-text-title color-heading font-medium mb-2">{{ __('Maintenance Type') }}</label>
+                                        <select name="maintenance_type" id="maintenance_type" class="form-control">
+                                            <option value="Plumber">{{ __('Plumber') }}</option>
+                                            <option value="Electric">{{ __('Electric') }}</option>
+                                            <option value="Structure">{{ __('Structure') }}</option>
+                                            <option value="Other">{{ __('Other') }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mb-25">
+                                        <label
+                                            class="label-text-title color-heading font-medium mb-2">{{ __('Date') }}</label>
+                                        <input type="date" name="date" id="date" class="form-control"
+                                            placeholder="{{ __('Date') }}">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-25">
+                                        <label
+                                            class="label-text-title color-heading font-medium mb-2">{{ __('Repair Fees') }}</label>
+                                        <input type="number" step="0.01" name="repair_fees" id="repair_fees"
+                                            class="form-control" placeholder="{{ __('Repair Fees') }}">
+                                    </div>
+                                    <div class="col-md-6 mb-25">
+                                        <label
+                                            class="label-text-title color-heading font-medium mb-2">{{ __('Utensils Fees') }}</label>
+                                        <input type="number" step="0.01" name="utensils_fees" id="utensils_fees"
+                                            class="form-control" placeholder="{{ __('Utensils Fees') }}">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 mb-25">
+                                        <label
+                                            class="label-text-title color-heading font-medium mb-2">{{ __('Details of Repair') }}</label>
+                                        <textarea name="repair_details" id="repair_details" class="form-control" rows="3"
+                                            placeholder="{{ __('Details of Repair') }}"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-25">
+                                        <label
+                                            class="label-text-title color-heading font-medium mb-2">{{ __('Monthly Maintenance Fees') }}</label>
+                                        <input type="number" step="0.01" name="monthly_maintenance_fees"
+                                            id="monthly_maintenance_fees" class="form-control"
+                                            placeholder="{{ __('Monthly Maintenance Fees') }}">
+                                    </div>
+                                    <div class="col-md-6 mb-25">
+                                        <label
+                                            class="label-text-title color-heading font-medium mb-2">{{ __('Services Included') }}</label>
+                                        <select name="services_included" class="form-control" id="services_included">
+                                            <option value="Included">{{ __('Included') }}</option>
+                                            <option value="Not Included">{{ __('Not Included') }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal Inner Form Box End -->
+                        </div>
+
+                        <div class="modal-footer justify-content-start">
+                            <button type="button" class="theme-btn-back me-3" data-bs-dismiss="modal"
+                                title="{{ __('Back') }}">{{ __('Back') }}</button>
+                            <button type="submit" class="theme-btn me-3"
+                                title="{{ __('Submit') }}">{{ __('Submit') }}</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    @endcan
     <!-- Add Information Modal End -->
     <input type="hidden" id="getInfoRoute" value="{{ route('maintainer.get.info') }}">
     <input type="hidden" id="route" value="{{ route('maintainer.index') }}">

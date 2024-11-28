@@ -22,6 +22,9 @@ class PropertyController extends Controller
 
     public function allProperty(Request $request)
     {
+        if (!auth()->user()->hasPermissionTo("view-apartments"))
+            return back();
+
         $data['pageTitle'] = __("All Apartments");
         $data['navApartmentMMShowClass'] = 'mm-show';
         $data['subNavAllApartmentMMActiveClass'] = 'mm-active';
@@ -37,6 +40,9 @@ class PropertyController extends Controller
 
     public function comments(Request $request)
     {
+        if (!auth()->user()->hasPermissionTo("view-apartment-comments"))
+            return back();
+
         $data['pageTitle'] = __("Apartments Comments");
         $data['navApartmentMMShowClass'] = 'mm-show';
         $data['subNavAllApartmentCommentMMActiveClass'] = 'mm-active';
@@ -51,10 +57,15 @@ class PropertyController extends Controller
                 //     alt="">';
                 // })
                 ->addColumn('status', function ($property) {
-                    return '<label class="switch">
-                            <input type="checkbox" class="change-status" '.($property->status == true ? 'checked' : '').' data-id="'.$property->id.'">
-                            <span class="slider round"></span>
-                            </label>';
+                    $status = $property->status;
+
+                    if (auth()->user()->hasPermissionTo("action-apartment-comments")) {
+                        $status = '<label class="switch">
+                                <input type="checkbox" class="change-status" ' . ($property->status == true ? 'checked' : '') . ' data-id="' . $property->id . '">
+                                <span class="slider round"></span>
+                                </label>';
+                    }
+                    return $status;
                 })
                 // ->addColumn('action', function ($property) {
                 //     return '<div class="tbl-action-btns d-inline-flex">
@@ -73,18 +84,23 @@ class PropertyController extends Controller
 
     public function commentStatus(Request $request)
     {
+        if (!auth()->user()->hasPermissionTo("action-apartment-comments"))
+            throw new \Exception('Not allowed');
+
         $apartment = ApartmentComment::find($request->id);
-        if(!empty($apartment)){
+        if (!empty($apartment)) {
             $apartment->status = (int)$request->value;
             $apartment->save();
-            return response()->json(['message' => 'Comment Status has been Changed!'],201);
-        }else{
-            return response()->json(['message' => 'Comment Not Found!'],404);
+            return response()->json(['message' => 'Comment Status has been Changed!'], 201);
+        } else {
+            return response()->json(['message' => 'Comment Not Found!'], 404);
         }
     }
 
     public function add()
     {
+        if (!auth()->user()->hasPermissionTo("add-apartments"))
+            return back();
 
         $data['pageTitle'] = __("Add Apartment");
         $data['navApartmentMMShowClass'] = 'mm-show';
@@ -96,6 +112,9 @@ class PropertyController extends Controller
 
     public function show($id)
     {
+        if (!auth()->user()->hasPermissionTo("view-apartments"))
+            return back();
+
         $data['pageTitle'] = __("Apartment Details");
         $data['navApartmentMMShowClass'] = 'mm-show';
         $data['subNavAllApartmentMMActiveClass'] = 'mm-active';
@@ -106,6 +125,9 @@ class PropertyController extends Controller
 
     public function edit($id)
     {
+        if (!auth()->user()->hasPermissionTo("edit-apartments"))
+            return back();
+
         $data['pageTitle'] = __("Edit Apartment");
         $data['navApartmentMMShowClass'] = 'mm-show';
         $data['subNavApartmentIndexMMActiveClass'] = 'mm-active';
@@ -117,12 +139,17 @@ class PropertyController extends Controller
 
     public function propertyInformationStore(PropertyInformationRequest $request)
     {
+        if (!auth()->user()->hasPermissionTo("add-apartments"))
+            throw new \Exception('Not allowed');
+
         return $this->propertyService->propertyInformationStore($request);
     }
 
     public function destroy($id)
     {
+        if (!auth()->user()->hasPermissionTo("delete-apartments"))
+            return back();
+
         return $this->propertyService->destroy($id);
     }
-
 }

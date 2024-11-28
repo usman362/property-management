@@ -63,48 +63,6 @@
         <!-- End Page-content -->
     </div>
 
-    <!-- Add Information Modal Start -->
-    <div class="modal fade" id="addMaintainerModal" tabindex="-1" aria-labelledby="addMaintainerModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <form class="ajax" action="{{ route('maintainer.store') }}" method="POST" enctype="multipart/form-data"
-                    data-handler="getShowMessage">
-                    <input type="hidden" id="id" name="repair_id" value="">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="addMaintainerModalLabel">{{ __('Add Maintainer') }}</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
-                                class="iconify" data-icon="akar-icons:cross"></span></button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Modal Inner Form Box Start -->
-                        <div class="modal-inner-form-box">
-
-                            <div class="row">
-                                <div class="col-md-4 mb-25">
-                                    <label
-                                        class="label-text-title color-heading font-medium mb-2">{{ __('Status') }}</label>
-                                    <select name="status" id="status" class="form-control">
-                                        <option value="Checked In">{{ __('Checked In') }}</option>
-                                        <option value="Checked Out">{{ __('Checked Out') }}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Modal Inner Form Box End -->
-                    </div>
-
-                    <div class="modal-footer justify-content-start">
-                        <button type="button" class="theme-btn-back me-3" data-bs-dismiss="modal"
-                            title="{{ __('Back') }}">{{ __('Back') }}</button>
-                        <button type="submit" class="theme-btn me-3"
-                            title="{{ __('Submit') }}">{{ __('Submit') }}</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Add Information Modal End -->
     <input type="hidden" id="route" value="{{ route('applications.index') }}">
     <input type="hidden" id="status_route" value="{{ route('applications.status') }}">
 @endsection

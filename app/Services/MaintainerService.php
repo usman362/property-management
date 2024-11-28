@@ -23,10 +23,10 @@ class MaintainerService
         $maintainer = Repair::all();
         return datatables($maintainer)
             ->addIndexColumn()
-            ->addColumn('building_name',function($row){
+            ->addColumn('building_name', function ($row) {
                 return $row->building->name ?? '';
             })
-            ->addColumn('apartment_number',function($row){
+            ->addColumn('apartment_number', function ($row) {
                 return $row->apartment->apartment_name ?? '';
             })
             ->addColumn('status', function ($maintainer) {
@@ -38,10 +38,15 @@ class MaintainerService
             })
             ->addColumn('action', function ($maintainer) {
                 $id = $maintainer->id;
-                return '<div class="tbl-action-btns d-inline-flex">
-                            <button type="button" class="p-1 tbl-action-btn edit" data-id="' . $id . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>
-                            <button onclick="deleteItem(\'' . route('maintainer.delete', $id) . '\', \'allMaintainerDataTable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
-                        </div>';
+                $action = '<div class="tbl-action-btns d-inline-flex">';
+                if (auth()->user()->hasPermissionTo("edit-maintenance")) {
+                    $action .= '<button type="button" class="p-1 tbl-action-btn edit" data-id="' . $id . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>';
+                }
+                if (auth()->user()->hasPermissionTo("delete-maintenance")) {
+                    $action .= '<button onclick="deleteItem(\'' . route('maintainer.delete', $id) . '\', \'allMaintainerDataTable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>';
+                }
+                $action .= '</div>';
+                return $action;
             })
             ->rawColumns(['status', 'action'])
             ->make(true);
@@ -63,9 +68,9 @@ class MaintainerService
     {
         DB::beginTransaction();
         try {
-            if($request->repair_id){
+            if ($request->repair_id) {
                 $repair = Repair::findOrFail($request->repair_id);
-            }else{
+            } else {
                 $repair = new Repair();
                 $repair->user_id = auth()->user()->id;
             }

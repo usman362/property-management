@@ -36,14 +36,16 @@
 
                                     </div>
 
-                                    <div class="col-xl-12 col-xxl-6 tenants-top-bar-right">
-                                        <div class="row justify-content-end">
-                                            <div class="col-auto mb-25">
-                                                <a href="{{ route('tenant.create') }}" class="theme-btn w-auto"
-                                                    title="{{ __('Add New Tenant') }}">{{ __('Add New Tenant') }}</a>
+                                    @can('add-tenants')
+                                        <div class="col-xl-12 col-xxl-6 tenants-top-bar-right">
+                                            <div class="row justify-content-end">
+                                                <div class="col-auto mb-25">
+                                                    <a href="{{ route('tenant.create') }}" class="theme-btn w-auto"
+                                                        title="{{ __('Add New Tenant') }}">{{ __('Add New Tenant') }}</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endcan
                                 </div>
                             </div>
                         </div>
@@ -63,14 +65,18 @@
                                                             {{ $tenant->last_name }}</h4>
                                                         <p class="font-13 text-break">{{ $tenant->email }}</p>
                                                     </div>
-                                                    <a href="{{ route('tenant.edit', $tenant->id) }}"
-                                                        class="p-1 tbl-action-btn" title="{{ __('Edit') }}"><span
-                                                            class="iconify"
-                                                            data-icon="material-symbols:edit-square-outline"></span></a>
-                                                    <a href="{{ route('tenant.delete', $tenant->id) }}"
-                                                        class="p-1 tbl-action-btn" title="{{ __('Delete') }}"><span
-                                                            class="iconify"
-                                                            data-icon="material-symbols:delete-outline"></span></a>
+                                                    @can('edit-tenants')
+                                                        <a href="{{ route('tenant.edit', $tenant->id) }}"
+                                                            class="p-1 tbl-action-btn" title="{{ __('Edit') }}"><span
+                                                                class="iconify"
+                                                                data-icon="material-symbols:edit-square-outline"></span></a>
+                                                    @endcan
+                                                    @can('delete-tenants')
+                                                        <a href="{{ route('tenant.delete', $tenant->id) }}"
+                                                            class="p-1 tbl-action-btn" title="{{ __('Delete') }}"><span
+                                                                class="iconify"
+                                                                data-icon="material-symbols:delete-outline"></span></a>
+                                                    @endcan
                                                 </div>
                                                 <div class="tenants-item-info bg-white radius-4 theme-border">
                                                     <div class="border-bottom tenants-item-info-box">

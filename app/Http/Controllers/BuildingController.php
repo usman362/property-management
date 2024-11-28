@@ -19,6 +19,9 @@ class  BuildingController extends Controller
 
     public function allBuilding(Request $request)
     {
+        if (!auth()->user()->hasPermissionTo("view-buildings"))
+            return back();
+
         $data['pageTitle'] = __("All Building");
         $data['navBuildingMMShowClass'] = 'mm-show';
         $data['subNavAllBuildingMMActiveClass'] = 'mm-active';
@@ -33,9 +36,13 @@ class  BuildingController extends Controller
 
     public function store(Request $request)
     {
+        if (!auth()->user()->hasPermissionTo("add-buildings"))
+            throw new \Exception('Not allowed');
+
         $request->validate([
             'name' => 'required',
         ]);
+
         return $this->buildingService->store($request);
     }
 
@@ -47,6 +54,9 @@ class  BuildingController extends Controller
 
     public function destroy($id)
     {
+        if (!auth()->user()->hasPermissionTo("delete-buildings"))
+            throw new \Exception('Not allowed');
+
         return $this->buildingService->destroy($id);
     }
 }

@@ -33,10 +33,16 @@ class BuildingService
                 return $building->address;
             })
             ->addColumn('action', function ($building) {
-                return '<div class="tbl-action-btns d-inline-flex">
-                <button type="button" class="p-1 tbl-action-btn edit" data-detailsurl="' . route('building.details', $building->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>
-                <button onclick="deleteItem(\'' . route('building.destroy', $building->id) . '\', \'buildingDatatable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>
-            </div>';
+                $actionBtn = '';
+                $actionBtn .= '<div class="tbl-action-btns d-inline-flex">';
+                if (auth()->user()->hasPermissionTo("edit-buildings")) {
+                    $actionBtn .= '<button type="button" class="p-1 tbl-action-btn edit" data-detailsurl="' . route('building.details', $building->id) . '" title="' . __('Edit') . '"><span class="iconify" data-icon="clarity:note-edit-solid"></span></button>';
+                }
+                if (auth()->user()->hasPermissionTo("delete-buildings")) {
+                    $actionBtn .= '<button onclick="deleteItem(\'' . route('building.destroy', $building->id) . '\', \'buildingDatatable\')" class="p-1 tbl-action-btn"   title="' . __('Delete') . '"><span class="iconify" data-icon="ep:delete-filled"></span></button>';
+                }
+                $actionBtn .= '</div>';
+                return $actionBtn;
             })
             ->rawColumns(['name', 'address', 'action'])
             ->make(true);
@@ -46,9 +52,9 @@ class BuildingService
     {
         DB::beginTransaction();
         try {
-            if($request->building_id){
+            if ($request->building_id) {
                 $building = Building::findOrFail($request->building_id);
-            }else{
+            } else {
                 $building = new Building();
                 $building->user_id = auth()->user()->id;
             }
@@ -89,12 +95,14 @@ class BuildingService
         }
     }
 
-    public function getById($id){
+    public function getById($id)
+    {
         $building = Building::findOrFail($id);
         return $building;
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $building = Building::findOrFail($id);
         return $building->delete();
     }

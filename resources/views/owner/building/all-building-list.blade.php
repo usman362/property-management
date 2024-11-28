@@ -28,9 +28,11 @@
 
                                 <div class="col-md-12">
                                     <div class="property-top-search-bar-right text-end">
-                                        <button type="button" class="theme-btn mb-25 addBuilding"
-                                            title="{{ __('Add New Building') }}">{{ __('Add New Building') }}
-                                        </button>
+                                        @can('add-buildings')
+                                            <button type="button" class="theme-btn mb-25 addBuilding"
+                                                title="{{ __('Add New Building') }}">{{ __('Add New Building') }}
+                                            </button>
+                                        @endcan
                                     </div>
                                 </div>
                             </div>
@@ -52,6 +54,7 @@
         </div>
     </div>
 
+    @can('add-buildings')
     <!-- Add Expenses Modal Start -->
     <div class="modal fade" id="addBuildingModal" tabindex="-1" aria-labelledby="addBuildingModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -62,8 +65,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
                             class="iconify" data-icon="akar-icons:cross"></span></button>
                 </div>
-                <form class="ajax" action="{{ route('building.store') }}" method="post"
-                    enctype="multipart/form-data" data-handler="getShowMessage">
+                <form class="ajax" action="{{ route('building.store') }}" method="post" enctype="multipart/form-data"
+                    data-handler="getShowMessage">
                     @csrf
                     <input type="hidden" name="building_id" class="id">
                     <div class="modal-body">
@@ -111,6 +114,7 @@
             </div>
         </div>
     </div>
+    @endcan
 
     <input type="hidden" id="buildingIndexRoute" value="{{ route('building.allBuilding') }}">
 @endsection

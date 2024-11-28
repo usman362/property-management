@@ -1,4 +1,4 @@
-@extends(getLayout() . '.layouts.app')
+@extends('owner.layouts.app')
 
 @section('content')
     <!-- Right Content Start -->
@@ -51,13 +51,10 @@
                                                                     class="upload-profile-photo-box upload-profile-photo-with-delete-btn mb-25">
                                                                     <div
                                                                         class="profile-user position-relative d-inline-block">
-                                                                        @if(auth()->user()->role == USER_ROLE_OWNER)
+
                                                                         <img src="@if (auth()->user()->image) {{ auth()->user()->image }} @else {{ asset('assets/images/users/empty-user.jpg') }} @endif"
                                                                             class="rounded-circle avatar-xl default-user-profile-image">
-                                                                        @elseif(auth()->user()->role == USER_ROLE_TENANT)
-                                                                            <img src="@if ($tenant->image) {{ $tenant->image }} @else {{ asset('assets/images/users/empty-user.jpg') }} @endif"
-                                                                                 class="rounded-circle avatar-xl default-user-profile-image">
-                                                                        @endif
+
                                                                         <div
                                                                             class="avatar-xs p-0 rounded-circle default-profile-photo-edit">
                                                                             <input id="default-profile-img-file-input"

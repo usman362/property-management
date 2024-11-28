@@ -16,6 +16,9 @@ class SettingController extends Controller
 {
     public function generalSetting()
     {
+        if (!auth()->user()->hasPermissionTo("view-basic-settings"))
+            return back();
+
         $data['pageTitle'] = __("Basic Setting");
         $data['subGeneralSettingActiveClass'] = 'active';
         $data['navApplicationSettingParentActiveClass'] = 'mm-active';
@@ -27,6 +30,7 @@ class SettingController extends Controller
 
     public function generalSettingUpdate(Request $request)
     {
+
         $inputs = Arr::except($request->all(), ['_token']);
         $keys = [];
 
@@ -97,6 +101,9 @@ class SettingController extends Controller
 
     public function colorSetting()
     {
+        if (!auth()->user()->hasPermissionTo("view-color-settings"))
+            return back();
+
         $data['pageTitle'] = __("Color Setting");
         $data['subColorSettingActiveClass'] = 'active';
         return view('owner.setting.color-setting')->with($data);

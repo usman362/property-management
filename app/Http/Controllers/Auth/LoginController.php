@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -43,66 +44,41 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function login(LoginRequest $request)
+    public function login(Request $request)
     {
-        $field = 'email';
-        if (filter_var($request->input('email'), FILTER_VALIDATE_EMAIL)) {
-            $field = 'email';
-        } elseif (is_numeric($request->input('email'))) {
-            $field = 'contact_number';
+        $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        // Determine if the input is email or phone number
+        $fieldType = filter_var($request->email, FILTER_VALIDATE_EMAIL) ? 'email' : 'contact_number';
+        $credentials = [$fieldType => $request->email, 'password' => $request->password];
+
+        // Attempt login
+        if (!Auth::attempt($credentials, $request->filled('remember'))) {
+            return redirect('login')->with('error', __('Email or password is incorrect'));
         }
 
-        $request->merge([$field => $request->input('email')]);
+        // Check user status
+        $user = Auth::user();
 
-        $credentials = $request->only($field, 'password');
+        // if ($user->status == USER_STATUS_INACTIVE) {
+        //     Auth::logout();
+        //     return redirect('login')->with('error', __('Your account is inactive. Please contact the admin.'));
+        // }
 
-        $remember = request('remember');
-        if (!Auth::attempt($credentials, $remember)) {
-            return redirect("login")->with('error',  __('Email or password is incorrect'));
-        }
+        // if ($user->status == USER_STATUS_DELETED) {
+        //     Auth::logout();
+        //     return redirect('login')->with('error', __('Your account has been deleted.'));
+        // }
 
-        $user = User::where('email', $request->email)->first();
-        if (isset($user) && ($user->status == USER_STATUS_UNVERIFIED && $user->role != USER_ROLE_ADMIN)) {
-            if (getOption('email_verification_status', 0) == 1) {
-                if (is_null($user->verify_token)) {
-                    $user->verify_token = str_replace('-', '', Str::uuid()->toString());
-                    $user->save();
-                }
-                $token = $user->verify_token;
-                Auth::logout();
-                return redirect()->route('user.email.verify', $token)->with('error', __('Verify Your Account'));
-            } else {
-                $user->status = USER_STATUS_ACTIVE;
-                $user->email_verified_at = Carbon::now()->format("Y-m-d H:i:s");
-                $user->save();
-            }
-        } elseif (isset($user) && ($user->status == USER_STATUS_INACTIVE)) {
-            Auth::logout();
-            return redirect("login")->with('error', __('Your account is inactive. Please contact with admin'));
-        } elseif (isset($user) && ($user->status == USER_STATUS_DELETED)) {
-            Auth::logout();
-            return redirect("login")->with('error', __('Your account has been deleted.'));
-        } elseif (isset($user) && ($user->status == USER_STATUS_ACTIVE)) {
-            if (isset($user) && $user->role == USER_ROLE_OWNER) {
-                return redirect()->route('dashboard');
-            } elseif (isset($user) && ($user->role == USER_ROLE_TENANT)) {
-                if (!is_null($user->tenant->property_id) && !is_null($user->tenant->property_id)) {
-                    return redirect()->route('tenant.dashboard');
-                } else {
-                    Auth::logout();
-                    return redirect("login")->with('error', __('Your account is inactive. Please contact with admin'));
-                }
-            } elseif (isset($user) && ($user->role == USER_ROLE_MAINTAINER)) {
-                return redirect()->route('maintainer.dashboard');
-            } elseif (isset($user) && ($user->role == USER_ROLE_ADMIN)) {
-                return redirect()->route('admin.dashboard');
-            } else {
-                Auth::logout();
-                return redirect("login")->with('error', __(SOMETHING_WENT_WRONG));
-            }
-        } else {
-            Auth::logout();
-            return redirect("login")->with('error', __(SOMETHING_WENT_WRONG));
-        }
+        // if ($user->status == USER_STATUS_UNVERIFIED) {
+        //     Auth::logout();
+        //     return redirect('login')->with('error', __('Please verify your account before logging in.'));
+        // }
+
+
+        return redirect()->route('dashboard');
     }
 }

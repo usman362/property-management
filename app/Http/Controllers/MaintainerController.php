@@ -23,9 +23,12 @@ class MaintainerController extends Controller
 
     public function index(Request $request)
     {
+        if (!auth()->user()->hasPermissionTo("view-maintenance"))
+            return back();
+
         $data['pageTitle'] = __('Maintenance');
-        $data['apartments'] = Apartment::select('id','apartment_name')->get();
-        $data['buildings'] = Building::select('id','name')->get();
+        $data['apartments'] = Apartment::select('id', 'apartment_name')->get();
+        $data['buildings'] = Building::select('id', 'name')->get();
         if ($request->ajax()) {
             return $this->maintainerService->getAllData();
         }
@@ -34,6 +37,9 @@ class MaintainerController extends Controller
 
     public function store(MaintainerRequest $request)
     {
+        if (!auth()->user()->hasPermissionTo("add-maintenance"))
+            throw new \Exception('Not allowed');
+
         return $this->maintainerService->store($request);
     }
 
@@ -49,6 +55,9 @@ class MaintainerController extends Controller
 
     public function delete($id)
     {
+        if (!auth()->user()->hasPermissionTo("delete-maintenance"))
+            throw new \Exception('Not allowed');
+
         return $this->maintainerService->deleteById($id);
     }
 }

@@ -19,6 +19,9 @@ class ProfileController extends Controller
     use ResponseTrait;
     public function myProfile()
     {
+        if (!auth()->user()->hasPermissionTo("view-profile-settings"))
+            return back();
+
         $data['pageTitle'] = __('My Profile');
 
         return view('common.profile.my-profile', $data);
@@ -77,6 +80,9 @@ class ProfileController extends Controller
 
     public function changePassword()
     {
+        if (!auth()->user()->hasPermissionTo("view-password-settings"))
+            return back();
+
         $data['pageTitle'] = __('Change Password');
         return view('common.profile.change-password', $data);
     }

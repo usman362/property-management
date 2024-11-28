@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TenantCloseRequest;
-use App\Http\Requests\TenantDeleteRequest;
 use App\Http\Requests\TenantRequest;
 use App\Models\Apartment;
 use App\Models\Building;
-use App\Models\Property;
-use App\Services\InvoiceTypeService;
 use App\Services\LocationService;
 use App\Services\PropertyService;
 use App\Services\TenantService;
@@ -25,12 +22,14 @@ class TenantController extends Controller
     {
         $this->tenantService = new TenantService;
         $this->propertyService = new PropertyService;
-        $this->invoiceTypeService = new InvoiceTypeService;
         $this->locationService = new LocationService;
     }
 
     public function index(Request $request)
     {
+        if (!auth()->user()->hasPermissionTo("view-tenants"))
+            return back();
+
         $data['navTenantMMShowClass'] = 'mm-show';
         $data['subNavAllTenantMMActiveClass'] = 'mm-active';
         $data['subNavAllTenantActiveClass'] = 'active';
@@ -41,32 +40,44 @@ class TenantController extends Controller
 
     public function create()
     {
+        if (!auth()->user()->hasPermissionTo("add-tenants"))
+            throw new \Exception('Not allowed');
+
         $data['pageTitle'] = __('Add Tenant');
         $data['subNavAllTenantMMActiveClass'] = 'mm-active';
         $data['subNavAllTenantActiveClass'] = 'active';
-        $data['apartments'] = Apartment::select('id','apartment_name')->get();
-        $data['buildings'] = Building::select('id','name')->get();
+        $data['apartments'] = Apartment::select('id', 'apartment_name')->get();
+        $data['buildings'] = Building::select('id', 'name')->get();
         return view('owner.tenants.add', $data);
     }
 
     public function edit($id)
     {
+        if (!auth()->user()->hasPermissionTo("edit-tenants"))
+            throw new \Exception('Not allowed');
+
         $data['pageTitle'] = __('Edit Tenant');
         $data['subNavAllTenantMMActiveClass'] = 'mm-active';
         $data['subNavAllTenantActiveClass'] = 'active';
         $data['tenant'] = $this->tenantService->getDetailsById($id);
-        $data['apartments'] = Apartment::select('id','apartment_name')->get();
-        $data['buildings'] = Building::select('id','name')->get();
+        $data['apartments'] = Apartment::select('id', 'apartment_name')->get();
+        $data['buildings'] = Building::select('id', 'name')->get();
         return view('owner.tenants.add', $data);
     }
 
     public function store(TenantRequest $request)
     {
+        if (!auth()->user()->hasPermissionTo("add-tenants"))
+            throw new \Exception('Not allowed');
+
         return $this->tenantService->store($request);
     }
 
     public function details(Request $request, $id)
     {
+        if (!auth()->user()->hasPermissionTo("view-tenants"))
+            return back();
+
         $data['navTenantMMShowClass'] = 'mm-show';
         $data['subNavAllTenantMMActiveClass'] = 'mm-active';
         $data['subNavAllTenantActiveClass'] = 'active';
@@ -88,6 +99,9 @@ class TenantController extends Controller
 
     public function delete($id)
     {
+        if (!auth()->user()->hasPermissionTo("delete-tenants"))
+            back();
+
         return $this->tenantService->delete($id);
     }
 }

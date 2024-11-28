@@ -83,8 +83,7 @@
                         </a>
                     </div>
                     <div class="main__right">
-                        <a href="room-details-1.html" class="theme-btn btn-style sm-btn fill"><span>Book
-                                Now</span></a>
+                        <a href="{{route('login')}}" class="theme-btn btn-style sm-btn fill"><span>Login</span></a>
                         <button class="theme-btn btn-style sm-btn fill menu__btn d-lg-none" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                             <span><img src="{{ asset('f2/assets/images/icon/menu-icon.svg') }}"

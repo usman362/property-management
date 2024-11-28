@@ -68,7 +68,7 @@ class ReportController extends Controller
     public function maintenance(Request $request)
     {
         $data['pageTitle'] = __('Maintenance Report');
-        $data['apartments'] = Apartment::select('id','apartment_name')->get();
+        $data['apartments'] = Apartment::select('id', 'apartment_name')->get();
         if ($request->ajax()) {
             return $this->reportService->maintenance($request);
         }
@@ -86,8 +86,11 @@ class ReportController extends Controller
 
     public function tenant(Request $request)
     {
+        if (!auth()->user()->hasPermissionTo("view-tenant-report"))
+            return back();
+
         $data['pageTitle'] = __('Tenant Report');
-        $data['apartments'] = Apartment::select('id','apartment_name')->get();
+        $data['apartments'] = Apartment::select('id', 'apartment_name')->get();
         if ($request->ajax()) {
             return $this->reportService->tenant($request);
         }
@@ -96,8 +99,11 @@ class ReportController extends Controller
 
     public function apartment(Request $request)
     {
+        if (!auth()->user()->hasPermissionTo("view-maintenance-report"))
+            return back();
+
         $data['pageTitle'] = __('Apartment Report');
-        $data['apartments'] = Apartment::select('id','apartment_name')->get();
+        $data['apartments'] = Apartment::select('id', 'apartment_name')->get();
         if ($request->ajax()) {
             return $this->reportService->apartment($request);
         }

@@ -1,4 +1,4 @@
-@extends(getLayout() . '.layouts.app')
+@extends('owner.layouts.app')
 
 @section('content')
     <!-- Right Content Start -->

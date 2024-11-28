@@ -2,19 +2,23 @@
     <div class="account-settings-leftside bg-white theme-border radius-4 p-20 mb-25">
         <div class="tenants-details-leftsidebar-wrap d-flex">
             <ul class="account-settings-menu list-group">
-                <li>
-                    <a href="{{ route('setting.general-setting') }}"
-                        class="account-settings-menu-item {{ @$subGeneralSettingActiveClass }}">
-                        <span class="iconify" data-icon="carbon:settings"></span>{{ __('Basic Setting') }}
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('setting.color-setting') }}"
-                        class="account-settings-menu-item {{ @$subColorSettingActiveClass }}">
-                        <span class="iconify"
-                            data-icon="fluent:color-background-24-regular"></span>{{ __('Color Setting') }}
-                    </a>
-                </li>
+                @can('view-basic-settings')
+                    <li>
+                        <a href="{{ route('setting.general-setting') }}"
+                            class="account-settings-menu-item {{ @$subGeneralSettingActiveClass }}">
+                            <span class="iconify" data-icon="carbon:settings"></span>{{ __('Basic Setting') }}
+                        </a>
+                    </li>
+                @endcan
+                @can('view-color-settings')
+                    <li>
+                        <a href="{{ route('setting.color-setting') }}"
+                            class="account-settings-menu-item {{ @$subColorSettingActiveClass }}">
+                            <span class="iconify"
+                                data-icon="fluent:color-background-24-regular"></span>{{ __('Color Setting') }}
+                        </a>
+                    </li>
+                @endcan
             </ul>
         </div>
     </div>

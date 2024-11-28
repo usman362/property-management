@@ -29,8 +29,8 @@
                     </button>
                     <div class="text-center exclamation-area">
                         {{ __('Currently you doesn\'t have any subscription!') }} <a
-                            href="{{ route('subscription.index', ['current_plan' => 'no']) }}"
-                            class="text-danger px-1" title="{{ __('Choose a plan') }}">{{ __('Choose a plan') }}</a>
+                            href="{{ route('subscription.index', ['current_plan' => 'no']) }}" class="text-danger px-1"
+                            title="{{ __('Choose a plan') }}">{{ __('Choose a plan') }}</a>
                     </div>
                     <button type="button" class="close topBannerClose ms-2"><span>&times;</span></button>
                 </div>
@@ -49,10 +49,14 @@
                 <div class="dropdown-menu {{ selectedLanguage()->rtl == 1 ? 'dropdown-menu-start' : 'dropdown-menu-end' }}"
                     aria-labelledby="page-header-user-dropdown">
                     <!-- item-->
-                    <a class="dropdown-item" href="{{ route('profile') }}"><i
-                            class="ri-user-line align-middle me-1"></i> {{ __('Profile') }}</a>
-                    <a class="dropdown-item" href="{{ route('setting.general-setting') }}"><i
-                        class="ri-settings-2-line align-middle me-1"></i> {{ __('Settings') }}</a>
+                    @can('view-profile-settings')
+                        <a class="dropdown-item" href="{{ route('profile') }}"><i
+                                class="ri-user-line align-middle me-1"></i> {{ __('Profile') }}</a>
+                    @endcan
+                    @can('view-password-settings')
+                        <a class="dropdown-item" href="{{ route('setting.general-setting') }}"><i
+                                class="ri-settings-2-line align-middle me-1"></i> {{ __('Settings') }}</a>
+                    @endcan
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('logout') }}"><i
                             class="ri-shut-down-line align-middle me-1"></i> {{ __('Logout') }}</a>
