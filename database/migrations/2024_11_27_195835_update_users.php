@@ -14,13 +14,27 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
-            $table->dropColumn('owner_user_id');
-            $table->dropColumn('verify_token');
-            $table->dropColumn('otp');
-            $table->dropColumn('otp_expire');
-            $table->dropColumn('nid_number');
-            $table->dropColumn('deleted_at');
+            if (Schema::hasColumn('users', 'role')) {
+                $table->dropColumn('role');
+            }
+            if (Schema::hasColumn('users', 'owner_user_id')) {
+                $table->dropColumn('owner_user_id');
+            }
+            if (Schema::hasColumn('users', 'verify_token')) {
+                $table->dropColumn('verify_token');
+            }
+            if (Schema::hasColumn('users', 'otp')) {
+                $table->dropColumn('otp');
+            }
+            if (Schema::hasColumn('users', 'otp_expire')) {
+                $table->dropColumn('otp_expire');
+            }
+            if (Schema::hasColumn('users', 'nid_number')) {
+                $table->dropColumn('nid_number');
+            }
+            if (Schema::hasColumn('users', 'deleted_at')) {
+                $table->dropColumn('deleted_at');
+            }
         });
     }
 
