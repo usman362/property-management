@@ -86,6 +86,7 @@ class PropertyService
             }
             $apartment->building_id = $request->building_id;
             $apartment->apartment_name = $request->apartment_name;
+            $apartment->apartment_number = $request->apartment_number;
             $apartment->floor = $request->floor;
             $apartment->monthly_rental_price = $request->monthly_rental_price;
             $apartment->balcony_area = $request->balcony_area;
@@ -93,6 +94,7 @@ class PropertyService
             $apartment->dining_room_area = $request->dining_room_area;
             $apartment->kitchen_area = $request->kitchen_area;
             $apartment->alley_area = $request->alley_area;
+            $apartment->currency = $request->currency;
             $apartment->main_bedroom_area = $request->main_bedroom_area;
             $apartment->second_bedroom_area = $request->second_bedroom_area;
             $apartment->third_bedroom_area = $request->third_bedroom_area;

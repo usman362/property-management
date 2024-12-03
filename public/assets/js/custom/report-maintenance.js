@@ -7,6 +7,7 @@ var dt = $('#maintenanceReportDataTable').DataTable({
         data: function(d) {
             d.year = $('#year').val(),
             d.month = $('#month').val(),
+            d.building_id = $('#building_id').val(),
             d.apartment_id = $('#apartment_id').val()
         }
     },
@@ -38,6 +39,7 @@ var dt = $('#maintenanceReportDataTable').DataTable({
     ],
     columns: [
         { "data": 'DT_RowIndex', "name": 'DT_RowIndex', orderable: false, searchable: false, },
+        { "data": "apartment_number", "name": "apartment_number" },
         { "data": "apartment_name", "name": "apartment_name" },
         { "data": "date", "name": "date" },
         { "data": "maintenance_type", "name": "maintenance_type" },
@@ -47,6 +49,10 @@ var dt = $('#maintenanceReportDataTable').DataTable({
 });
 
 $('#apartment_id').change(function(){
+    dt.draw();
+});
+
+$('#building_id').change(function(){
     dt.draw();
 });
 

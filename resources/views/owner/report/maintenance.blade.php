@@ -28,11 +28,19 @@
                             <div class="property-search-inner-bg bg-off-white theme-border radius-4 p-25 pb-0 mb-25">
                                 <form action="">
                                     <div class="row">
-                                        <div class="col-md-6 mb-25">
+                                        <div class="col-md-3 mb-25">
                                             <select class="form-select flex-shrink-0" name="apartment_id" id="apartment_id">
                                                 <option value="" selected>--{{ __('Select Apartment') }}--</option>
                                                 @foreach ($apartments as $apartment)
                                                     <option value="{{$apartment->id}}">{{$apartment->apartment_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 mb-25">
+                                            <select class="form-select flex-shrink-0" name="building_id" id="building_id">
+                                                <option value="" selected>--{{ __('Select Building') }}--</option>
+                                                @foreach ($buildings as $building)
+                                                    <option value="{{$building->id}}">{{$building->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -57,6 +65,7 @@
                                     <thead>
                                         <tr>
                                             <th>{{ __('SL') }}</th>
+                                            <th class="text-center" data-priority="1">{{ __('Apartment Number') }}</th>
                                             <th class="text-center" data-priority="1">{{ __('Apartment Name') }}</th>
                                             <th class="text-center">{{ __('Date') }}</th>
                                             <th class="text-center">{{ __('Issue') }}</th>

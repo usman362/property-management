@@ -11,10 +11,14 @@ class ReportService
 
     public function maintenance($request)
     {
-
         $year = request('year');
         $month = request('month');
         $apartment = request('apartment_id');
+        $building = request('building_id');
+
+        if(!empty($month) && empty($year)){
+            $year = Carbon::now()->format('Y');
+        }
 
         $maintenance = Repair::when($year, function ($query) use ($year) {
             $query->whereYear('date', $year);
@@ -22,11 +26,17 @@ class ReportService
             $query->whereMonth('date', Carbon::parse($month)->format('m'));
         })->when($apartment, function ($query) use ($apartment) {
             $query->where('apartment_id', $apartment);
+        })->when($building, function ($query) use ($building) {
+            $query->where('building_id', $building);
         })->get();
+
         return datatables($maintenance)
             ->addIndexColumn()
             ->addColumn('apartment_name', function ($row) {
                 return $row->apartment->apartment_name ?? '';
+            })
+            ->addColumn('apartment_number', function ($row) {
+                return $row->apartment->apartment_number ?? '';
             })
             ->addColumn('status', function ($maintenance) {
                 if ($maintenance->status == 'Checked Out') {
@@ -45,6 +55,11 @@ class ReportService
         $year = request('year');
         $month = request('month');
         $apartment = request('apartment_id');
+        $building = request('building_id');
+
+        if(!empty($month) && empty($year)){
+            $year = Carbon::now()->format('Y');
+        }
 
         $tenants = Tenant::when($year, function ($query) use ($year) {
             $query->whereYear('check_in_date', $year)
@@ -56,6 +71,8 @@ class ReportService
                 ->orWhereMonth('contract_date', $month);
         })->when($apartment, function ($query) use ($apartment) {
             $query->where('apartment_id', $apartment);
+        })->when($building, function ($query) use ($building) {
+            $query->where('building_id', $building);
         })->get();
 
         return datatables($tenants)
@@ -66,7 +83,9 @@ class ReportService
             ->addColumn('apartment_name', function ($tenant) {
                 return $tenant->apartment->apartment_name ?? '';
             })
-
+            ->addColumn('apartment_number', function ($tenant) {
+                return $tenant->apartment->apartment_number ?? '';
+            })
             ->rawColumns(['name', 'apartment_name'])
             ->make(true);
     }

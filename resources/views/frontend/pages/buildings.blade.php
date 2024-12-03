@@ -112,7 +112,8 @@
                             </div>
                             <div class="room__card__meta">
                                 <a href="{{ route('building.show', $building->id) }}"
-                                    class="room__card__title h5">{{ $building->apartment_name }}</a>
+                                    class="room__card__title h5">{{ $building->name }}</a>
+                                    <p>{{ substr($building->address,0,50).'...' }}</p>
                                 <a href="{{ route('building.show', $building->id) }}" class="room__card__link">Discover
                                     More</a>
                             </div>

@@ -92,6 +92,7 @@
                 <div class="modal-content">
                     <form class="ajax" action="{{ route('maintainer.store') }}" method="POST" enctype="multipart/form-data"
                         data-handler="getShowMessage">
+                        @csrf
                         <input type="hidden" id="id" name="repair_id" value="">
                         <div class="modal-header">
                             <h4 class="modal-title" id="addMaintainerModalLabel">{{ __('Add Maintainer') }}</h4>

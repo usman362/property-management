@@ -20,7 +20,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="room__details__top">
-                        <span class="h2 price">{{ $apartment->monthly_rental_price }}$</span>
+                        <span class="h2 price"><b><small>{{$apartment->currency}}</small></b>{{ number_format($apartment->monthly_rental_price,2) }}</span>
                         <h1>{{ $apartment->apartment_name }}</h1>
                     </div>
                 </div>

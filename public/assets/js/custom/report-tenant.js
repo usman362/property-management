@@ -7,7 +7,8 @@ var dt = $('#tenantReportDataTable').DataTable({
         data: function(d) {
             d.year = $('#year').val(),
             d.month = $('#month').val(),
-            d.apartment_id = $('#apartment_id').val()
+            d.apartment_id = $('#apartment_id').val(),
+            d.building_id = $('#building_id').val()
         }
     },
     order: [1, 'desc'],
@@ -41,6 +42,7 @@ var dt = $('#tenantReportDataTable').DataTable({
         { "data": 'DT_RowIndex', "name": 'DT_RowIndex', orderable: false, searchable: false, },
         { "data": "name", "name": "name" },
         { "data": "apartment_name", "name": "apartment_name" },
+        { "data": "apartment_number", "name": "apartment_number" },
         { "data": "check_in_date", "name": "check_in_date" },
         { "data": "check_out_date", "name": "check_out_date" },
         { "data": "contract_date", "name": "contract_date" },
@@ -51,6 +53,10 @@ var dt = $('#tenantReportDataTable').DataTable({
 });
 
 $('#apartment_id').change(function(){
+    dt.draw();
+});
+
+$('#building_id').change(function(){
     dt.draw();
 });
 

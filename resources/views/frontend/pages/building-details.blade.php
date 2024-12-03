@@ -21,6 +21,23 @@
             <div class="row justify-content-center text-center mb-40">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay=".3s">
                     <div class="section__topbar">
+                        <h2 class="section__title">Description</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <p>{{$building->address}}</p>
+            </div>
+        </div>
+    </div>
+    <!-- similar room area end -->
+
+    <!-- similar room area -->
+    <div class="rts__section pb-120 pt-120 ">
+        <div class="container">
+            <div class="row justify-content-center text-center mb-40">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay=".3s">
+                    <div class="section__topbar">
                         <span class="h6 subtitle__icon__three mx-auto">Apartments</span>
                         <h2 class="section__title">Apartments</h2>
                     </div>

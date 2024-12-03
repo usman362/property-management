@@ -190,81 +190,85 @@
     </div>
     <!-- facilities end -->
 
-    <!-- our room -->
-    <div class="rts__section section__padding">
-        <div class="container">
-            <div class="row">
-                <div class="section__wrapper mb-40 wow fadeInUp">
-                    <div class="section__content__left">
-                        <span class="h6 subtitle__icon__two d-block wow fadeInUp">Buildings</span>
-                        <h2 class="content__title h2 lh-1">Our Buildings</h2>
+    @if (count($buildings) > 0)
+        <!-- our room -->
+        <div class="rts__section section__padding">
+            <div class="container">
+                <div class="row">
+                    <div class="section__wrapper mb-40 wow fadeInUp">
+                        <div class="section__content__left">
+                            <span class="h6 subtitle__icon__two d-block wow fadeInUp">Buildings</span>
+                            <h2 class="content__title h2 lh-1">Our Buildings</h2>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- row end -->
-            <div class="row">
-                <div class="room__slider overflow-hidden wow fadeInUp" data-wow-delay=".5s">
-                    <div class="swiper-wrapper">
-                        @foreach ($buildings as $building)
-                            <!-- single room slider -->
-                            <div class="swiper-slide">
-                                <div class="room__slide__box radius-6">
-                                    <div class="room__thumbnail jara-mask-2 jarallax">
-                                        <img height="585" width="420" class="radius-6 jarallax-img"
-                                            src="{{ asset((isset($building->images[0]) ? $building->images[0]->media : '')) }}" alt="">
+                <!-- row end -->
+                <div class="row">
+                    <div class="room__slider overflow-hidden wow fadeInUp" data-wow-delay=".5s">
+                        <div class="swiper-wrapper">
+                            @foreach ($buildings as $building)
+                                <!-- single room slider -->
+                                <div class="swiper-slide">
+                                    <div class="room__slide__box radius-6">
+                                        <div class="room__thumbnail jara-mask-2 jarallax">
+                                            <img height="585" width="420" class="radius-6 jarallax-img"
+                                                src="{{ asset((isset($building->images[0]) ? $building->images[0]->media : '')) }}" alt="">
+                                        </div>
+                                        <div class="room__content">
+                                            <a href="{{route('building.show',$building->id)}}" class="room__title">
+                                                <h5>{{$building->name}}</h5>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <div class="room__content">
-                                        <a href="{{route('building.show',$building->id)}}" class="room__title">
-                                            <h5>{{$building->name}}</h5>
+                                </div>
+                                <!-- single room slider end -->
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <!-- pagination button -->
+                    <div class="rts__pagination">
+                        <div class="rts-pagination"></div>
+                    </div>
+                    <!-- pagination button end -->
+                </div>
+            </div>
+        </div>
+        <!-- our room end -->
+    @endif
+
+    @if (count($galleries) > 0)
+        <!-- gallery -->
+        <div class="rts__section pb-120">
+            <div class="container">
+                <div class="row position-relative justify-content-center text-center mb-30">
+                    <div class="col-lg-6 wow fadeInUp">
+                        <div class="section__topbar">
+                            <span class="h6 subtitle__icon__three mx-auto">Gallery</span>
+                            <h2 class="section__title">Our Gallery</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="gallery__slider overflow-hidden">
+                        <div class="swiper-wrapper gallery">
+                            @foreach ($galleries as $gallery)
+                                <!-- single gallery image -->
+                                <div class="swiper-slide">
+                                    <div class="gallery__item">
+                                        <a href="{{ asset($gallery->media) }}">
+                                            <img style="height: 150px; width:100%"
+                                                src="{{ asset($gallery->media) }}" alt="">
                                         </a>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- single room slider end -->
-                        @endforeach
-                    </div>
-                </div>
-
-                <!-- pagination button -->
-                <div class="rts__pagination">
-                    <div class="rts-pagination"></div>
-                </div>
-                <!-- pagination button end -->
-            </div>
-        </div>
-    </div>
-    <!-- our room end -->
-
-    <!-- gallery -->
-    <div class="rts__section pb-120">
-        <div class="container">
-            <div class="row position-relative justify-content-center text-center mb-30">
-                <div class="col-lg-6 wow fadeInUp">
-                    <div class="section__topbar">
-                        <span class="h6 subtitle__icon__three mx-auto">Gallery</span>
-                        <h2 class="section__title">Our Gallery</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="gallery__slider overflow-hidden">
-                    <div class="swiper-wrapper gallery">
-                        @foreach ($galleries as $gallery)
-                            <!-- single gallery image -->
-                            <div class="swiper-slide">
-                                <div class="gallery__item">
-                                    <a href="{{ asset($gallery->media) }}">
-                                        <img style="height: 150px; width:100%"
-                                            src="{{ asset($gallery->media) }}" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- single gallery image end -->
-                        @endforeach
+                                <!-- single gallery image end -->
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- gallery end -->
+        <!-- gallery end -->
+    @endif
 @endsection

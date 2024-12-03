@@ -50,7 +50,7 @@
                                     <!-- Property Item Start -->
                                     @php
                                         $imagePath = isset($apartment->images[0])
-                                            ? asset('/storage/' . $apartment->images[0]->media)
+                                            ? asset($apartment->images[0]->media)
                                             : asset('assets/images/no-image.jpg');
                                     @endphp
                                     <div class="col-md-6 col-lg-6 col-xl-4 col-xxl-3">

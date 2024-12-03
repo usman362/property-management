@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Apartment;
+use App\Models\Building;
 use App\Models\Repair;
 use App\Models\Tenant;
 use App\Services\PropertyService;
@@ -69,6 +70,7 @@ class ReportController extends Controller
     {
         $data['pageTitle'] = __('Maintenance Report');
         $data['apartments'] = Apartment::select('id', 'apartment_name')->get();
+        $data['buildings'] = Building::select('id', 'name')->get();
         if ($request->ajax()) {
             return $this->reportService->maintenance($request);
         }
@@ -91,6 +93,7 @@ class ReportController extends Controller
 
         $data['pageTitle'] = __('Tenant Report');
         $data['apartments'] = Apartment::select('id', 'apartment_name')->get();
+        $data['buildings'] = Building::select('id', 'name')->get();
         if ($request->ajax()) {
             return $this->reportService->tenant($request);
         }

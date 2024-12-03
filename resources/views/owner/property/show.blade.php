@@ -69,6 +69,10 @@
                                                     <td class="text-end">{{ $apartment->apartment_name }}</td>
                                                 </tr>
                                                 <tr>
+                                                    <th>{{ __('Apartment Number') }}</th>
+                                                    <td class="text-end">{{ $apartment->apartment_number }}</td>
+                                                </tr>
+                                                <tr>
                                                     <th>{{ __('Building Name') }}</th>
                                                     <td class="text-end">{{ $apartment->building->name ?? '' }}</td>
                                                 </tr>

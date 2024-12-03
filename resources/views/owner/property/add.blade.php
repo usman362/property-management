@@ -55,6 +55,12 @@
                                                             </div>
 
                                                             <div class="col-md-6 mb-25">
+                                                                <label class="label-text-title color-heading font-medium mb-2">Apartment
+                                                                    Number</label>
+                                                                <input type="text" class="form-control" name="apartment_number" placeholder="Apartment Name" value="{{@$apartment->apartment_number}}">
+                                                            </div>
+
+                                                            <div class="col-md-6 mb-25">
                                                                 <label class="label-text-title color-heading font-medium mb-2">Building
                                                                     Name</label>
                                                                 <select name="building_id" class="form-control" id="">
@@ -70,6 +76,14 @@
                                                             <div class="col-md-6 mb-25">
                                                                 <label class="label-text-title color-heading font-medium mb-2">Floor</label>
                                                                 <input type="text" class="form-control" name="floor" placeholder="Floor" value="{{@$apartment->floor}}">
+                                                            </div>
+
+                                                            <div class="col-md-6 mb-25">
+                                                                <label class="label-text-title color-heading font-medium mb-2">Currency</label>
+                                                                <select name="currency" id="currency" class="form-control">
+                                                                    <option value="$" @selected(@$apartment->currency == '$')>USD</option>
+                                                                    <option value="RD$" @selected(@$apartment->currency == 'RD$')>DOP</option>
+                                                                </select>
                                                             </div>
 
                                                             <div class="col-md-6 mb-25">
