@@ -99,18 +99,24 @@
         <div class="container">
             <div class="row g-30">
                 @foreach ($apartments as $apartment)
+                    @php
+                        $imagePath = isset($apartment->images[0])
+                            ? asset($apartment->images[0]->media)
+                            : asset('assets/images/no-image.jpg');
+                    @endphp
                     <!-- single room -->
                     <div class="col-xl-4 col-lg-6 col-md-6">
                         <div class="room__card">
                             <div class="room__card__top">
                                 <div class="room__card__image">
                                     <a href="{{ route('apartment.details', $apartment->id) }}">
-                                        <img src="{{ asset((isset($apartment->images[0]) ? $apartment->images[0]->media : '')) }}"
+                                        <img src="{{ $imagePath }}"
                                             width="420" height="310" alt="room card">
                                     </a>
                                 </div>
                                 <div class="room__price__tag">
-                                    <span class="h6 d-block">{{ $apartment->currency.number_format($apartment->monthly_rental_price,2) }}</span>
+                                    <span
+                                        class="h6 d-block">{{ $apartment->currency . number_format($apartment->monthly_rental_price, 2) }}</span>
                                 </div>
                             </div>
                             <div class="room__card__meta">
