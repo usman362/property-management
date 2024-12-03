@@ -110,7 +110,7 @@
                                     </a>
                                 </div>
                                 <div class="room__price__tag">
-                                    <span class="h6 d-block">{{ $apartment->monthly_rental_price }}$</span>
+                                    <span class="h6 d-block">{{ $apartment->currency.number_format($apartment->monthly_rental_price,2) }}</span>
                                 </div>
                             </div>
                             <div class="room__card__meta">
