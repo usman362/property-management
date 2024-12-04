@@ -42,14 +42,15 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="social__links">
                         <a class="link__item gap-10" href="callto:#"><i class="flaticon-phone-flip"></i>
-                            {{getOption('app_contact_number')}}</a>
+                            {{ getOption('app_contact_number') }}</a>
                         <a class="link__item gap-10" href="mailto:#"><i class="flaticon-envelope"></i>
-                            {{getOption('app_email')}}</a>
+                            {{ getOption('app_email') }}</a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="location">
-                        <a class="link__item gap-10" href="#"><i class="flaticon-marker"></i>{{getOption('app_location')}}</a>
+                        <a class="link__item gap-10" href="#"><i
+                                class="flaticon-marker"></i>{{ getOption('app_location') }}</a>
                     </div>
                 </div>
             </div>
@@ -64,13 +65,16 @@
                             <nav class="navigation__menu" id="main__menu">
                                 <ul class="list-unstyled">
                                     <li class="navigation__menu--item">
-                                        <a href="{{route('home.index')}}" class="navigation__menu--item__link">Home</a>
+                                        <a href="{{ route('home.index') }}"
+                                            class="navigation__menu--item__link">Home</a>
                                     </li>
                                     <li class="navigation__menu--item">
-                                        <a href="{{route('home.buildings')}}" class="navigation__menu--item__link">Buildings</a>
+                                        <a href="{{ route('home.buildings') }}"
+                                            class="navigation__menu--item__link">Buildings</a>
                                     </li>
                                     <li class="navigation__menu--item">
-                                        <a href="{{route('home.apartments')}}" class="navigation__menu--item__link">Apartments</a>
+                                        <a href="{{ route('home.apartments') }}"
+                                            class="navigation__menu--item__link">Apartments</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -78,16 +82,22 @@
 
                     </div>
                     <div class="main__logo">
-                        <a href="{{route('home.index')}}">
-                                <h4>{{getOption('app_name')}}</h4>
+                        <a href="{{ route('home.index') }}">
+                            <h4>{{ getOption('app_name') }}</h4>
                         </a>
                     </div>
                     <div class="main__right">
-                        <a href="{{route('login')}}" class="theme-btn btn-style sm-btn fill"><span>Login</span></a>
+                        @auth
+                            @can('view-dashboard')
+                                <a href="{{ route('dashboard') }}"
+                                    class="theme-btn btn-style sm-btn fill"><span>Dashboard</span></a>
+                            @endcan
+                        @else
+                            <a href="{{ route('login') }}" class="theme-btn btn-style sm-btn fill"><span>Login</span></a>
+                        @endauth
                         <button class="theme-btn btn-style sm-btn fill menu__btn d-lg-none" data-bs-toggle="offcanvas"
                             data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                            <span><img src="{{ asset('f2/assets/images/icon/menu-icon.svg') }}"
-                                    alt=""></span>
+                            <span><img src="{{ asset('f2/assets/images/icon/menu-icon.svg') }}" alt=""></span>
                         </button>
                     </div>
                 </div>
@@ -263,7 +273,7 @@
                         aria-label="Close"></button>
                     <div class="offcanvase__top">
                         <div class="offcanvase__logo">
-                            <a href="{{route('home.index')}}">
+                            <a href="{{ route('home.index') }}">
                                 <img src="{{ asset('f2/assets/images/logo/logo__two.svg') }}" alt="logo">
                             </a>
                         </div>
@@ -306,7 +316,7 @@
                                         <span class="toggle"></span>
                                     </a>
                                     <ul class="slide__menu">
-                                        <li><a href="{{route('home.index')}}">Luxury Hotel</a></li>
+                                        <li><a href="{{ route('home.index') }}">Luxury Hotel</a></li>
                                         <li><a href="index-3.html">Luxe Vista Hotel</a></li>
                                         <li><a href="index-5.html">Ocean Breeze Hotel</a></li>
                                         <li><a href="index-4.html">Apartment Hotel</a></li>
@@ -385,28 +395,40 @@
             <div class="row">
                 <div class="footer__widget__wrapper">
                     <div class="rts__widget">
-                        <a href="{{route('home.index')}}"><h4>{{getOption('app_name')}}</h4></a>
+                        <a href="{{ route('home.index') }}">
+                            <h4>{{ getOption('app_name') }}</h4>
+                        </a>
                         <p class="font-sm max-290 mt-20">
-                            {{getOption('footer_description')}}
+                            {{ getOption('footer_description') }}
                         </p>
                     </div>
                     <div class="rts__widget">
                         <span class="widget__title">Quick Links</span>
                         <ul>
-                            <li><a href="{{getOption('quick_link_1') ?? 'javascript:void(0)'}}" aria-label="footer__link">{{getOption('quick_link_text_1') ?? 'Lorem Ipsum'}}</a></li>
-                            <li><a href="{{getOption('quick_link_2') ?? 'javascript:void(0)'}}" aria-label="footer__link">{{getOption('quick_link_text_2') ?? 'Lorem Ipsum'}}</a></li>
-                            <li><a href="{{getOption('quick_link_3') ?? 'javascript:void(0)'}}" aria-label="footer__link">{{getOption('quick_link_text_3') ?? 'Lorem Ipsum'}}</a></li>
-                            <li><a href="{{getOption('quick_link_4') ?? 'javascript:void(0)'}}" aria-label="footer__link">{{getOption('quick_link_text_4') ?? 'Lorem Ipsum'}}</a></li>
+                            <li><a href="{{ getOption('quick_link_1') ?? 'javascript:void(0)' }}"
+                                    aria-label="footer__link">{{ getOption('quick_link_text_1') ?? 'Lorem Ipsum' }}</a>
+                            </li>
+                            <li><a href="{{ getOption('quick_link_2') ?? 'javascript:void(0)' }}"
+                                    aria-label="footer__link">{{ getOption('quick_link_text_2') ?? 'Lorem Ipsum' }}</a>
+                            </li>
+                            <li><a href="{{ getOption('quick_link_3') ?? 'javascript:void(0)' }}"
+                                    aria-label="footer__link">{{ getOption('quick_link_text_3') ?? 'Lorem Ipsum' }}</a>
+                            </li>
+                            <li><a href="{{ getOption('quick_link_4') ?? 'javascript:void(0)' }}"
+                                    aria-label="footer__link">{{ getOption('quick_link_text_4') ?? 'Lorem Ipsum' }}</a>
+                            </li>
                         </ul>
                     </div>
                     <div class="rts__widget">
                         <span class="widget__title">Contact Us</span>
                         <ul>
-                            <li><a aria-label="footer__contact" href="tel:{{getOption('app_contact_number')}}"><i
-                                        class="flaticon-phone-flip"></i> {{getOption('app_contact_number')}}</a></li>
-                            <li><a aria-label="footer__contact" href="mailto:{{getOption('app_email')}}"><i
-                                        class="flaticon-envelope"></i>{{getOption('app_email')}}</a></li>
-                            <li><a aria-label="footer__contact" href="#"><i class="flaticon-marker"></i>{{getOption('app_location')}}</a></li>
+                            <li><a aria-label="footer__contact" href="tel:{{ getOption('app_contact_number') }}"><i
+                                        class="flaticon-phone-flip"></i> {{ getOption('app_contact_number') }}</a>
+                            </li>
+                            <li><a aria-label="footer__contact" href="mailto:{{ getOption('app_email') }}"><i
+                                        class="flaticon-envelope"></i>{{ getOption('app_email') }}</a></li>
+                            <li><a aria-label="footer__contact" href="#"><i
+                                        class="flaticon-marker"></i>{{ getOption('app_location') }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -416,7 +438,7 @@
             <div class="container">
                 <div class="row">
                     <div class="copyright__wrapper">
-                        <p class="mb-0">Copyright © 2024 {{getOption('app_name')}}. All rights reserved.</p>
+                        <p class="mb-0">Copyright © 2024 {{ getOption('app_name') }}. All rights reserved.</p>
                     </div>
                 </div>
             </div>
@@ -456,4 +478,5 @@
     <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
     @stack('scripts')
 </body>
+
 </html>
