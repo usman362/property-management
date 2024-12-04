@@ -42,8 +42,8 @@
                                                 </div>
                                             </div>
                                             <!-- Settings Page inner form area start -->
-                                            <form action="{{ route('setting.general-setting.update') }}"
-                                                method="post" enctype="multipart/form-data">
+                                            <form action="{{ route('setting.general-setting.update') }}" method="post"
+                                                enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="settings-inner-box bg-white theme-border radius-4 mb-25">
                                                     <div class="settings-inner-box-title border-bottom p-20">
@@ -85,6 +85,80 @@
                                                             </div>
                                                             <div class="col-md-12 mb-25">
                                                                 <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('About Us Title') }}</label>
+                                                                <input type="text" name="about_us_title"
+                                                                    value="{{ getOption('about_us_title') }}"
+                                                                    class="form-control"
+                                                                    placeholder="{{ __('About Us Title') }}">
+                                                            </div>
+                                                            <div class="col-md-12 mb-25">
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('About Us Description') }}</label>
+                                                                <input type="text" name="about_us_description"
+                                                                    value="{{ getOption('about_us_description') }}"
+                                                                    class="form-control"
+                                                                    placeholder="{{ __('About Us Description') }}">
+                                                            </div>
+
+                                                            <div class="col-md-12 mb-25">
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Footer Description') }}</label>
+                                                                <input type="text" name="footer_description"
+                                                                    value="{{ getOption('footer_description') }}"
+                                                                    class="form-control"
+                                                                    placeholder="{{ __('Footer Description') }}">
+                                                            </div>
+
+                                                            <div class="col-md-12 mb-25">
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Quick Link 1') }}</label>
+                                                                <input type="text" name="quick_link_text_1"
+                                                                    value="{{ getOption('quick_link_text_1') }}"
+                                                                    class="form-control"
+                                                                    placeholder="{{ __('Quick Link Text 1') }}">
+                                                                <input type="text" name="quick_link_1"
+                                                                    value="{{ getOption('quick_link_1') }}"
+                                                                    class="form-control"
+                                                                    placeholder="{{ __('Quick Link 1') }}">
+                                                            </div>
+                                                            <div class="col-md-12 mb-25">
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Quick Link 2') }}</label>
+                                                                <input type="text" name="quick_link_text_2"
+                                                                    value="{{ getOption('quick_link_text_2') }}"
+                                                                    class="form-control"
+                                                                    placeholder="{{ __('Quick Link Text 2') }}">
+                                                                <input type="text" name="quick_link_2"
+                                                                    value="{{ getOption('quick_link_2') }}"
+                                                                    class="form-control"
+                                                                    placeholder="{{ __('Quick Link 2') }}">
+                                                            </div>
+                                                            <div class="col-md-12 mb-25">
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Quick Link 3') }}</label>
+                                                                <input type="text" name="quick_link_text_3"
+                                                                    value="{{ getOption('quick_link_text_3') }}"
+                                                                    class="form-control"
+                                                                    placeholder="{{ __('Quick Link Text 3') }}">
+                                                                <input type="text" name="quick_link_3"
+                                                                    value="{{ getOption('quick_link_3') }}"
+                                                                    class="form-control"
+                                                                    placeholder="{{ __('Quick Link 3') }}">
+                                                            </div>
+                                                            <div class="col-md-12 mb-25">
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Quick Link 4') }}</label>
+                                                                <input type="text" name="quick_link_text_4"
+                                                                    value="{{ getOption('quick_link_text_4') }}"
+                                                                    class="form-control"
+                                                                    placeholder="{{ __('Quick Link Text 4') }}">
+                                                                <input type="text" name="quick_link_4"
+                                                                    value="{{ getOption('quick_link_4') }}"
+                                                                    class="form-control"
+                                                                    placeholder="{{ __('Quick Link 4') }}">
+                                                            </div>
+                                                            {{-- <div class="col-md-12 mb-25">
+                                                                <label
                                                                     class="label-text-title color-heading font-medium mb-2">{{ __('Default Language') }}</label>
                                                                 <select name="language_id"
                                                                     class="form-select flex-shrink-0">
@@ -96,8 +170,8 @@
                                                                             {{ $language->name }}</option>
                                                                     @endforeach
                                                                 </select>
-                                                            </div>
-                                                            <div class="col-md-12 mb-25">
+                                                            </div> --}}
+                                                            {{-- <div class="col-md-12 mb-25">
                                                                 <label
                                                                     class="label-text-title color-heading font-medium mb-2">{{ __('App Preloader Status') }}</label>
                                                                 <select name="app_preloader_status"
@@ -109,7 +183,7 @@
                                                                         {{ getOption('app_preloader_status') != 1 ? 'selected' : '' }}>
                                                                         {{ __('Deactivate') }}</option>
                                                                 </select>
-                                                            </div>
+                                                            </div> --}}
                                                             <div class="col-md-12 mb-25">
                                                                 <div class="app-logo-favicon-preloader-box">
                                                                     <div class="row">
@@ -224,7 +298,7 @@
                                                                                 class="text-info">{{ __('Recomended size') }}
                                                                                 : {{ __('64 x 64') }}</span>
                                                                         </div>
-                                                                        <div class="col-md-4">
+                                                                        {{-- <div class="col-md-4">
                                                                             <label
                                                                                 class="label-text-title color-heading font-medium mb-2">{{ __('Preloader') }}</label>
                                                                             <div
@@ -259,7 +333,7 @@
                                                                             <span
                                                                                 class="text-info">{{ __('Recomended size') }}
                                                                                 : {{ __('150 x 50') }}</span>
-                                                                        </div>
+                                                                        </div> --}}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -308,6 +382,87 @@
                                                                 </div>
                                                                 <span class="text-info">{{ __('Recomended size') }} :
                                                                     {{ __('576 x 458') }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="settings-inner-box bg-white theme-border radius-4 mb-25">
+                                                    <div class="settings-inner-box-title border-bottom p-20">
+                                                        <h5>{{ __('Slider Setting') }}</h5>
+                                                    </div>
+                                                    <div class="settings-inner-box-fields p-20 pb-0">
+                                                        <div class="row">
+                                                            <div class="col-md-12 mb-25">
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Slider 1 Top Heading') }}</label>
+                                                                <input type="text" name="slider_1_top_heading"
+                                                                    value="{{ getOption('slider_1_top_heading') }}"
+                                                                    class="form-control">
+                                                            </div>
+                                                            <div class="col-md-12 mb-25">
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Slider 1 Heading') }}</label>
+                                                                <input type="text" name="slider_1_heading"
+                                                                    value="{{ getOption('slider_1_heading') }}"
+                                                                    class="form-control">
+                                                            </div>
+                                                            <div class="col-md-12 mb-25">
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Slider 1 Description') }}</label>
+                                                                <input type="text" name="slider_1_description"
+                                                                    value="{{ getOption('slider_1_description') }}"
+                                                                    class="form-control">
+                                                            </div>
+                                                            <div class="col-md-12 mb-25">
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Slider 1 Button Text') }}</label>
+                                                                <input type="text" name="slider_1_btn_text"
+                                                                    value="{{ getOption('slider_1_btn_text') }}"
+                                                                    class="form-control">
+                                                            </div>
+                                                            <div class="col-md-12 mb-25">
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Slider 1 Button Link') }}</label>
+                                                                <input type="text" name="slider_1_btn_link"
+                                                                    value="{{ getOption('slider_1_btn_link') }}"
+                                                                    class="form-control">
+                                                            </div>
+
+                                                            <div class="col-md-12 mb-25">
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Slider 2 Top Heading') }}</label>
+                                                                <input type="text" name="slider_2_top_heading"
+                                                                    value="{{ getOption('slider_2_top_heading') }}"
+                                                                    class="form-control">
+                                                            </div>
+                                                            <div class="col-md-12 mb-25">
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Slider 2 Heading') }}</label>
+                                                                <input type="text" name="slider_2_heading"
+                                                                    value="{{ getOption('slider_2_heading') }}"
+                                                                    class="form-control">
+                                                            </div>
+                                                            <div class="col-md-12 mb-25">
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Slider 2 Description') }}</label>
+                                                                <input type="text" name="slider_2_description"
+                                                                    value="{{ getOption('slider_2_description') }}"
+                                                                    class="form-control">
+                                                            </div>
+                                                            <div class="col-md-12 mb-25">
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Slider 2 Button Text') }}</label>
+                                                                <input type="text" name="slider_2_btn_text"
+                                                                    value="{{ getOption('slider_2_btn_text') }}"
+                                                                    class="form-control">
+                                                            </div>
+                                                            <div class="col-md-12 mb-25">
+                                                                <label
+                                                                    class="label-text-title color-heading font-medium mb-2">{{ __('Slider 2 Button Link') }}</label>
+                                                                <input type="text" name="slider_2_btn_link"
+                                                                    value="{{ getOption('slider_2_btn_link') }}"
+                                                                    class="form-control">
                                                             </div>
                                                         </div>
                                                     </div>

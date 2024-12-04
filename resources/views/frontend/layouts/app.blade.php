@@ -42,14 +42,14 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="social__links">
                         <a class="link__item gap-10" href="callto:#"><i class="flaticon-phone-flip"></i>
-                            +1234567890</a>
+                            {{getOption('app_contact_number')}}</a>
                         <a class="link__item gap-10" href="mailto:#"><i class="flaticon-envelope"></i>
-                            Resyahel@gmail.com</a>
+                            {{getOption('app_email')}}</a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="location">
-                        <a class="link__item gap-10" href="#"><i class="flaticon-marker"></i>Lorem Ipsum is simply dummy text of the printing.</a>
+                        <a class="link__item gap-10" href="#"><i class="flaticon-marker"></i>{{getOption('app_location')}}</a>
                     </div>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                     </div>
                     <div class="main__logo">
                         <a href="{{route('home.index')}}">
-                                <h4>Resyahel</h4>
+                                <h4>{{getOption('app_name')}}</h4>
                         </a>
                     </div>
                     <div class="main__right">
@@ -385,28 +385,28 @@
             <div class="row">
                 <div class="footer__widget__wrapper">
                     <div class="rts__widget">
-                        <a href="{{route('home.index')}}"><h4>Resyahel</h4></a>
+                        <a href="{{route('home.index')}}"><h4>{{getOption('app_name')}}</h4></a>
                         <p class="font-sm max-290 mt-20">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                            {{getOption('footer_description')}}
                         </p>
                     </div>
                     <div class="rts__widget">
                         <span class="widget__title">Quick Links</span>
                         <ul>
-                            <li><a href="#" aria-label="footer__link">Lorem Ipsum</a></li>
-                            <li><a href="#" aria-label="footer__link">Lorem Ipsum</a></li>
-                            <li><a href="#" aria-label="footer__link">Lorem Ipsum</a></li>
-                            <li><a href="#" aria-label="footer__link">Lorem Ipsum</a></li>
+                            <li><a href="{{getOption('quick_link_1') ?? 'javascript:void(0)'}}" aria-label="footer__link">{{getOption('quick_link_text_1') ?? 'Lorem Ipsum'}}</a></li>
+                            <li><a href="{{getOption('quick_link_2') ?? 'javascript:void(0)'}}" aria-label="footer__link">{{getOption('quick_link_text_2') ?? 'Lorem Ipsum'}}</a></li>
+                            <li><a href="{{getOption('quick_link_3') ?? 'javascript:void(0)'}}" aria-label="footer__link">{{getOption('quick_link_text_3') ?? 'Lorem Ipsum'}}</a></li>
+                            <li><a href="{{getOption('quick_link_4') ?? 'javascript:void(0)'}}" aria-label="footer__link">{{getOption('quick_link_text_4') ?? 'Lorem Ipsum'}}</a></li>
                         </ul>
                     </div>
                     <div class="rts__widget">
                         <span class="widget__title">Contact Us</span>
                         <ul>
-                            <li><a aria-label="footer__contact" href="tel:+1234567890"><i
-                                        class="flaticon-phone-flip"></i> +1234567890</a></li>
-                            <li><a aria-label="footer__contact" href="mailto:UjJw6@example.com"><i
-                                        class="flaticon-envelope"></i>Resyahel@gmail.com</a></li>
-                            <li><a aria-label="footer__contact" href="#"><i class="flaticon-marker"></i>Lorem Ipsum is simply dummy.</a></li>
+                            <li><a aria-label="footer__contact" href="tel:{{getOption('app_contact_number')}}"><i
+                                        class="flaticon-phone-flip"></i> {{getOption('app_contact_number')}}</a></li>
+                            <li><a aria-label="footer__contact" href="mailto:{{getOption('app_email')}}"><i
+                                        class="flaticon-envelope"></i>{{getOption('app_email')}}</a></li>
+                            <li><a aria-label="footer__contact" href="#"><i class="flaticon-marker"></i>{{getOption('app_location')}}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -416,7 +416,7 @@
             <div class="container">
                 <div class="row">
                     <div class="copyright__wrapper">
-                        <p class="mb-0">Copyright © 2024 Resyahel. All rights reserved.</p>
+                        <p class="mb-0">Copyright © 2024 {{getOption('app_name')}}. All rights reserved.</p>
                     </div>
                 </div>
             </div>

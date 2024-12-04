@@ -13,12 +13,12 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-10">
                                 <div class="banner__slide__content">
-                                    <span class="h6 subtitle__icon">Welcome to Resyahel</span>
-                                    <h1>Lorem Ipsum</h1>
-                                    <p class="sub__text">Lorem Ipsum is simply dummy text of the printing and typesetting
-                                        industry.</p>
-                                    <a href="{{ route('home.buildings') }}"
-                                        class="theme-btn btn-style fill no-border "><span>Discover</span>
+                                    <span class="h6 subtitle__icon">{{getOption('slider_1_top_heading') ?? 'Welcome to Resyahel'}}</span>
+                                    <h1>{{getOption('slider_1_heading') ?? 'Lorem Ipsum'}}</h1>
+                                    <p class="sub__text">{{getOption('slider_1_description') ?? 'Lorem Ipsum is simply dummy text of the printing and typesetting
+                                        industry.'}}</p>
+                                    <a href="{{getOption('slider_1_btn_link') ?? route('home.buildings')}}"
+                                        class="theme-btn btn-style fill no-border "><span>{{getOption('slider_1_btn_text') ?? 'Discover'}}</span>
                                     </a>
                                 </div>
                             </div>
@@ -35,12 +35,12 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-10">
                                 <div class="banner__slide__content">
-                                    <span class="h6 subtitle__icon">Welcome to Resyahel</span>
-                                    <h1>Lorem Ipsum</h1>
-                                    <p class="sub__text">Lorem Ipsum is simply dummy text of the printing and typesetting
-                                        industry.</p>
-                                    <a href="{{ route('home.buildings') }}"
-                                        class="theme-btn btn-style fill no-border "><span>Discover</span>
+                                    <span class="h6 subtitle__icon">{{getOption('slider_2_top_heading') ?? 'Welcome to Resyahel'}}</span>
+                                    <h1>{{getOption('slider_2_heading') ?? 'Lorem Ipsum'}}</h1>
+                                    <p class="sub__text">{{getOption('slider_2_description') ?? 'Lorem Ipsum is simply dummy text of the printing and typesetting
+                                        industry.'}}</p>
+                                    <a href="{{getOption('slider_2_btn_link') ?? route('home.buildings')}}"
+                                        class="theme-btn btn-style fill no-border "><span>{{getOption('slider_2_btn_text') ?? 'Discover'}}</span>
                                     </a>
                                 </div>
                             </div>
@@ -92,15 +92,15 @@
                 <div class="about__wrapper">
                     <div class="content">
                         <span class="h6 subtitle__icon__two d-block wow fadeInUp">About Us</span>
-                        <h2 class="content__title wow fadeInUp">Welcome To Resyahel </h2>
+                        <h2 class="content__title wow fadeInUp">{{ getOption('about_us_title') ?? 'Welcome To Resyahel'}} </h2>
                         <p class="content__subtitle wow fadeInUp" data-wow-delay=".3s">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+                            {{ getOption('about_us_description') ?? `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
                             the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
                             of type and scrambled it to make a type specimen book. It has survived not only five centuries,
                             but also the leap into electronic typesetting, remaining essentially unchanged. It was
                             popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
                             and more recently with desktop publishing software like Aldus PageMaker including versions of
-                            Lorem Ipsum.
+                            Lorem Ipsum.` }}
                         </p>
                     </div>
                     <div class="image ">
